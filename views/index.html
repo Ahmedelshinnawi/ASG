@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Story Generator - Storytelling.ai</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/index.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <div class="nav-brand">
+          <div class="logo-icon">ASG</div>
+          <a href="index.html" class="logo">Storytelling.ai</a>
+        </div>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="generate-story.html" class="nav-link">Generate Story</a>
+          <a href="favorites.html" class="nav-link">Favorites</a>
+          <a href="recent-stories.html" class="nav-link">Recent Stories</a>
+          <a href="about.html" class="nav-link">About us</a>
+          <button class="login-btn">Login</button>
+        </div>
+        <!-- User Profile Dropdown (when logged in) -->
+        <div class="nav-profile" id="navProfile" style="display: none">
+          <div class="user-dropdown">
+            <button class="user-dropdown-btn" id="userDropdownBtn">
+              <img
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
+                alt="User Avatar"
+                class="user-avatar"
+                id="userAvatar"
+              />
+              <span class="user-name" id="userName">User</span>
+              <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </button>
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+              <div class="dropdown-header">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
+                  alt="User Avatar"
+                  class="dropdown-avatar"
+                />
+                <div class="dropdown-user-info">
+                  <div class="dropdown-user-name" id="dropdownUserName">
+                    User
+                  </div>
+                  <div
+                    class="dropdown-user-full-name"
+                    id="dropdownUserFullName"
+                    style="font-size: 12px; color: #9ca3af; margin-top: 2px"
+                  ></div>
+                  <div class="dropdown-user-email" id="dropdownUserEmail">
+                    user@example.com
+                  </div>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <ul class="dropdown-items">
+                <li>
+                  <button class="dropdown-item" id="profileSettingsBtn">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile Settings</span>
+                  </button>
+                </li>
+                <li>
+                  <a href="favorites.html" class="dropdown-item">
+                    <i class="fas fa-heart"></i>
+                    <span>View Favorites</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="recent-stories.html" class="dropdown-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Recent Stories</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item"
+                    id="adminLink"
+                    style="display: none"
+                  >
+                    <i class="fas fa-cog"></i>
+                    <span>Admin Dashboard</span>
+                  </a>
+                </li>
+                <li class="dropdown-divider-small"></li>
+                <li>
+                  <button class="dropdown-item logout-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>Create Amazing Stories with AI</h1>
+          <p>
+            Transform your ideas into captivating stories with our AI-powered
+            story generator. Whether you're a creative writer or just love
+            storytelling, our tool brings your imagination to life.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img
+            src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=300&fit=crop"
+            alt="Story creation"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Generator -->
+    <section class="story-generator">
+      <div class="generator-card">
+        <h2>AI Story Generator</h2>
+        <p>
+          Unlock endless possibilities with our AI-powered story generator.
+          Create unique tales, explore different genres, and let your creativity
+          flow with cutting-edge artificial intelligence technology.
+        </p>
+        <div class="generator-buttons">
+          <button class="btn-secondary">👁️ See how it works</button>
+          <a
+            href="generate-story.html"
+            class="btn-primary"
+            style="text-decoration: none; display: inline-block"
+            >✨ Generate Story Idea</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaching Stories -->
+    <section class="stories-section">
+      <h2 class="section-title">
+        TEACHING STORIES <span class="arrow">→</span>
+      </h2>
+      <div class="stories-grid" id="teachingStoriesGrid">
+        <!-- Loading state -->
+        <div
+          class="loading-placeholder"
+          style="
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+          "
+        >
+          <div
+            style="
+              display: inline-block;
+              animation: spin 1s linear infinite;
+              width: 20px;
+              height: 20px;
+              border: 2px solid #2563eb;
+              border-top: 2px solid transparent;
+              border-radius: 50%;
+              margin-right: 10px;
+            "
+          ></div>
+          Loading teaching stories...
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommended Stories -->
+    <section class="stories-section">
+      <h2 class="section-title">
+        RECOMMENDED STORIES <span class="arrow">→</span>
+      </h2>
+      <div class="stories-grid recommended" id="recommendedStoriesGrid">
+        <!-- Loading state -->
+        <div
+          class="loading-placeholder"
+          style="
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 2rem;
+            color: #6b7280;
+          "
+        >
+          <div
+            style="
+              display: inline-block;
+              animation: spin 1s linear infinite;
+              width: 20px;
+              height: 20px;
+              border: 2px solid #2563eb;
+              border-top: 2px solid transparent;
+              border-radius: 50%;
+              margin-right: 10px;
+            "
+          ></div>
+          Loading recommended stories...
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-text">
+          <h3>Storytelling.ai</h3>
+          <p>
+            Create amazing stories with the power of artificial intelligence.
+            Join thousands of creators who are bringing their imagination to
+            life.
+          </p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <a href="generate-story.html" class="footer-link">Generate Story</a>
+            <a href="favorites.html" class="footer-link">Favorites</a>
+            <a href="recent-stories.html" class="footer-link">Recent Stories</a>
+          </div>
+          <div class="footer-column">
+            <h4>Company</h4>
+            <a href="about.html" class="footer-link">About Us</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Privacy Policy</a>
+          </div>
+          <div class="footer-column">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+              <a href="#" class="social-icon">📘</a>
+              <a href="#" class="social-icon">🐦</a>
+              <a href="#" class="social-icon">📷</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Custom Story Modal -->
+    <div class="story-modal-overlay" id="storyModal" style="display: none">
+      <div class="story-modal-content">
+        <div class="story-modal-header">
+          <h3 class="story-modal-title" id="storyModalTitle">Story Details</h3>
+          <button class="story-modal-close" id="storyModalClose">
+            &times;
+          </button>
+        </div>
+        <div class="story-modal-body" id="storyModalBody">
+          <!-- Story content will be inserted here -->
+        </div>
+        <div class="story-modal-actions">
+          <button
+            class="story-modal-btn story-modal-btn-primary"
+            id="storyModalOk"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include API integration script -->
+    <script src="api.js"></script>
+    <script src="js/profile-settings-component.js"></script>
+
+    <script src="js/index.js"></script>
+  </body>
+</html>

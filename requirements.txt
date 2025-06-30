@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-jose[cryptography]
+passlib[bcrypt]
+diffusers
+torch
+huggingface_hub
+python-dotenv
+sqlalchemy
+python-multipart
+email-validator 

@@ -1,0 +1,1 @@
+# Views package - contains frontend templates, static files, and UI components 
