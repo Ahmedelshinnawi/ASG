@@ -74,11 +74,6 @@ async def profile_settings_page():
     """Serve the profile settings modal page"""
     return FileResponse("views/profile-settings.html")
 
-@app.get("/profile-integration-example.html")
-async def profile_integration_example():
-    """Serve the profile settings integration example page"""
-    return FileResponse("views/profile-integration-example.html")
-
 @app.get("/script.js")
 async def script_js():
     """Serve the main script file"""
