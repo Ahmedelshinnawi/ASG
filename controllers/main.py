@@ -82,7 +82,7 @@ async def script_js():
 @app.get("/profile-settings-component.js")
 async def profile_settings_component_js():
     """Serve the profile settings component JavaScript file"""
-    return FileResponse("views/profile-settings-component.js", media_type="application/javascript")
+    return FileResponse("views/js/profile-settings-component.js", media_type="application/javascript")
 
 @app.get("/api.js")
 async def api_js():
