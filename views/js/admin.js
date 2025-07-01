@@ -1,116 +1,116 @@
 let isAdmin = false;
 
-      // Page initialization
-      document.addEventListener("DOMContentLoaded", async () => {
-        await checkAdminAccess();
-        await loadSystemStories();
-        setupEventListeners();
-      });
+// Page initialization
+document.addEventListener("DOMContentLoaded", async () => {
+  await checkAdminAccess();
+  await loadSystemStories();
+  setupEventListeners();
+});
 
-      async function checkAdminAccess() {
-        const authWarning = document.getElementById("authWarning");
-        const adminContent = document.querySelectorAll(".admin-section");
+async function checkAdminAccess() {
+  const authWarning = document.getElementById("authWarning");
+  const adminContent = document.querySelectorAll(".admin-section");
 
-        try {
-          if (!window.apiClient.auth.isAuthenticated()) {
-            showAuthWarning();
-            return;
-          }
+  try {
+    if (!window.apiClient.auth.isAuthenticated()) {
+      showAuthWarning();
+      return;
+    }
 
-          // Get user profile to check admin status
-          const profile = await window.apiClient.getProfile();
-          isAdmin = profile.is_admin;
+    // Get user profile to check admin status
+    const profile = await window.apiClient.getProfile();
+    isAdmin = profile.is_admin;
 
-          if (!isAdmin) {
-            showAuthWarning();
-            return;
-          }
+    if (!isAdmin) {
+      showAuthWarning();
+      return;
+    }
 
-          // Show admin content and update navigation
-          authWarning.style.display = "none";
-          adminContent.forEach((section) => (section.style.display = "block"));
-          await updateNavigation();
-        } catch (error) {
-          console.error("Admin access check failed:", error);
-          showAuthWarning();
-        }
-      }
+    // Show admin content and update navigation
+    authWarning.style.display = "none";
+    adminContent.forEach((section) => (section.style.display = "block"));
+    await updateNavigation();
+  } catch (error) {
+    console.error("Admin access check failed:", error);
+    showAuthWarning();
+  }
+}
 
-      function showAuthWarning() {
-        const authWarning = document.getElementById("authWarning");
-        const adminContent = document.querySelectorAll(".admin-section");
+function showAuthWarning() {
+  const authWarning = document.getElementById("authWarning");
+  const adminContent = document.querySelectorAll(".admin-section");
 
-        authWarning.style.display = "block";
-        adminContent.forEach((section) => (section.style.display = "none"));
-      }
+  authWarning.style.display = "block";
+  adminContent.forEach((section) => (section.style.display = "none"));
+}
 
-      async function updateNavigation() {
-        const loginBtn = document.querySelector(".login-btn");
-        const navProfile = document.getElementById("navProfile");
-        const adminLink = document.getElementById("adminLink");
+async function updateNavigation() {
+  const loginBtn = document.querySelector(".login-btn");
+  const navProfile = document.getElementById("navProfile");
+  const adminLink = document.getElementById("adminLink");
 
-        if (window.apiClient.auth.isAuthenticated()) {
-          loginBtn.style.display = "none";
-          navProfile.style.display = "flex";
+  if (window.apiClient.auth.isAuthenticated()) {
+    loginBtn.style.display = "none";
+    navProfile.style.display = "flex";
 
-          if (isAdmin) {
-            adminLink.style.display = "block";
-          }
+    if (isAdmin) {
+      adminLink.style.display = "block";
+    }
 
-          await window.apiClient.updateProfilePictures();
-        } else {
-          loginBtn.style.display = "block";
-          navProfile.style.display = "none";
-        }
-      }
+    await window.apiClient.updateProfilePictures();
+  } else {
+    loginBtn.style.display = "block";
+    navProfile.style.display = "none";
+  }
+}
 
-      async function loadSystemStories() {
-        if (!isAdmin) return;
+async function loadSystemStories() {
+  if (!isAdmin) return;
 
-        const container = document.getElementById("storiesContainer");
-        const loadingState = document.getElementById("loadingState");
+  const container = document.getElementById("storiesContainer");
+  const loadingState = document.getElementById("loadingState");
 
-        try {
-          loadingState.style.display = "flex";
+  try {
+    loadingState.style.display = "flex";
 
-          const response = await window.apiClient.getAdminSystemStories();
-          const stories = response.stories;
+    const response = await window.apiClient.getAdminSystemStories();
+    const stories = response.stories;
 
-          loadingState.style.display = "none";
+    loadingState.style.display = "none";
 
-          if (stories.length === 0) {
-            container.innerHTML =
-              '<div class="empty-state">No system stories created yet.</div>';
-          } else {
-            displayStories(stories);
-          }
-        } catch (error) {
-          console.error("Failed to load system stories:", error);
-          loadingState.style.display = "none";
-          container.innerHTML =
-            '<div class="empty-state">Failed to load stories.</div>';
-        }
-      }
+    if (stories.length === 0) {
+      container.innerHTML =
+        '<div class="empty-state">No system stories created yet.</div>';
+    } else {
+      displayStories(stories);
+    }
+  } catch (error) {
+    console.error("Failed to load system stories:", error);
+    loadingState.style.display = "none";
+    container.innerHTML =
+      '<div class="empty-state">Failed to load stories.</div>';
+  }
+}
 
-      function displayStories(stories) {
-        const container = document.getElementById("storiesContainer");
-        const grid = document.createElement("div");
-        grid.className = "stories-grid";
+function displayStories(stories) {
+  const container = document.getElementById("storiesContainer");
+  const grid = document.createElement("div");
+  grid.className = "stories-grid";
 
-        stories.forEach((story) => {
-          const card = createStoryCard(story);
-          grid.appendChild(card);
-        });
+  stories.forEach((story) => {
+    const card = createStoryCard(story);
+    grid.appendChild(card);
+  });
 
-        container.innerHTML = "";
-        container.appendChild(grid);
-      }
+  container.innerHTML = "";
+  container.appendChild(grid);
+}
 
-      function createStoryCard(story) {
-        const card = document.createElement("div");
-        card.className = "admin-story-card";
+function createStoryCard(story) {
+  const card = document.createElement("div");
+  card.className = "admin-story-card";
 
-        card.innerHTML = `
+  card.innerHTML = `
           <div class="story-card-header">
             <h3 class="story-title">${story.title}</h3>
             <span class="story-category ${story.category}">${story.category}</span>
@@ -126,121 +126,117 @@ let isAdmin = false;
           </div>
         `;
 
-        return card;
-      }
+  return card;
+}
 
-      function setupEventListeners() {
-        // Create story form
-        const form = document.getElementById("createStoryForm");
-        form.addEventListener("submit", handleCreateStory);
+function setupEventListeners() {
+  // Create story form
+  const form = document.getElementById("createStoryForm");
+  form.addEventListener("submit", handleCreateStory);
 
-        // Navigation events
-        const loginBtn = document.querySelector(".login-btn");
-        if (loginBtn) {
-          loginBtn.addEventListener("click", () => {
-            window.location.href = "welcome.html";
-          });
-        }
+  // Navigation events
+  const loginBtn = document.querySelector(".login-btn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      window.location.href = "welcome.html";
+    });
+  }
 
-        // User dropdown
-        const userDropdownBtn = document.getElementById("navProfile");
-        const userDropdownMenu = document.getElementById("userDropdownMenu");
+  // User dropdown
+  const userDropdownBtn = document.getElementById("navProfile");
+  const userDropdownMenu = document.getElementById("userDropdownMenu");
 
-        if (userDropdownBtn && userDropdownMenu) {
-          userDropdownBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            userDropdownMenu.classList.toggle("show");
-          });
+  if (userDropdownBtn && userDropdownMenu) {
+    userDropdownBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      userDropdownMenu.classList.toggle("show");
+    });
 
-          document.addEventListener("click", () => {
-            userDropdownMenu.classList.remove("show");
-          });
-        }
+    document.addEventListener("click", () => {
+      userDropdownMenu.classList.remove("show");
+    });
+  }
 
-        // Logout button
-        const logoutBtn = document.getElementById("logoutBtn");
-        if (logoutBtn) {
-          logoutBtn.addEventListener("click", async () => {
-            await window.apiClient.logout();
-            window.location.href = "index.html";
-          });
-        }
-      }
+  // Logout button
+  const logoutBtn = document.getElementById("logoutBtn");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", async () => {
+      await window.apiClient.logout();
+      window.location.href = "index.html";
+    });
+  }
+}
 
-      async function handleCreateStory(e) {
-        e.preventDefault();
+async function handleCreateStory(e) {
+  e.preventDefault();
 
-        if (!isAdmin) {
-          window.apiClient.showErrorMessage("Admin access required");
-          return;
-        }
+  if (!isAdmin) {
+    window.apiClient.showErrorMessage("Admin access required");
+    return;
+  }
 
-        const title = document.getElementById("storyTitle").value.trim();
-        const category = document.getElementById("storyCategory").value;
-        const prompt = document.getElementById("storyPrompt").value.trim();
-        const createBtn = document.getElementById("createBtn");
+  const title = document.getElementById("storyTitle").value.trim();
+  const category = document.getElementById("storyCategory").value;
+  const prompt = document.getElementById("storyPrompt").value.trim();
+  const createBtn = document.getElementById("createBtn");
 
-        if (!title || !category || !prompt) {
-          window.apiClient.showErrorMessage("Please fill in all fields");
-          return;
-        }
+  if (!title || !category || !prompt) {
+    window.apiClient.showErrorMessage("Please fill in all fields");
+    return;
+  }
 
-        try {
-          // Show loading state
-          createBtn.disabled = true;
-          createBtn.innerHTML =
-            '<div class="loading-spinner"></div> Generating...';
+  try {
+    // Show loading state
+    createBtn.disabled = true;
+    createBtn.innerHTML = '<div class="loading-spinner"></div> Generating...';
 
-          const storyData = {
-            title: title,
-            category: category,
-            prompt: prompt,
-          };
+    const storyData = {
+      title: title,
+      category: category,
+      prompt: prompt,
+    };
 
-          await window.apiClient.createSystemStory(storyData);
+    await window.apiClient.createSystemStory(storyData);
 
-          window.apiClient.showSuccessMessage(
-            "System story created successfully!"
-          );
+    window.apiClient.showSuccessMessage("System story created successfully!");
 
-          // Reset form
-          document.getElementById("createStoryForm").reset();
+    // Reset form
+    document.getElementById("createStoryForm").reset();
 
-          // Reload stories
-          await loadSystemStories();
-        } catch (error) {
-          console.error("Failed to create system story:", error);
-          window.apiClient.showErrorMessage(
-            error.message || "Failed to create system story"
-          );
-        } finally {
-          createBtn.disabled = false;
-          createBtn.innerHTML =
-            '<i class="fas fa-magic"></i> Generate System Story';
-        }
-      }
+    // Reload stories
+    await loadSystemStories();
+  } catch (error) {
+    console.error("Failed to create system story:", error);
+    window.apiClient.showErrorMessage(
+      error.message || "Failed to create system story"
+    );
+  } finally {
+    createBtn.disabled = false;
+    createBtn.innerHTML = '<i class="fas fa-magic"></i> Generate System Story';
+  }
+}
 
-      async function viewStory(storyId) {
-        try {
-          const response = await window.apiClient.getAdminSystemStories();
-          const story = response.stories.find((s) => s.id === storyId);
+async function viewStory(storyId) {
+  try {
+    const response = await window.apiClient.getAdminSystemStories();
+    const story = response.stories.find((s) => s.id === storyId);
 
-          if (!story) {
-            window.apiClient.showErrorMessage("Story not found");
-            return;
-          }
+    if (!story) {
+      window.apiClient.showErrorMessage("Story not found");
+      return;
+    }
 
-          const imageHtml = story.image_data
-            ? `<img src="data:image/${story.image_format || "png"};base64,${
-                story.image_data
-              }" 
+    const imageHtml = story.image_data
+      ? `<img src="data:image/${story.image_format || "png"};base64,${
+          story.image_data
+        }" 
                   alt="${story.title}" 
                   style="width: 100%; max-width: 500px; max-height: 400px; object-fit: contain; 
                          border-radius: 0.75rem; margin: 0 auto 1.5rem; display: block; 
                          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); background: #f8fafc;" />`
-            : "";
+      : "";
 
-          const content = `
+    const content = `
             <div style="text-align: center; margin-bottom: 1.5rem;">
               <h2 style="color: #1f2937; margin-bottom: 0.5rem;">${story.title}</h2>
               <p style="color: #6b7280; font-size: 0.9rem;">System Story • ${story.category}</p>
@@ -254,37 +250,35 @@ let isAdmin = false;
             </div>
           `;
 
-          window.apiClient.showModal(story.title, content);
-        } catch (error) {
-          console.error("Failed to view story:", error);
-          window.apiClient.showErrorMessage("Failed to load story details");
-        }
-      }
+    window.apiClient.showModal(story.title, content);
+  } catch (error) {
+    console.error("Failed to view story:", error);
+    window.apiClient.showErrorMessage("Failed to load story details");
+  }
+}
 
-      async function deleteStory(storyId) {
-        if (
-          !confirm(
-            "Are you sure you want to delete this system story? This action cannot be undone."
-          )
-        ) {
-          return;
-        }
+async function deleteStory(storyId) {
+  if (
+    !confirm(
+      "Are you sure you want to delete this system story? This action cannot be undone."
+    )
+  ) {
+    return;
+  }
 
-        try {
-          await window.apiClient.deleteSystemStory(storyId);
-          window.apiClient.showSuccessMessage(
-            "System story deleted successfully"
-          );
-          await loadSystemStories();
-        } catch (error) {
-          console.error("Failed to delete story:", error);
-          window.apiClient.showErrorMessage("Failed to delete story");
-        }
-      }
+  try {
+    await window.apiClient.deleteSystemStory(storyId);
+    window.apiClient.showSuccessMessage("System story deleted successfully");
+    await loadSystemStories();
+  } catch (error) {
+    console.error("Failed to delete story:", error);
+    window.apiClient.showErrorMessage("Failed to delete story");
+  }
+}
 
-      // Add dropdown styles
-      const style = document.createElement("style");
-      style.textContent = `
+// Add dropdown styles
+const style = document.createElement("style");
+style.textContent = `
         .user-dropdown-menu {
           position: absolute;
           top: 100%;
@@ -401,4 +395,4 @@ let isAdmin = false;
           color: #6b7280;
         }
       `;
-      document.head.appendChild(style);
+document.head.appendChild(style);
