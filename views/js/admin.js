@@ -258,11 +258,14 @@ async function viewStory(storyId) {
 }
 
 async function deleteStory(storyId) {
-  if (
-    !confirm(
-      "Are you sure you want to delete this system story? This action cannot be undone."
-    )
-  ) {
+  const confirmed = await window.apiClient.showConfirmationModal(
+    "Delete System Story",
+    "Are you sure you want to delete this system story? This action cannot be undone.",
+    "Delete Story",
+    "Cancel"
+  );
+
+  if (!confirmed) {
     return;
   }
 

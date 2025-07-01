@@ -425,11 +425,14 @@ async function toggleFavorite(storyId) {
 }
 
 async function deleteStory(storyId) {
-  if (
-    !confirm(
-      "Are you sure you want to delete this story? This action cannot be undone."
-    )
-  ) {
+  const confirmed = await window.apiClient.showConfirmationModal(
+    "Delete Story",
+    "Are you sure you want to delete this story? This action cannot be undone.",
+    "Delete Story",
+    "Cancel"
+  );
+
+  if (!confirmed) {
     return;
   }
 

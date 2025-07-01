@@ -497,6 +497,146 @@ class APIClient {
     this.showModal("Error", message);
   }
 
+  // Modern confirmation modal for delete actions
+  showConfirmationModal(
+    title,
+    message,
+    confirmText = "Delete",
+    cancelText = "Cancel"
+  ) {
+    return new Promise((resolve) => {
+      // Remove existing modal if any
+      const existingModal = document.querySelector(
+        ".delete-confirmation-modal"
+      );
+      if (existingModal) {
+        existingModal.remove();
+      }
+
+      // Create modal overlay
+      const overlay = document.createElement("div");
+      overlay.className = "delete-confirmation-modal";
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10001;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      `;
+
+      // Create modal content
+      const modal = document.createElement("div");
+      modal.style.cssText = `
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        max-width: 500px;
+        width: 90%;
+        text-align: center;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      `;
+
+      modal.innerHTML = `
+        <div style="color: #dc2626; font-size: 3rem; margin-bottom: 1rem;">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 style="margin-bottom: 1rem; color: #1f2937; font-size: 1.5rem; font-weight: 700;">${title}</h2>
+        <p style="margin-bottom: 2rem; color: #6b7280; line-height: 1.6; white-space: pre-line;">${message}</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <button id="cancelConfirmBtn" style="
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+          ">${cancelText}</button>
+          <button id="confirmDeleteBtn" style="
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+          ">${confirmText}</button>
+        </div>
+      `;
+
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+
+      // Add event listeners
+      const cancelBtn = modal.querySelector("#cancelConfirmBtn");
+      const confirmBtn = modal.querySelector("#confirmDeleteBtn");
+
+      cancelBtn.addEventListener("click", () => {
+        overlay.remove();
+        resolve(false);
+      });
+
+      confirmBtn.addEventListener("click", () => {
+        overlay.remove();
+        resolve(true);
+      });
+
+      // Close on overlay click
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+          resolve(false);
+        }
+      });
+
+      // Close on Escape key
+      const handleEscape = (e) => {
+        if (e.key === "Escape") {
+          overlay.remove();
+          document.removeEventListener("keydown", handleEscape);
+          resolve(false);
+        }
+      };
+      document.addEventListener("keydown", handleEscape);
+
+      // Animate modal appearance
+      setTimeout(() => {
+        overlay.style.opacity = "1";
+        modal.style.transform = "scale(1)";
+      }, 10);
+
+      // Add hover effects
+      cancelBtn.addEventListener("mouseenter", () => {
+        cancelBtn.style.background = "#f3f4f6";
+      });
+      cancelBtn.addEventListener("mouseleave", () => {
+        cancelBtn.style.background = "white";
+      });
+
+      confirmBtn.addEventListener("mouseenter", () => {
+        confirmBtn.style.transform = "translateY(-1px)";
+        confirmBtn.style.boxShadow = "0 10px 25px rgba(220, 38, 38, 0.3)";
+      });
+      confirmBtn.addEventListener("mouseleave", () => {
+        confirmBtn.style.transform = "translateY(0)";
+        confirmBtn.style.boxShadow = "none";
+      });
+    });
+  }
+
   // Utility function to get default avatar URL
   getDefaultAvatarUrl() {
     // SVG-based unknown user avatar that's more appropriate than the current photo
