@@ -192,6 +192,18 @@
             </div>
 
             <form id="storyForm">
+              <!-- Keywords Info Section -->
+              <div class="form-section-header">
+                <h3 class="form-section-title">Story Generation</h3>
+                <div
+                  class="info-icon"
+                  id="keywordsInfoIcon"
+                  title="View Keywords & Genre Guide"
+                >
+                  <i class="fas fa-info-circle"></i>
+                </div>
+              </div>
+
               <div class="form-group">
                 <textarea
                   class="form-input form-textarea"
@@ -217,9 +229,8 @@
                   <input
                     type="text"
                     class="form-input"
-                    placeholder="Genre"
+                    placeholder="Genre (e.g., Fantasy, Adventure, Mystery)"
                     id="genre"
-                    value="Adventure"
                   />
                 </div>
               </div>
@@ -266,6 +277,222 @@
         </div>
       </section>
     </main>
+
+    <!-- Keywords Info Modal -->
+    <div class="modal-overlay" id="keywordsModal">
+      <div class="modal-content keywords-modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Keywords & Genre Guide</h3>
+          <button class="close-btn" id="closeKeywordsModal">&times;</button>
+        </div>
+        <div class="modal-body keywords-modal-body">
+          <p class="keywords-intro">
+            Use these keywords in your story prompt and choose appropriate
+            genres to get the best image generation results:
+          </p>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">🏰</span>
+              Fantasy Keywords
+            </h4>
+            <p class="keywords-description">
+              Use these words to generate fantasy, magical, and artistic images:
+            </p>
+            <div class="keywords-grid" id="fantasyKeywords">
+              <span class="keyword-tag">fantasy</span>
+              <span class="keyword-tag">fairy tale</span>
+              <span class="keyword-tag">magic</span>
+              <span class="keyword-tag">magical</span>
+              <span class="keyword-tag">wizard</span>
+              <span class="keyword-tag">witch</span>
+              <span class="keyword-tag">dragon</span>
+              <span class="keyword-tag">castle</span>
+              <span class="keyword-tag">knight</span>
+              <span class="keyword-tag">princess</span>
+              <span class="keyword-tag">prince</span>
+              <span class="keyword-tag">unicorn</span>
+              <span class="keyword-tag">fairy</span>
+              <span class="keyword-tag">elf</span>
+              <span class="keyword-tag">dwarf</span>
+              <span class="keyword-tag">troll</span>
+              <span class="keyword-tag">goblin</span>
+              <span class="keyword-tag">ogre</span>
+              <span class="keyword-tag">monster</span>
+              <span class="keyword-tag">creature</span>
+              <span class="keyword-tag">mythical</span>
+              <span class="keyword-tag">legendary</span>
+              <span class="keyword-tag">enchanted</span>
+              <span class="keyword-tag">spell</span>
+              <span class="keyword-tag">potion</span>
+              <span class="keyword-tag">wand</span>
+              <span class="keyword-tag">sword</span>
+              <span class="keyword-tag">shield</span>
+              <span class="keyword-tag">armor</span>
+              <span class="keyword-tag">quest</span>
+              <span class="keyword-tag">adventure</span>
+              <span class="keyword-tag">kingdom</span>
+              <span class="keyword-tag">realm</span>
+              <span class="keyword-tag">dungeon</span>
+              <span class="keyword-tag">tower</span>
+              <span class="keyword-tag">portal</span>
+              <span class="keyword-tag">crystal</span>
+              <span class="keyword-tag">gem</span>
+              <span class="keyword-tag">treasure</span>
+              <span class="keyword-tag">scroll</span>
+              <span class="keyword-tag">ancient magic</span>
+              <span class="keyword-tag">mystical</span>
+              <span class="keyword-tag">ethereal</span>
+              <span class="keyword-tag">celestial</span>
+              <span class="keyword-tag">divine</span>
+              <span class="keyword-tag">angelic</span>
+              <span class="keyword-tag">demonic</span>
+              <span class="keyword-tag">supernatural</span>
+              <span class="keyword-tag">otherworldly</span>
+              <span class="keyword-tag">anime</span>
+              <span class="keyword-tag">manga</span>
+              <span class="keyword-tag">cartoon</span>
+              <span class="keyword-tag">animated</span>
+              <span class="keyword-tag">stylized</span>
+              <span class="keyword-tag">surreal</span>
+              <span class="keyword-tag">whimsical</span>
+              <span class="keyword-tag">enchanting</span>
+              <span class="keyword-tag">spellbound</span>
+              <span class="keyword-tag">magical realism</span>
+            </div>
+          </div>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">📸</span>
+              Realistic Keywords
+            </h4>
+            <p class="keywords-description">
+              Use these words to generate realistic, photographic images:
+            </p>
+            <div class="keywords-grid" id="realisticKeywords">
+              <span class="keyword-tag">photo</span>
+              <span class="keyword-tag">realistic</span>
+              <span class="keyword-tag">portrait</span>
+              <span class="keyword-tag">landscape</span>
+              <span class="keyword-tag">photography</span>
+              <span class="keyword-tag">street photography</span>
+              <span class="keyword-tag">professional</span>
+              <span class="keyword-tag">business</span>
+              <span class="keyword-tag">lifestyle</span>
+              <span class="keyword-tag">wedding</span>
+              <span class="keyword-tag">architectural</span>
+              <span class="keyword-tag">interior design</span>
+              <span class="keyword-tag">exterior</span>
+              <span class="keyword-tag">urban</span>
+              <span class="keyword-tag">rural</span>
+              <span class="keyword-tag">contemporary</span>
+              <span class="keyword-tag">photorealistic</span>
+              <span class="keyword-tag">candid</span>
+              <span class="keyword-tag">documentary</span>
+              <span class="keyword-tag">journalistic</span>
+              <span class="keyword-tag">studio</span>
+              <span class="keyword-tag">natural lighting</span>
+              <span class="keyword-tag">bokeh</span>
+              <span class="keyword-tag">depth of field</span>
+              <span class="keyword-tag">macro</span>
+              <span class="keyword-tag">telephoto</span>
+              <span class="keyword-tag">wide angle</span>
+            </div>
+          </div>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">🎭</span>
+              Genre Suggestions
+            </h4>
+            <p class="keywords-description">
+              Choose genres that work best with each image generation model:
+            </p>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">🏰</span>
+                Fantasy Model - Best Genres:
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Fantasy</span>
+                <span class="keyword-tag genre-tag">Fairy Tale</span>
+                <span class="keyword-tag genre-tag">Magical Realism</span>
+                <span class="keyword-tag genre-tag">Adventure</span>
+                <span class="keyword-tag genre-tag">Epic Fantasy</span>
+                <span class="keyword-tag genre-tag">Urban Fantasy</span>
+                <span class="keyword-tag genre-tag">Dark Fantasy</span>
+                <span class="keyword-tag genre-tag">Mythology</span>
+                <span class="keyword-tag genre-tag">Supernatural</span>
+                <span class="keyword-tag genre-tag">Science Fantasy</span>
+                <span class="keyword-tag genre-tag">Gothic</span>
+                <span class="keyword-tag genre-tag">Steampunk</span>
+                <span class="keyword-tag genre-tag">Anime</span>
+                <span class="keyword-tag genre-tag">Animation</span>
+                <span class="keyword-tag genre-tag">Children's Story</span>
+              </div>
+            </div>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">📸</span>
+                Realistic Model - Best Genres:
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Romance</span>
+                <span class="keyword-tag genre-tag">Drama</span>
+                <span class="keyword-tag genre-tag">Contemporary Fiction</span>
+                <span class="keyword-tag genre-tag">Historical Fiction</span>
+                <span class="keyword-tag genre-tag">Biography</span>
+                <span class="keyword-tag genre-tag">Non-fiction</span>
+                <span class="keyword-tag genre-tag">Crime</span>
+                <span class="keyword-tag genre-tag">Thriller</span>
+                <span class="keyword-tag genre-tag">Mystery</span>
+                <span class="keyword-tag genre-tag">Psychological</span>
+                <span class="keyword-tag genre-tag">Literary Fiction</span>
+                <span class="keyword-tag genre-tag">Memoir</span>
+                <span class="keyword-tag genre-tag">Documentary</span>
+                <span class="keyword-tag genre-tag">Slice of Life</span>
+                <span class="keyword-tag genre-tag">Coming of Age</span>
+              </div>
+            </div>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">⚡</span>
+                Flexible Genres (Any Model):
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Action</span>
+                <span class="keyword-tag genre-tag">Adventure</span>
+                <span class="keyword-tag genre-tag">Horror</span>
+                <span class="keyword-tag genre-tag">Comedy</span>
+                <span class="keyword-tag genre-tag">Humor</span>
+                <span class="keyword-tag genre-tag">Satire</span>
+                <span class="keyword-tag genre-tag">Dystopian</span>
+                <span class="keyword-tag genre-tag">Post-Apocalyptic</span>
+                <span class="keyword-tag genre-tag">Western</span>
+                <span class="keyword-tag genre-tag">War</span>
+                <span class="keyword-tag genre-tag">Espionage</span>
+                <span class="keyword-tag genre-tag">Philosophical</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="keywords-tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-content">
+              <strong>How it works:</strong> The system analyzes both your story
+              prompt (keywords) and genre selection to automatically choose the
+              best AI model. For example: "A magical wizard casting a spell" +
+              "Fantasy" genre will trigger the fantasy model for magical
+              artwork.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Result Modal (kept for backwards compatibility) -->
     <div class="modal-overlay" id="resultModal">
