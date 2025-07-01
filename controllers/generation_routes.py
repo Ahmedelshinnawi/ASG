@@ -776,4 +776,3 @@ async def delete_admin_system_story(
         raise HTTPException(status_code=404, detail="Story not found")
     
     return {"message": "System story deleted successfully"}
-    # 
