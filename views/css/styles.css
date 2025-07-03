@@ -6,12 +6,12 @@
 
 @font-face {
   font-family: "Ethnocentric";
-  src: url("./fonts/ethnocentric.regular.ttf") format("truetype");
+  src: url("../fonts/ethnocentric.regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Neometric";
-  src: url("./fonts/NeometricAlt-Bold.ttf") format("truetype");
+  src: url("../fonts/NeometricAlt-Bold.ttf") format("truetype");
 }
 
 body {
@@ -111,10 +111,10 @@ body {
 
 .hero-text h1 {
   font-family: "Ethnocentric", sans-serif;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
 }
 
 .hero-text p {
@@ -220,6 +220,7 @@ body {
 }
 
 .section-title {
+  font-family: "Ethnocentric", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
@@ -312,21 +313,37 @@ body {
   margin: 1rem 0;
 }
 
+.footer-logo {
+  width: 100px;
+  height: 100px;
+}
+
 .social-icons {
   display: flex;
   gap: 1rem;
 }
 
 .social-icon {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 2.5rem;
   height: 2.5rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  text-align: center;
-  line-height: 2.5rem;
   text-decoration: none;
   transition: all 0.3s ease;
+}
+
+.social-icon i {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.social-icon img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
 }
 
 .social-icon:hover {

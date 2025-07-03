@@ -14,8 +14,11 @@ body {
 
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  background: linear-gradient(135deg, #2563eb, #7c3aed, #ec4899);
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -26,25 +29,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #ec4899, #8b5cf6);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: bold;
-  font-size: 1rem;
 }
 
 .nav-brand .logo {
@@ -69,11 +53,6 @@ body {
 
 .nav-link:hover {
   opacity: 0.8;
-}
-
-.nav-link.active {
-  opacity: 1;
-  text-decoration: underline;
 }
 
 .login-btn {
@@ -617,7 +596,7 @@ body {
 
 /* Footer */
 .footer {
-  background: #1f2937;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
   color: white;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
@@ -627,29 +606,23 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 2rem;
-}
-
-.footer-brand .logo {
-  font-size: 2rem;
-  margin-bottom: 1rem;
 }
 
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
+  margin-top: 2rem;
 }
 
 .footer-column h4 {
+  font-weight: 600;
   margin-bottom: 1rem;
-  color: #f9fafb;
+  color: white;
 }
 
 .footer-link {
-  color: #d1d5db;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   display: block;
   margin-bottom: 0.5rem;
@@ -661,8 +634,13 @@ body {
 }
 
 .footer-text {
-  color: #9ca3af;
-  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 1rem 0;
+}
+
+.footer-logo {
+  width: 100px;
+  height: 100px;
 }
 
 .social-icons {
@@ -671,20 +649,31 @@ body {
 }
 
 .social-icon {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  background: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  text-align: center;
-  line-height: 40px;
-  color: white;
   text-decoration: none;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.social-icon i {
+  color: white;
+  font-size: 1.2rem;
+}
+
+.social-icon img {
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
 }
 
 .social-icon:hover {
-  background: #4b5563;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 /* Info Icon Styles */
