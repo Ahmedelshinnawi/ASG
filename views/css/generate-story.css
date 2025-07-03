@@ -4,6 +4,15 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Ethnocentric";
+  src: url("../fonts/ethnocentric.regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Neometric";
+  src: url("../fonts/NeometricAlt-Bold.ttf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
@@ -293,17 +302,19 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 3rem;
+  font-family: "Ethnocentric", sans-serif;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   letter-spacing: 2px;
 }
 
 .hero-text p {
+  font-family: "Neometric", sans-serif;
   font-size: 1.1rem;
   line-height: 1.7;
   opacity: 0.9;
-  max-width: 500px;
+  font-weight: 500;
 }
 
 .hero-image {
