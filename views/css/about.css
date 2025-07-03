@@ -411,12 +411,6 @@ body {
   font-size: 1.2rem;
 }
 
-social-link img {
-  width: 1.5rem;
-  height: 1.5rem;
-  filter: invert(1);
-}
-
 .social-link:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
