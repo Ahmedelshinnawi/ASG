@@ -139,6 +139,11 @@ async def test_favorites_fix_page():
     """Serve the favorites fix test page"""
     return FileResponse("test_favorites_fix.html")
 
+@app.get("/test-icons.html")
+async def test_icons_page():
+    """Serve the social icons test page"""
+    return FileResponse("test-icons.html")
+
 @app.get("/css/{file_path:path}")
 async def serve_css(file_path: str):
     """Serve a CSS file"""
@@ -148,3 +153,13 @@ async def serve_css(file_path: str):
 async def serve_js(file_path: str):
     """Serve a JavaScript file"""
     return FileResponse(f"views/js/{file_path}", media_type="application/javascript")
+
+@app.get("/assets/{file_path:path}")
+async def serve_assets(file_path: str):
+    """Serve asset files (images, icons, etc.)"""
+    return FileResponse(f"views/assets/{file_path}")
+
+@app.get("/fonts/{file_path:path}")
+async def serve_fonts(file_path: str):
+    """Serve font files"""
+    return FileResponse(f"views/fonts/{file_path}")
