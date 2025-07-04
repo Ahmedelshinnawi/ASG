@@ -13,12 +13,11 @@ body {
 
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, #2563eb, #7c3aed, #ec4899);
+  background: #0866FF;
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav {
@@ -28,6 +27,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  gap: 1rem;
 }
 
 .nav-brand .logo {
@@ -52,11 +56,6 @@ body {
 
 .nav-link:hover {
   opacity: 0.8;
-}
-
-.nav-link.active {
-  opacity: 1;
-  text-decoration: underline;
 }
 
 .login-btn {
@@ -315,6 +314,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -383,12 +383,10 @@ body {
 }
 
 .story-image {
-  width: 200px;
-  max-height: 150px;
+  max-height: 175px;
   object-fit: contain;
   flex-shrink: 0;
   background: #f8fafc;
-  border-radius: 0.5rem;
 }
 
 .story-details {
@@ -893,6 +891,7 @@ body {
   0% {
     background-position: 200% 0;
   }
+
   100% {
     background-position: -200% 0;
   }
@@ -902,6 +901,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -933,13 +933,13 @@ body {
     font-size: 0.75rem;
   }
 }
+
 /* Footer */
 .footer {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: #0866FF;
   color: white;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
-  position: relative;
 }
 
 .footer-content {
@@ -948,22 +948,10 @@ body {
   padding: 0 2rem;
 }
 
-.footer-top-right-image {
-  position: absolute;
-  top: -120px;
-  right: 7rem;
-  width: 150px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 8px;
-  z-index: 10;
-}
-
 .footer-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 15rem;
 }
 
 .footer-column h4 {
@@ -990,8 +978,17 @@ body {
 }
 
 .footer-logo {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.footer-top-right-image {
+  position: relative;
+  top: 105px;
+  right: -65rem;
+  max-width: 23rem;
+  max-height: 15rem;
 }
 
 .social-icons {
@@ -1003,10 +1000,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -1023,9 +1016,9 @@ body {
 }
 
 .social-icon:hover {
-  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
+
 @media (max-width: 480px) {
   .favorites-grid {
     grid-template-columns: 1fr;

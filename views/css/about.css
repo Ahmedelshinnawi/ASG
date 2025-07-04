@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 @font-face {
   font-family: "Neometric";
   src: url("../fonts/NeometricAlt-Bold.ttf") format("truetype");
@@ -18,12 +19,11 @@ body {
 
 /* Header Styles */
 .header {
-  background: linear-gradient(135deg, #2563eb, #7c3aed, #ec4899);
+  background: #0866FF;
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .nav {
@@ -33,6 +33,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  gap: 1rem;
 }
 
 .nav-brand .logo {
@@ -320,10 +325,12 @@ body {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
@@ -444,6 +451,7 @@ body {
   from {
     text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
   }
+
   to {
     text-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
   }
@@ -451,7 +459,7 @@ body {
 
 /* Footer */
 .footer {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  background: #0866FF;
   color: white;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
@@ -466,8 +474,7 @@ body {
 .footer-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 15rem;
 }
 
 .footer-column h4 {
@@ -494,8 +501,9 @@ body {
 }
 
 .footer-logo {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .social-icons {
@@ -507,10 +515,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
   text-decoration: none;
   transition: all 0.3s ease;
 }
@@ -527,7 +531,6 @@ body {
 }
 
 .social-icon:hover {
-  background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
@@ -639,12 +642,15 @@ body {
     transform: translateY(100vh) rotate(0deg);
     opacity: 0;
   }
+
   10% {
     opacity: 1;
   }
+
   90% {
     opacity: 1;
   }
+
   100% {
     transform: translateY(-100px) rotate(360deg);
     opacity: 0;
