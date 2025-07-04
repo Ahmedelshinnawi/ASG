@@ -259,19 +259,19 @@ function displayFavorites(favorites, append = false) {
     });
 
     // Add load more button if there are more items
-    if (hasMoreItems && !document.getElementById("loadMoreBtn")) {
-      const loadMoreBtn = document.createElement("button");
-      loadMoreBtn.id = "loadMoreBtn";
-      loadMoreBtn.className = "load-more-btn";
-      loadMoreBtn.textContent = "Load More";
-      loadMoreBtn.onclick = () => loadFavorites(currentPage + 1, true);
+    // if (hasMoreItems && !document.getElementById("loadMoreBtn")) {
+    //   const loadMoreBtn = document.createElement("button");
+    //   loadMoreBtn.id = "loadMoreBtn";
+    //   loadMoreBtn.className = "load-more-btn";
+    //   loadMoreBtn.textContent = "Load More";
+    //   loadMoreBtn.onclick = () => loadFavorites(currentPage + 1, true);
 
-      const loadMoreContainer = document.createElement("div");
-      loadMoreContainer.className = "load-more-container";
-      loadMoreContainer.appendChild(loadMoreBtn);
+    //   const loadMoreContainer = document.createElement("div");
+    //   loadMoreContainer.className = "load-more-container";
+    //   loadMoreContainer.appendChild(loadMoreBtn);
 
-      favoritesGrid.appendChild(loadMoreContainer);
-    }
+    //   favoritesGrid.appendChild(loadMoreContainer);
+    // }
   }
 }
 
