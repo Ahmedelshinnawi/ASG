@@ -1,245 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome - Storytelling.ai</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
 
-    <link rel="stylesheet" href="css/welcome.css" />
-  </head>
-  <body>
-    <div class="main-container">
-      <a href="/index.html" class="back-link">×</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Storytelling.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
-      <!-- Form Section -->
-      <div class="form-section">
-        <div class="logo">
-          <div class="logo-icon">ASG</div>
+  <link rel="stylesheet" href="./css/welcome.css" />
+</head>
+
+<body>
+  <div class="main-container">
+    <a href="/index.html" class="back-link">×</a>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <div class="logo">
+        <div>
+          <img src="./assets/Group 177.png" alt="Storytelling.ai Logo" />
         </div>
-
-        <h1 class="welcome-title">Welcome</h1>
-
-        <div class="auth-tabs">
-          <button class="tab-btn active" id="registerTab">Register</button>
-          <button class="tab-btn" id="loginTab">Login</button>
-        </div>
-
-        <div class="form-container">
-          <!-- Register Form -->
-          <form class="auth-form active" id="registerForm">
-            <div class="form-row">
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-input"
-                  placeholder="First Name"
-                  id="registerFirstName"
-                  required
-                  autocomplete="off"
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-input"
-                  placeholder="Last Name"
-                  id="registerLastName"
-                  required
-                  autocomplete="off"
-                />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-input"
-                placeholder="Username"
-                id="registerUsername"
-                required
-                autocomplete="off"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="email"
-                class="form-input"
-                placeholder="Email"
-                id="registerEmail"
-                required
-                autocomplete="off"
-              />
-            </div>
-
-            <div class="form-group">
-              <select class="form-select" id="registerGender" required>
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-                <option value="prefer-not-to-say">Prefer not to say</option>
-              </select>
-            </div>
-
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-input"
-                placeholder="Password"
-                id="registerPassword"
-                required
-              />
-              <!-- Password Requirements Indicator -->
-              <div
-                class="password-requirements"
-                id="registerPasswordRequirements"
-                style="display: none"
-              >
-                <p class="requirement-title">Password must contain:</p>
-                <ul class="requirements-list">
-                  <li class="requirement" id="registerLengthReq">
-                    <i class="fas fa-times"></i>
-                    <span>At least 8 characters</span>
-                  </li>
-                  <li class="requirement" id="registerLetterReq">
-                    <i class="fas fa-times"></i>
-                    <span>At least one letter</span>
-                  </li>
-                  <li class="requirement" id="registerNumberReq">
-                    <i class="fas fa-times"></i>
-                    <span>At least one number</span>
-                  </li>
-                  <li class="requirement" id="registerSpecialReq">
-                    <i class="fas fa-times"></i>
-                    <span>At least one special character (!@#$%^&*)</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-input"
-                placeholder="Confirm Password"
-                id="registerConfirmPassword"
-                required
-              />
-              <!-- Password Match Indicator -->
-              <div
-                class="password-match-indicator"
-                id="registerPasswordMatchIndicator"
-                style="display: none"
-              >
-                <i class="fas fa-times"></i>
-                <span>Passwords do not match</span>
-              </div>
-            </div>
-
-            <button type="submit" class="primary-btn" id="registerBtn">
-              <span class="loading-spinner" id="registerSpinner"></span>
-              <span id="registerBtnText">Continue</span>
-            </button>
-
-            <div class="error-message" id="registerError"></div>
-            <div class="success-message" id="registerSuccess"></div>
-          </form>
-
-          <!-- Login Form -->
-          <form class="auth-form" id="loginForm">
-            <div class="form-group">
-              <input
-                type="text"
-                class="form-input"
-                placeholder="Username or Email"
-                id="loginUsername"
-                required
-                autocomplete="off"
-              />
-            </div>
-
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-input"
-                placeholder="Password"
-                id="loginPassword"
-                required
-              />
-            </div>
-
-            <button type="submit" class="primary-btn" id="loginBtn">
-              <span class="loading-spinner" id="loginSpinner"></span>
-              <span id="loginBtnText">Continue</span>
-            </button>
-
-            <div class="forgot-password">
-              <a href="#" id="forgotPasswordLink">Forgot your password?</a>
-            </div>
-
-            <div class="error-message" id="loginError"></div>
-          </form>
-        </div>
-
-        <div class="divider">OR</div>
-
-        <button
-          class="secondary-btn"
-          onclick="window.location.href='/index.html'"
-        >
-          Skip
-        </button>
       </div>
 
-      <!-- Image Section -->
-      <div class="image-section">
-        <div class="image-overlay"></div>
+      <h1 class="welcome-title">Welcome</h1>
+
+      <div class="auth-tabs">
+        <button class="tab-btn" id="registerTab">Register</button>
+        <button class="tab-btn active" id="loginTab">Login</button>
       </div>
-    </div>
 
-    <!-- Password Reset Modal -->
-    <div class="modal-overlay" id="resetModal">
-      <div class="modal-content">
-        <button class="close-btn" id="closeResetModal">×</button>
-        <div class="modal-header">
-          <h2 class="modal-title">Reset Password</h2>
-          <p class="modal-subtitle">Enter your email to receive a reset link</p>
-        </div>
-
-        <form id="resetPasswordForm">
-          <div class="form-group">
-            <input
-              type="email"
-              class="form-input"
-              placeholder="Your email address"
-              id="resetEmail"
-              required
-            />
+      <div class="form-container">
+        <!-- Register Form -->
+        <form class="auth-form" id="registerForm">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" class="form-input" placeholder="First Name" id="registerFirstName" required
+                autocomplete="off" />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-input" placeholder="Last Name" id="registerLastName" required
+                autocomplete="off" />
+            </div>
           </div>
 
-          <button type="submit" class="primary-btn" id="resetBtn">
-            <span class="loading-spinner" id="resetSpinner"></span>
-            <span id="resetBtnText">Send Reset Link</span>
+          <div class="form-group">
+            <input type="text" class="form-input" placeholder="Username" id="registerUsername" required
+              autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <input type="email" class="form-input" placeholder="Email" id="registerEmail" required autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <select class="form-select" id="registerGender" placeholder="Select Gender" required>
+              <option style="display: none;" value="" disabled selected>Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-input" placeholder="Password" id="registerPassword" required />
+            <!-- Password Requirements Indicator -->
+            <div class="password-requirements" id="registerPasswordRequirements" style="display: none">
+              <p class="requirement-title">Password must contain:</p>
+              <ul class="requirements-list">
+                <li class="requirement" id="registerLengthReq">
+                  <i class="fas fa-times"></i>
+                  <span>At least 8 characters</span>
+                </li>
+                <li class="requirement" id="registerLetterReq">
+                  <i class="fas fa-times"></i>
+                  <span>At least one letter</span>
+                </li>
+                <li class="requirement" id="registerNumberReq">
+                  <i class="fas fa-times"></i>
+                  <span>At least one number</span>
+                </li>
+                <li class="requirement" id="registerSpecialReq">
+                  <i class="fas fa-times"></i>
+                  <span>At least one special character (!@#$%^&*)</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-input" placeholder="Confirm Password" id="registerConfirmPassword"
+              required />
+            <!-- Password Match Indicator -->
+            <div class="password-match-indicator" id="registerPasswordMatchIndicator" style="display: none">
+              <i class="fas fa-times"></i>
+              <span>Passwords do not match</span>
+            </div>
+          </div>
+
+          <button type="submit" class="primary-btn" id="registerBtn">
+            <span class="loading-spinner" id="registerSpinner"></span>
+            <span id="registerBtnText">Continue</span>
           </button>
 
-          <div class="error-message" id="resetError"></div>
-          <div class="success-message" id="resetSuccess"></div>
+          <div class="error-message" id="registerError"></div>
+          <div class="success-message" id="registerSuccess"></div>
+        </form>
+
+        <!-- Login Form -->
+        <form class="auth-form active" id="loginForm">
+          <div class="form-group">
+            <input type="text" class="form-input" placeholder="Username or Email" id="loginUsername" required
+              autocomplete="off" />
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-input" placeholder="Password" id="loginPassword" required />
+          </div>
+
+          <button type="submit" class="primary-btn" id="loginBtn">
+            <span class="loading-spinner" id="loginSpinner"></span>
+            <span id="loginBtnText">Continue</span>
+          </button>
+
+          <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink">Forgot your password?</a>
+          </div>
+
+          <div class="error-message" id="loginError"></div>
         </form>
       </div>
+
+      <div class="divider">OR</div>
+
+      <button class="secondary-btn" onclick="window.location.href='/index.html'">
+        Skip
+      </button>
     </div>
 
-    <!-- Include API integration script -->
-    <script src="js/api.js"></script>
+    <!-- Image Section -->
+    <div class="image-section">
+      <div class="image-overlay"></div>
+    </div>
+  </div>
 
-    <script src="js/welcome.js"></script>
-  </body>
+  <!-- Password Reset Modal -->
+  <div class="modal-overlay" id="resetModal">
+    <div class="modal-content">
+      <button class="close-btn" id="closeResetModal">×</button>
+      <div class="modal-header">
+        <h2 class="modal-title">Reset Password</h2>
+        <p class="modal-subtitle">Enter your email to receive a reset link</p>
+      </div>
+
+      <form id="resetPasswordForm">
+        <div class="form-group">
+          <input type="email" class="form-input" placeholder="Your email address" id="resetEmail" required />
+        </div>
+
+        <button type="submit" class="primary-btn" id="resetBtn">
+          <span class="loading-spinner" id="resetSpinner"></span>
+          <span id="resetBtnText">Send Reset Link</span>
+        </button>
+
+        <div class="error-message" id="resetError"></div>
+        <div class="success-message" id="resetSuccess"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Include API integration script -->
+  <script src="js/api.js"></script>
+
+  <script src="js/welcome.js"></script>
+</body>
+
 </html>

@@ -12,6 +12,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  overflow: hidden;
 }
 
 .main-container {
@@ -35,8 +36,7 @@ body {
 
 .image-section {
   flex: 1;
-  background: url("https://images.unsplash.com/photo-1544717297-fa95b6ee9643?w=600&h=600&fit=crop&crop=faces")
-    center/cover;
+  background: url("../assets/welcomepage.png") center/cover;
   position: relative;
   display: flex;
   align-items: center;
@@ -86,12 +86,12 @@ body {
   font-size: 2.5rem;
   font-weight: 700;
   color: #2563eb;
-  margin-bottom: 2rem;
+  margin-bottom: 2px;
 }
 
 .auth-tabs {
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 4px;
   background: #f8fafc;
   border-radius: 0.75rem;
   padding: 0.25rem;
@@ -116,9 +116,9 @@ body {
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
 }
 
-.form-container {
+/* .form-container {
   flex: 1;
-}
+} */
 
 .auth-form {
   display: none;
@@ -131,12 +131,12 @@ body {
 .form-row {
   display: flex;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1px;
 }
 
 .form-group {
   flex: 1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 6px;
 }
 
 .form-input {
@@ -179,6 +179,7 @@ body {
   border-color: #2563eb;
   background: white;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  color: black;
 }
 
 .primary-btn {
@@ -192,7 +193,7 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-bottom: 1rem;
+  margin-bottom: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,6 +244,7 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -251,7 +253,7 @@ body {
 .divider {
   display: flex;
   align-items: center;
-  margin: 1.5rem 0;
+  margin: 6px 0;
   color: #2563eb;
   font-weight: 500;
 }
@@ -473,7 +475,8 @@ body {
 }
 
 .requirement.valid i:before {
-  content: "\f00c"; /* checkmark */
+  content: "\f00c";
+  /* checkmark */
 }
 
 .password-match-indicator {
@@ -498,7 +501,8 @@ body {
 }
 
 .password-match-indicator.success i:before {
-  content: "\f00c" !important; /* checkmark */
+  content: "\f00c" !important;
+  /* checkmark */
 }
 
 .password-match-indicator i {
@@ -545,7 +549,8 @@ body {
 }
 
 .requirement.valid i:before {
-  content: "\f00c" !important; /* checkmark */
+  content: "\f00c" !important;
+  /* checkmark */
 }
 
 /* Make sure the icons are from Font Awesome */
