@@ -48,15 +48,61 @@ async function updateNavigation() {
   const loginBtn = document.querySelector(".login-btn");
   const navProfile = document.getElementById("navProfile");
   const adminLink = document.getElementById("adminLink");
+  const userAvatar = document.getElementById("userAvatar");
+  const userName = document.querySelector(".user-name");
+  const dropdownUserName = document.getElementById("dropdownUserName");
+  const dropdownUserEmail = document.getElementById("dropdownUserEmail");
+  const dropdownAvatar = document.getElementById("dropdownAvatar");
 
   if (window.apiClient.auth.isAuthenticated()) {
     loginBtn.style.display = "none";
     navProfile.style.display = "flex";
 
-    if (isAdmin) {
-      adminLink.style.display = "block";
+    // Update user information
+    try {
+      const profile = await window.apiClient.getProfile();
+
+      // Update username
+      if (userName && profile.username) {
+        userName.textContent = profile.username;
+      }
+
+      // Update dropdown username and email
+      if (dropdownUserName && profile.username) {
+        dropdownUserName.textContent = profile.username;
+      }
+
+      if (dropdownUserEmail && profile.email) {
+        dropdownUserEmail.textContent = profile.email;
+      }
+
+      // Update profile pictures
+      const profilePictureUrl =
+        profile.profile_picture || window.apiClient.getDefaultAvatarUrl();
+
+      if (userAvatar) {
+        userAvatar.src = profilePictureUrl;
+        userAvatar.onerror = () => {
+          userAvatar.src = window.apiClient.getDefaultAvatarUrl();
+        };
+      }
+
+      if (dropdownAvatar) {
+        dropdownAvatar.src = profilePictureUrl;
+        dropdownAvatar.onerror = () => {
+          dropdownAvatar.src = window.apiClient.getDefaultAvatarUrl();
+        };
+      }
+
+      // Show/hide admin link
+      if (isAdmin && adminLink) {
+        adminLink.style.display = "block";
+      }
+    } catch (error) {
+      console.error("Failed to update profile information:", error);
     }
 
+    // Update all profile pictures
     await window.apiClient.updateProfilePictures();
   } else {
     loginBtn.style.display = "block";
@@ -143,17 +189,43 @@ function setupEventListeners() {
   }
 
   // User dropdown
-  const userDropdownBtn = document.getElementById("navProfile");
+  const userDropdownBtn = document.getElementById("userDropdownBtn");
   const userDropdownMenu = document.getElementById("userDropdownMenu");
+  const dropdownArrow = document.querySelector(".dropdown-arrow");
+
+  function toggleDropdown() {
+    const isOpen = userDropdownMenu?.classList.contains("show");
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      openDropdown();
+    }
+  }
+
+  function openDropdown() {
+    if (userDropdownBtn) userDropdownBtn.classList.add("active");
+    if (userDropdownMenu) userDropdownMenu.classList.add("show");
+    if (dropdownArrow) dropdownArrow.style.transform = "rotate(180deg)";
+    document.addEventListener("click", handleOutsideClick);
+  }
+
+  function closeDropdown() {
+    if (userDropdownBtn) userDropdownBtn.classList.remove("active");
+    if (userDropdownMenu) userDropdownMenu.classList.remove("show");
+    if (dropdownArrow) dropdownArrow.style.transform = "";
+    document.removeEventListener("click", handleOutsideClick);
+  }
+
+  function handleOutsideClick(event) {
+    if (userDropdownBtn && !userDropdownBtn.contains(event.target)) {
+      closeDropdown();
+    }
+  }
 
   if (userDropdownBtn && userDropdownMenu) {
     userDropdownBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      userDropdownMenu.classList.toggle("show");
-    });
-
-    document.addEventListener("click", () => {
-      userDropdownMenu.classList.remove("show");
+      toggleDropdown();
     });
   }
 
@@ -309,17 +381,57 @@ style.textContent = `
           cursor: pointer;
         }
 
-        .profile-info {
+        .user-dropdown {
+          position: relative;
+        }
+
+        .user-dropdown-btn {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          transition: background 0.3s ease;
+          gap: 8px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          color: white;
+          padding: 8px 12px;
+          border-radius: 12px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 14px;
+          font-weight: 500;
+          backdrop-filter: blur(10px);
+        }
+
+        .user-dropdown-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-1px);
+        }
+
+        .user-dropdown-btn.active {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .profile-info {
+              display: flex;   
+               align-items: center;
+               gap: 8px;
+               background: rgba(255, 255, 255, 0.1);
+               border: 2px solid rgba(255, 255, 255, 0.2);
+               color: white;
+               padding: 8px 12px;
+               border-radius: 12px;
+               cursor: pointer;
+               transition: all 0.3s ease;
+               font-size: 14px;
+               font-weight: 500;
+               backdrop-filter: blur(10px);
         }
 
         .profile-info:hover {
-          background: rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-1px);
         }
 
         .profile-picture {
@@ -342,10 +454,6 @@ style.textContent = `
           color: white;
           font-size: 0.8rem;
           transition: transform 0.3s ease;
-        }
-
-        .nav-profile:hover .dropdown-arrow {
-          transform: rotate(180deg);
         }
 
         .dropdown-item {
