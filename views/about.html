@@ -1,347 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About Us - Storytelling.ai</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
 
-    <link rel="stylesheet" href="css/about.css" />
-  </head>
-  <body>
-    <!-- Wave Background -->
-    <div class="wave-background"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Storytelling.ai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
-    <!-- Particle Background -->
-    <div class="particles" id="particles"></div>
+  <link rel="stylesheet" href="css/about.css" />
+</head>
 
-    <!-- Header -->
-    <header class="header">
-      <nav class="nav">
-        <div class="nav-brand">
-          <div class="logo-icon">
-            <img src="./assets/navlogo.png" alt="Logo" class="logo-img" />
-          </div>
-          <a href="index.html" class="logo">Storytelling.ai</a>
+<body>
+  <!-- Wave Background -->
+  <div class="wave-background"></div>
+
+  <!-- Particle Background -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-brand">
+        <div class="logo-icon">
+          <img src="./assets/navlogo.png" alt="Logo" class="logo-img" />
         </div>
-        <div class="nav-links">
-          <a href="index.html" class="nav-link active">Home</a>
-          <a href="generate-story.html" class="nav-link">Generate Story</a>
-          <a href="favorites.html" class="nav-link">Favorites</a>
-          <a href="recent-stories.html" class="nav-link">Recent Stories</a>
-          <a href="about.html" class="nav-link">About us</a>
-          <button class="login-btn">Login</button>
-        </div>
-        <!-- User Profile Dropdown (when logged in) -->
-        <div class="nav-profile" id="navProfile" style="display: none">
-          <div class="user-dropdown">
-            <button class="user-dropdown-btn" id="userDropdownBtn">
+        <a href="index.html" class="logo">Storytelling.ai</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="generate-story.html" class="nav-link">Generate Story</a>
+        <a href="favorites.html" class="nav-link">Favorites</a>
+        <a href="recent-stories.html" class="nav-link">Recent Stories</a>
+        <a href="about.html" class="nav-link">About us</a>
+        <button class="login-btn">Login</button>
+      </div>
+      <!-- User Profile Dropdown (when logged in) -->
+      <div class="nav-profile" id="navProfile" style="display: none">
+        <div class="user-dropdown">
+          <button class="user-dropdown-btn" id="userDropdownBtn">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
+              alt="User Avatar" class="user-avatar" id="userAvatar" />
+            <span class="user-name" id="userName">User</span>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </button>
+          <div class="user-dropdown-menu" id="userDropdownMenu">
+            <div class="dropdown-header">
               <img
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
-                alt="User Avatar"
-                class="user-avatar"
-                id="userAvatar"
-              />
-              <span class="user-name" id="userName">User</span>
-              <i class="fas fa-chevron-down dropdown-arrow"></i>
-            </button>
-            <div class="user-dropdown-menu" id="userDropdownMenu">
-              <div class="dropdown-header">
-                <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
-                  alt="User Avatar"
-                  class="dropdown-avatar"
-                />
-                <div class="dropdown-user-info">
-                  <div class="dropdown-user-name" id="dropdownUserName">
-                    User
-                  </div>
-                  <div
-                    class="dropdown-user-full-name"
-                    id="dropdownUserFullName"
-                    style="font-size: 12px; color: #9ca3af; margin-top: 2px"
-                  ></div>
-                  <div class="dropdown-user-email" id="dropdownUserEmail">
-                    user@example.com
-                  </div>
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
+                alt="User Avatar" class="dropdown-avatar" />
+              <div class="dropdown-user-info">
+                <div class="dropdown-user-name" id="dropdownUserName">
+                  User
+                </div>
+                <div class="dropdown-user-full-name" id="dropdownUserFullName"
+                  style="font-size: 12px; color: #9ca3af; margin-top: 2px"></div>
+                <div class="dropdown-user-email" id="dropdownUserEmail">
+                  user@example.com
                 </div>
               </div>
-              <div class="dropdown-divider"></div>
-              <ul class="dropdown-items">
-                <li>
-                  <button class="dropdown-item" id="profileSettingsBtn">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Profile Settings</span>
-                  </button>
-                </li>
-                <li>
-                  <a href="favorites.html" class="dropdown-item">
-                    <i class="fas fa-heart"></i>
-                    <span>View Favorites</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="recent-stories.html" class="dropdown-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Recent Stories</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="admin.html"
-                    class="dropdown-item"
-                    id="adminLink"
-                    style="display: none"
-                  >
-                    <i class="fas fa-cog"></i>
-                    <span>Admin Dashboard</span>
-                  </a>
-                </li>
-                <li class="dropdown-divider-small"></li>
-                <li>
-                  <button class="dropdown-item logout-item" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                  </button>
-                </li>
-              </ul>
             </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="container">
-        <!-- Who We Are Section -->
-        <section class="who-we-are fade-in">
-          <h1 class="section-title">Who We Are</h1>
-          <p class="section-description">
-            The page elucidates the team's commitment to fostering creativity,
-            imagination, and safety for both children and parents in the digital
-            storytelling realm. By outlining the platform's journey, the
-            technology it employs, and the dedication to enhancing storytelling
-            experiences, the "About Us" section establishes credibility, trust,
-            and a deeper connection with the audience.
-          </p>
-        </section>
-
-        <!-- Team Image Section -->
-        <section class="team-image-section fade-in">
-          <img
-            src="./assets/carousel-1.jpg"
-            alt="Team photo with AI robot and students"
-            class="team-image"
-            id="teamImage"
-          />
-        </section>
-
-        <!-- Company Description -->
-        <section class="company-description fade-in">
-          <p>
-            At <b>ASG</b>, we have a dedicated and passionate team of
-            individuals who are committed to providing the best possible
-            experience for children's and service providers alike. Our team
-            combines expertise in software development, design, and childcare to
-            create a platform that meets the diverse needs of our users.
-          </p>
-        </section>
-
-        <!-- ASG Logo Center -->
-        <div class="asg-logo-center fade-in">
-          <img src="./assets/Group 177.png" alt="ASG" class="asg-logo-large" />
-        </div>
-
-        <!-- Team Member Section -->
-        <section class="team-member-section fade-in">
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Ahmed El Shinnawi"
-              class="member-photo"
-            />
-            <h3 class="member-name">Ahmed El Shinnawi</h3>
-            <p class="member-role">Full Stack Developer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Mohammed Hassan"
-              class="member-photo"
-            />
-            <h3 class="member-name">Mohammed Hassan</h3>
-            <p class="member-role">Full Stack Developer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Mohammed Helal"
-              class="member-photo"
-            />
-            <h3 class="member-name">Mohammed Helal</h3>
-            <p class="member-role">Full Stack Developer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Omar Ashraf Fekry"
-              class="member-photo"
-            />
-            <h3 class="member-name">Omar Ashraf Fekry</h3>
-            <p class="member-role">UI/UX Designer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Assem Ahmed"
-              class="member-photo"
-            />
-            <h3 class="member-name">Assem Ahmed</h3>
-            <p class="member-role">UI/UX Designer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Mohammed Fared"
-              class="member-photo"
-            />
-            <h3 class="member-name">Mohammed Fared</h3>
-            <p class="member-role">AI Engineer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Yousab Yousry"
-              class="member-photo"
-            />
-            <h3 class="member-name">Yousab Yousry</h3>
-            <p class="member-role">AI Engineer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Youssef Talaat"
-              class="member-photo"
-            />
-            <h3 class="member-name">Youssef Talaat</h3>
-            <p class="member-role">AI Engineer</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-
-          <div class="team-member-card">
-            <img
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-              alt="Abdelrahman Refaat"
-              class="member-photo"
-            />
-            <h3 class="member-name">Abdelrahman Refaat</h3>
-            <p class="member-role">Business Analyst</p>
-            <div class="social-links">
-              <a href="#" class="social-link" title="GitHub">🐙</a>
-              <a href="#" class="social-link" title="Facebook">📘</a>
-              <a href="#" class="social-link" title="LinkedIn">💼</a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-links">
-          <div class="footer-column">
-            <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
-            <a href="#" class="footer-link">Terms of Service</a>
-            <a href="about.html" class="footer-link">About Us</a>
-          </div>
-          <div class="footer-column">
-            <h4>Features</h4>
-            <a href="generate-story.html" class="footer-link">Generate Story</a>
-            <a href="favorites.html" class="footer-link">Favorite Stories</a>
-            <a href="recent-stories.html" class="footer-link">Recent Stories</a>
-          </div>
-          <div class="footer-column">
-            <h4>Contact Us</h4>
-            <a href="#" class="footer-link">Support Center</a>
-            <a href="#" class="footer-link">Stay in touch</a>
-            <div class="social-icons">
-              <a href="#" class="social-icon"
-                ><img src="./assets/facebook-app-round-icon.svg" alt="Facebook"
-              /></a>
-              <a href="#" class="social-icon"
-                ><img
-                  src="./assets/x-social-media-black-icon.svg"
-                  alt="Twitter"
-              /></a>
-              <a href="#" class="social-icon"
-                ><img src="./assets/black-instagram-icon.svg" alt="Instagram"
-              /></a>
-              <a href="#" class="social-icon"
-                ><img src="./assets/youtube-icon.svg" alt="Youtube"
-              /></a>
-            </div>
+            <div class="dropdown-divider"></div>
+            <ul class="dropdown-items">
+              <li>
+                <button class="dropdown-item" id="profileSettingsBtn">
+                  <i class="fas fa-user-cog"></i>
+                  <span>Profile Settings</span>
+                </button>
+              </li>
+              <li>
+                <a href="favorites.html" class="dropdown-item">
+                  <i class="fas fa-heart"></i>
+                  <span>View Favorites</span>
+                </a>
+              </li>
+              <li>
+                <a href="recent-stories.html" class="dropdown-item">
+                  <i class="fas fa-clock"></i>
+                  <span>Recent Stories</span>
+                </a>
+              </li>
+              <li>
+                <a href="admin.html" class="dropdown-item" id="adminLink" style="display: none">
+                  <i class="fas fa-cog"></i>
+                  <span>Admin Dashboard</span>
+                </a>
+              </li>
+              <li class="dropdown-divider-small"></li>
+              <li>
+                <button class="dropdown-item logout-item" id="logoutBtn">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Logout</span>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </footer>
+    </nav>
+  </header>
 
-    <!-- Include API integration script -->
-    <script src="api.js"></script>
-    <script src="js/profile-settings-component.js"></script>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Who We Are Section -->
+      <section class="who-we-are fade-in">
+        <h1 class="section-title">Who We Are</h1>
+        <p class="section-description">
+          The page elucidates the team's commitment to fostering creativity,
+          imagination, and safety for both children and parents in the digital
+          storytelling realm. By outlining the platform's journey, the
+          technology it employs, and the dedication to enhancing storytelling
+          experiences, the "About Us" section establishes credibility, trust,
+          and a deeper connection with the audience.
+        </p>
+      </section>
 
-    <script src="js/about.js"></script>
-  </body>
+      <!-- Team Image Section -->
+      <section class="team-image-section fade-in">
+        <img src="./assets/carousel-1.jpg" alt="Team photo with AI robot and students" class="team-image"
+          id="teamImage" />
+      </section>
+
+      <!-- Company Description -->
+      <section class="company-description fade-in">
+        <p>
+          At <b>ASG</b>, we have a dedicated and passionate team of
+          individuals who are committed to providing the best possible
+          experience for children's and service providers alike. Our team
+          combines expertise in software development, design, and childcare to
+          create a platform that meets the diverse needs of our users.
+        </p>
+      </section>
+
+      <!-- ASG Logo Center -->
+      <div class="asg-logo-center fade-in">
+        <img src="./assets/Group 177.png" alt="ASG" class="asg-logo-large" />
+      </div>
+
+      <!-- Team Member Section -->
+      <section class="team-member-section fade-in">
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/asem.jpg" alt="Assem Ahmed" class="member-photo" />
+          <h3 class="member-name">Assem Ahmed</h3>
+          <p class="member-role">UI/UX Designer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/shinawy.jpg" alt="Ahmed El Shinnawi" class="member-photo" />
+          <h3 class="member-name">Ahmed El Shinnawi</h3>
+          <p class="member-role">Full Stack Developer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/abdo.jpg" alt="Abdelrahman Refaat" class="member-photo" />
+          <h3 class="member-name">Abdelrahman Refaat</h3>
+          <p class="member-role">Business Analyst</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/fared.jpg" alt="Mohammed Fared" class="member-photo" />
+          <h3 class="member-name">Mohammed Fared</h3>
+          <p class="member-role">AI Engineer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/hassan.jpg" alt="Mohammed Hassan" class="member-photo" />
+          <h3 class="member-name">Mohammed Hassan</h3>
+          <p class="member-role">Full Stack Developer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/hilal.jpg" alt="Mohammed Helal" class="member-photo" />
+          <h3 class="member-name">Mohammed Helal</h3>
+          <p class="member-role">Full Stack Developer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/omar.jpg" alt="Omar Ashraf Fekry" class="member-photo" />
+          <h3 class="member-name">Omar Ashraf Fekry</h3>
+          <p class="member-role">UI/UX Designer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="./assets/Aboutus photos/talaat.jpg" alt="Youssef Talaat" class="member-photo" />
+          <h3 class="member-name">Youssef Talaat</h3>
+          <p class="member-role">AI Engineer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+
+        <div class="team-member-card">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
+            alt="Yousab Yousry" class="member-photo" />
+          <h3 class="member-name">Yousab Yousry</h3>
+          <p class="member-role">AI Engineer</p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="Facebook">📘</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+          </div>
+        </div>
+    </div>
+    </section>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <div class="footer-column">
+          <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="about.html" class="footer-link">About Us</a>
+        </div>
+        <div class="footer-column">
+          <h4>Features</h4>
+          <a href="generate-story.html" class="footer-link">Generate Story</a>
+          <a href="favorites.html" class="footer-link">Favorite Stories</a>
+          <a href="recent-stories.html" class="footer-link">Recent Stories</a>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Us</h4>
+          <a href="#" class="footer-link">Support Center</a>
+          <a href="#" class="footer-link">Stay in touch</a>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><img src="./assets/facebook-app-round-icon.svg" alt="Facebook" /></a>
+            <a href="#" class="social-icon"><img src="./assets/x-social-media-black-icon.svg" alt="Twitter" /></a>
+            <a href="#" class="social-icon"><img src="./assets/black-instagram-icon.svg" alt="Instagram" /></a>
+            <a href="#" class="social-icon"><img src="./assets/youtube-icon.svg" alt="Youtube" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Include API integration script -->
+  <script src="api.js"></script>
+  <script src="js/profile-settings-component.js"></script>
+
+  <script src="js/about.js"></script>
+</body>
+
 </html>

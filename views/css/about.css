@@ -8,6 +8,7 @@
   font-family: "Neometric";
   src: url("../fonts/NeometricAlt-Bold.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Touche";
   src: url("../fonts/Touche-Regular-BF642a2ebfe9ff0.otf") format("truetype");
@@ -17,10 +18,12 @@
   font-family: "TT Hoves Pro";
   src: url("../fonts/TT\ Hoves\ Pro\ Trial\ Medium.ttf") format("truetype");
 }
+
 @font-face {
   font-family: "Publica Sans";
   src: url("../fonts/FaceType\ -\ PublicaSans-Regular.otf") format("truetype");
 }
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
@@ -294,7 +297,9 @@ body {
   padding: 4rem 0;
   position: relative;
   z-index: 1;
-  background: white;
+  background-image: url("../assets/BGwave.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .container {
@@ -347,6 +352,7 @@ body {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
@@ -383,9 +389,8 @@ body {
 /* Team Member Section */
 .team-member-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
-  margin: 4rem 0;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 3rem 0;
   justify-items: center;
   max-width: 1000px;
   margin-left: auto;
@@ -433,9 +438,9 @@ body {
 }
 
 .member-photo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
   object-fit: cover;
   margin-bottom: 1rem;
   border: none !important;
@@ -717,9 +722,10 @@ body {
 
 .particle {
   position: absolute;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(173, 216, 230, 0.3);
   border-radius: 50%;
   animation: particleFloat 10s infinite linear;
+  z-index: 100;
 }
 
 @keyframes particleFloat {
