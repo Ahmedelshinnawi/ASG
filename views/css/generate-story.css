@@ -19,6 +19,11 @@
   src: url("../fonts/Touche-Regular-BF642a2ebfe9ff0.otf") format("truetype");
 }
 
+@font-face {
+  font-family: "Publica Sans";
+  src: url("../fonts/FaceType\ -\ PublicaSans-Regular.otf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;

@@ -16,6 +16,11 @@ body {
   src: url("../fonts/ethnocentric.regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Publica Sans";
+  src: url("../fonts/FaceType\ -\ PublicaSans-Regular.otf") format("truetype");
+}
+
 /* Header Styles */
 .header {
   background: #0866ff;
