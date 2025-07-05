@@ -237,15 +237,15 @@ async function viewStory(storyId) {
       : "";
 
     const content = `
-            <div style="text-align: center; margin-bottom: 1.5rem;">
-              <h2 style="color: #1f2937; margin-bottom: 0.5rem;">${story.title}</h2>
+            <div style="text-align: center; margin-bottom: 1rem;">
+              <h2 style="color: #1f2937; margin-bottom: 0.5rem; font-size: 1.25rem;">${story.title}</h2>
               <p style="color: #6b7280; font-size: 0.9rem;">System Story • ${story.category}</p>
             </div>
             ${imageHtml}
-            <div style="line-height: 1.8; color: #374151; font-size: 1.1rem; text-align: left;">
+            <div style="line-height: 1.8; color: #374151; font-size: 1rem; text-align: left; max-height: 50vh; overflow-y: auto;">
               ${story.generated_text}
             </div>
-            <div style="margin-top: 1rem; padding: 1rem; background: #f9fafb; border-radius: 0.5rem;">
+            <div style="margin-top: 1rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; font-size: 0.9rem;">
               <strong>Prompt:</strong> ${story.prompt}
             </div>
           `;

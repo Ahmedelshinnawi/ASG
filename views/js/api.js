@@ -374,6 +374,7 @@ class APIClient {
             z-index: 10000;
             opacity: 0;
             transition: opacity 0.3s ease;
+            padding: 20px;
         `;
 
     // Create modal content
@@ -381,10 +382,12 @@ class APIClient {
     modal.className = "auth-modal-content";
     modal.style.cssText = `
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 1rem;
             max-width: 500px;
             width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
             text-align: center;
             transform: scale(0.8);
             transition: transform 0.3s ease;
@@ -415,9 +418,9 @@ class APIClient {
     }
 
     modal.innerHTML = `
-            <h2 style="margin-bottom: 1rem; color: #1f2937; font-size: 1.5rem;">${title}</h2>
-            <p style="margin-bottom: 2rem; color: #6b7280; line-height: 1.6;">${message}</p>
-            <div style="display: flex; gap: 1rem; justify-content: center;">
+            <h2 style="margin-bottom: 1rem; color: #1f2937; font-size: 1.25rem; overflow-wrap: break-word;">${title}</h2>
+            <div style="margin-bottom: 1.5rem; color: #6b7280; line-height: 1.6; max-height: 60vh; overflow-y: auto;">${message}</div>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 ${buttonsHtml}
             </div>
         `;
