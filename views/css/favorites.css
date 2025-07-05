@@ -11,9 +11,14 @@ body {
   background-color: #f8fafc;
 }
 
+@font-face {
+  font-family: "Ethnocentric";
+  src: url("../fonts/ethnocentric.regular.ttf") format("truetype");
+}
+
 /* Header Styles */
 .header {
-  background: #0866FF;
+  background: #0866ff;
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -48,6 +53,8 @@ body {
 }
 
 .nav-link {
+  font-size: 1.1rem;
+  font-family: "Publica Sans", sans-serif;
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -56,6 +63,8 @@ body {
 
 .nav-link:hover {
   opacity: 0.8;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .login-btn {
@@ -284,7 +293,8 @@ body {
 }
 
 .page-title {
-  font-size: 2.5rem;
+  font-family: "Ethnocentric", sans-serif;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #2563eb;
   display: flex;
@@ -363,7 +373,7 @@ body {
 
 .story-card {
   background: white;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #0866ff;
   border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -936,7 +946,7 @@ body {
 
 /* Footer */
 .footer {
-  background: #0866FF;
+  background: #0866ff;
   color: white;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
@@ -961,6 +971,8 @@ body {
 }
 
 .footer-link {
+  font-family: "Publica Sans", sans-serif;
+  font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   display: block;
@@ -969,7 +981,8 @@ body {
 }
 
 .footer-link:hover {
-  color: white;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .footer-text {
