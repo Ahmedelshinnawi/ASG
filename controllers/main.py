@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 import os
@@ -12,9 +11,6 @@ from controllers.generation_routes import router as generation_router
 dotenv.load_dotenv()
 
 app = FastAPI(title="AI Content Generator with Authentication", version="1.0.0")
-
-# Mount static files
-app.mount("/static", StaticFiles(directory="views/static"), name="static")
 
 # Add CORS middleware - Allow all origins for development
 app.add_middleware(
