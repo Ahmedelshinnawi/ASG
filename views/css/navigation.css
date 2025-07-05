@@ -1,139 +1,146 @@
 /* Header Styles */
 .header {
-    background: #0866FF;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+  background: #0866ff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-brand {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .nav-brand .logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: white;
-    text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  text-decoration: none;
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
 }
 
 .nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.3s ease;
+  font-family: "Publica Sans", sans-serif;
+  font-size: 1.1rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s ease;
 }
 
 .nav-link:hover {
-    opacity: 0.8;
+  opacity: 0.8;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .login-btn {
-    background: #ec4899;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background: #ec4899;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .login-btn:hover {
-    background: #db2777;
-    transform: translateY(-1px);
+  background: #db2777;
+  transform: translateY(-1px);
 }
 
 /* Footer */
 .footer {
-    background: #0866FF;
-    color: white;
-    padding: 3rem 0 2rem;
-    margin-top: 4rem;
+  background: #0866ff;
+  color: white;
+  padding: 3rem 0 2rem;
+  margin-top: 4rem;
 }
 
 .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
 }
 
 .footer-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15rem;
 }
 
 .footer-column h4 {
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: white;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
 }
 
 .footer-link {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    display: block;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease;
+  font-family: "Publica Sans", sans-serif;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
 }
 
 .footer-link:hover {
-    color: white;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .footer-text {
-    color: rgba(255, 255, 255, 0.8);
-    margin: 1rem 0;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 1rem 0;
 }
 
 .footer-logo {
-    width: 75px;
-    height: auto;
-    margin-bottom: 1rem;
+  width: 75px;
+  height: auto;
+  margin-bottom: 1rem;
 }
 
 .social-icons {
-    display: flex;
-    gap: 1rem;
+  display: flex;
+  gap: 1rem;
 }
 
 .social-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .social-icon i {
-    color: white;
-    font-size: 1.2rem;
+  color: white;
+  font-size: 1.2rem;
 }
 
 .social-icon img {
-    width: 1.5rem;
-    height: 1.5rem;
-    filter: invert(1);
+  width: 1.5rem;
+  height: 1.5rem;
+  filter: invert(1);
 }
 
 .social-icon:hover {
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 }
