@@ -1,488 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generate Story - Storytelling.ai</title>
+    <link rel="icon" href="./assets/ASG.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/generate-story.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Generate Story - Storytelling.ai</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/generate-story.css" />
-</head>
-
-<body>
-  <!-- Header -->
-  <header class="header">
-    <nav class="nav">
-      <div class="nav-brand">
-        <div class="logo-icon">
-          <img src="./assets/navlogo.png" alt="Logo Icon" />
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <div class="nav-brand">
+          <div class="logo-icon">
+            <img src="./assets/navlogo.png" alt="Logo Icon" />
+          </div>
+          <a href="index.html" class="logo">Storytelling.ai</a>
         </div>
-        <a href="index.html" class="logo">Storytelling.ai</a>
-      </div>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="generate-story.html" class="nav-link">Generate Story</a>
-        <a href="favorites.html" class="nav-link">Favorites</a>
-        <a href="recent-stories.html" class="nav-link">Recent Stories</a>
-        <a href="about.html" class="nav-link">About us</a>
-        <button class="login-btn">Login</button>
-      </div>
-      <!-- User Profile Dropdown (when logged in) -->
-      <div class="nav-profile" id="navProfile" style="display: none">
-        <div class="user-dropdown">
-          <button class="user-dropdown-btn" id="userDropdownBtn">
-            <img
-              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
-              alt="User Avatar" class="user-avatar" id="userAvatar" />
-            <span class="user-name" id="userName">User</span>
-            <i class="fas fa-chevron-down dropdown-arrow"></i>
-          </button>
-          <div class="user-dropdown-menu" id="userDropdownMenu">
-            <div class="dropdown-header">
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="generate-story.html" class="nav-link">Generate Story</a>
+          <a href="favorites.html" class="nav-link">Favorites</a>
+          <a href="recent-stories.html" class="nav-link">Recent Stories</a>
+          <a href="about.html" class="nav-link">About us</a>
+          <button class="login-btn">Login</button>
+        </div>
+        <!-- User Profile Dropdown (when logged in) -->
+        <div class="nav-profile" id="navProfile" style="display: none">
+          <div class="user-dropdown">
+            <button class="user-dropdown-btn" id="userDropdownBtn">
               <img
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
-                alt="User Avatar" class="dropdown-avatar" />
-              <div class="dropdown-user-info">
-                <div class="dropdown-user-name" id="dropdownUserName">
-                  User
-                </div>
-                <div class="dropdown-user-full-name" id="dropdownUserFullName"
-                  style="font-size: 12px; color: #9ca3af; margin-top: 2px"></div>
-                <div class="dropdown-user-email" id="dropdownUserEmail">
-                  user@example.com
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
+                alt="User Avatar"
+                class="user-avatar"
+                id="userAvatar"
+              />
+              <span class="user-name" id="userName">User</span>
+              <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </button>
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+              <div class="dropdown-header">
+                <img
+                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
+                  alt="User Avatar"
+                  class="dropdown-avatar"
+                />
+                <div class="dropdown-user-info">
+                  <div class="dropdown-user-name" id="dropdownUserName">
+                    User
+                  </div>
+                  <div
+                    class="dropdown-user-full-name"
+                    id="dropdownUserFullName"
+                    style="font-size: 12px; color: #9ca3af; margin-top: 2px"
+                  ></div>
+                  <div class="dropdown-user-email" id="dropdownUserEmail">
+                    user@example.com
+                  </div>
                 </div>
               </div>
+              <div class="dropdown-divider"></div>
+              <ul class="dropdown-items">
+                <li>
+                  <button class="dropdown-item" id="profileSettingsBtn">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Profile Settings</span>
+                  </button>
+                </li>
+                <li>
+                  <a href="favorites.html" class="dropdown-item">
+                    <i class="fas fa-heart"></i>
+                    <span>View Favorites</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="recent-stories.html" class="dropdown-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Recent Stories</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item"
+                    id="adminLink"
+                    style="display: none"
+                  >
+                    <i class="fas fa-cog"></i>
+                    <span>Admin Dashboard</span>
+                  </a>
+                </li>
+                <li class="dropdown-divider-small"></li>
+                <li>
+                  <button class="dropdown-item logout-item" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                  </button>
+                </li>
+              </ul>
             </div>
-            <div class="dropdown-divider"></div>
-            <ul class="dropdown-items">
-              <li>
-                <button class="dropdown-item" id="profileSettingsBtn">
-                  <i class="fas fa-user-cog"></i>
-                  <span>Profile Settings</span>
-                </button>
-              </li>
-              <li>
-                <a href="favorites.html" class="dropdown-item">
-                  <i class="fas fa-heart"></i>
-                  <span>View Favorites</span>
-                </a>
-              </li>
-              <li>
-                <a href="recent-stories.html" class="dropdown-item">
-                  <i class="fas fa-clock"></i>
-                  <span>Recent Stories</span>
-                </a>
-              </li>
-              <li>
-                <a href="admin.html" class="dropdown-item" id="adminLink" style="display: none">
-                  <i class="fas fa-cog"></i>
-                  <span>Admin Dashboard</span>
-                </a>
-              </li>
-              <li class="dropdown-divider-small"></li>
-              <li>
-                <button class="dropdown-item logout-item" id="logoutBtn">
-                  <i class="fas fa-sign-out-alt"></i>
-                  <span>Logout</span>
-                </button>
-              </li>
-            </ul>
           </div>
         </div>
-      </div>
-    </nav>
-  </header>
+      </nav>
+    </header>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>STORY GENERATION</h1>
-        <p>
-          AI story generation combines the power of artificial intelligence
-          with storytelling to create engaging narratives automatically. By
-          employing algorithms and machine learning, these systems can
-          generate plots, characters, and dialogue, providing a foundation for
-          unique and imaginative stories. From interactive storytelling
-          prompts to collaborative features, AI story generation
-          <strong>ASG</strong> platform cater to a diverse range of users,
-          including children and parents, fostering creativity while ensuring
-          safety through robust privacy and security measures.
-        </p>
-      </div>
-      <div class="hero-image">
-        <img src="./assets/generatepage2.png" alt="Story Generation" class="hero-character" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Story Generator Section -->
-    <section class="story-generator-section">
-      <div class="generator-container">
-        <div class="generator-card">
-          <div class="generator-header">
-            <div class="generator-avatar">
-              <img src="./assets/generatepage1.png" alt="AI Assistant" />
-            </div>
-
-            <div class="generator-title">
-              <h2>AI Story Generator</h2>
-              <p>
-                Create compelling stories tailored to your imagination. Our AI analyzes your prompts and preferences to
-                generate unique narratives with vivid imagery and engaging plots.
-              </p>
-            </div>
-
-            <div class="generator-mascot">
-              <img src="./assets/generatepage.png" alt="Story Character" />
-            </div>
-          </div>
-
-          <div class="asg-logo">
-            <img src="./assets/Group 177.png" alt="ASG Logo" class="logo-image" />
-          </div>
-
-          <form id="storyForm">
-            <!-- Keywords Info Section -->
-            <div class="form-section-header">
-              <h3 class="form-section-title">Story Generation</h3>
-              <div class="info-icon" id="keywordsInfoIcon" title="View Keywords & Genre Guide">
-                <i class="fas fa-info-circle"></i>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <textarea class="form-input form-textarea" placeholder="Generate story about" id="storyTopic"
-                required></textarea>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <input type="number" class="form-input" placeholder="Number of words for story" id="wordCount" min="50"
-                  max="1000" value="200" />
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-input" placeholder="Genre (e.g., Fantasy, Adventure, Mystery)"
-                  id="genre" />
-              </div>
-            </div>
-
-            <div class="form-group">
-              <select class="form-input" id="language">
-                <option value="English" selected>English</option>
-                <option value="Spanish">Spanish</option>
-                <option value="French">French</option>
-                <option value="German">German</option>
-                <option value="Italian">Italian</option>
-              </select>
-            </div>
-
-            <button type="submit" class="generate-btn" id="generateBtn">
-              <span class="loading-spinner" id="loadingSpinner"></span>
-              <span id="btnText">🚀 Generate</span>
-            </button>
-          </form>
-
-          <!-- Story Display Area (inline, not modal) -->
-          <div class="story-display-section" id="storyDisplaySection">
-            <div class="story-display-header">
-              <h3 class="story-display-title">Your Generated Story</h3>
-            </div>
-            <div id="storyDisplay">
-              <div class="story-content" id="storyContent"></div>
-              <img class="story-image" id="storyImage" style="display: none" />
-            </div>
-            <div class="story-actions">
-              <button class="btn-secondary" id="regenerateBtn">
-                Regenerate
-              </button>
-              <button class="btn-primary" id="saveBtn">
-                Save to Favorites
-              </button>
-            </div>
-          </div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h1>STORY GENERATION</h1>
+          <p>
+            AI story generation combines the power of artificial intelligence
+            with storytelling to create engaging narratives automatically. By
+            employing algorithms and machine learning, these systems can
+            generate plots, characters, and dialogue, providing a foundation for
+            unique and imaginative stories. From interactive storytelling
+            prompts to collaborative features, AI story generation
+            <strong>ASG</strong> platform cater to a diverse range of users,
+            including children and parents, fostering creativity while ensuring
+            safety through robust privacy and security measures.
+          </p>
+        </div>
+        <div class="hero-image">
+          <img
+            src="./assets/generatepage2.png"
+            alt="Story Generation"
+            class="hero-character"
+          />
         </div>
       </div>
     </section>
-  </main>
 
-  <!-- Keywords Info Modal -->
-  <div class="modal-overlay" id="keywordsModal">
-    <div class="modal-content keywords-modal">
-      <div class="modal-header">
-        <h3 class="modal-title">Keywords & Genre Guide</h3>
-        <button class="close-btn" id="closeKeywordsModal">&times;</button>
-      </div>
-      <div class="modal-body keywords-modal-body">
-        <p class="keywords-intro">
-          Use these keywords in your story prompt and choose appropriate
-          genres to get the best image generation results:
-        </p>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Story Generator Section -->
+      <section class="story-generator-section">
+        <div class="generator-container">
+          <div class="generator-card">
+            <div class="generator-header">
+              <div class="generator-avatar">
+                <img src="./assets/generatepage1.png" alt="AI Assistant" />
+              </div>
 
-        <div class="keywords-section">
-          <h4 class="keywords-category-title">
-            <span class="category-icon">🏰</span>
-            Fantasy Keywords
-          </h4>
-          <p class="keywords-description">
-            Use these words to generate fantasy, magical, and artistic images:
-          </p>
-          <div class="keywords-grid" id="fantasyKeywords">
-            <span class="keyword-tag">fantasy</span>
-            <span class="keyword-tag">fairy tale</span>
-            <span class="keyword-tag">magic</span>
-            <span class="keyword-tag">magical</span>
-            <span class="keyword-tag">wizard</span>
-            <span class="keyword-tag">witch</span>
-            <span class="keyword-tag">dragon</span>
-            <span class="keyword-tag">castle</span>
-            <span class="keyword-tag">knight</span>
-            <span class="keyword-tag">princess</span>
-            <span class="keyword-tag">prince</span>
-            <span class="keyword-tag">unicorn</span>
-            <span class="keyword-tag">fairy</span>
-            <span class="keyword-tag">elf</span>
-            <span class="keyword-tag">dwarf</span>
-            <span class="keyword-tag">troll</span>
-            <span class="keyword-tag">goblin</span>
-            <span class="keyword-tag">ogre</span>
-            <span class="keyword-tag">monster</span>
-            <span class="keyword-tag">creature</span>
-            <span class="keyword-tag">mythical</span>
-            <span class="keyword-tag">legendary</span>
-            <span class="keyword-tag">enchanted</span>
-            <span class="keyword-tag">spell</span>
-            <span class="keyword-tag">potion</span>
-            <span class="keyword-tag">wand</span>
-            <span class="keyword-tag">sword</span>
-            <span class="keyword-tag">shield</span>
-            <span class="keyword-tag">armor</span>
-            <span class="keyword-tag">quest</span>
-            <span class="keyword-tag">adventure</span>
-            <span class="keyword-tag">kingdom</span>
-            <span class="keyword-tag">realm</span>
-            <span class="keyword-tag">dungeon</span>
-            <span class="keyword-tag">tower</span>
-            <span class="keyword-tag">portal</span>
-            <span class="keyword-tag">crystal</span>
-            <span class="keyword-tag">gem</span>
-            <span class="keyword-tag">treasure</span>
-            <span class="keyword-tag">scroll</span>
-            <span class="keyword-tag">ancient magic</span>
-            <span class="keyword-tag">mystical</span>
-            <span class="keyword-tag">ethereal</span>
-            <span class="keyword-tag">celestial</span>
-            <span class="keyword-tag">divine</span>
-            <span class="keyword-tag">angelic</span>
-            <span class="keyword-tag">demonic</span>
-            <span class="keyword-tag">supernatural</span>
-            <span class="keyword-tag">otherworldly</span>
-            <span class="keyword-tag">anime</span>
-            <span class="keyword-tag">manga</span>
-            <span class="keyword-tag">cartoon</span>
-            <span class="keyword-tag">animated</span>
-            <span class="keyword-tag">stylized</span>
-            <span class="keyword-tag">surreal</span>
-            <span class="keyword-tag">whimsical</span>
-            <span class="keyword-tag">enchanting</span>
-            <span class="keyword-tag">spellbound</span>
-            <span class="keyword-tag">magical realism</span>
-          </div>
-        </div>
+              <div class="generator-title">
+                <h2>AI Story Generator</h2>
+                <p>
+                  Create compelling stories tailored to your imagination. Our AI
+                  analyzes your prompts and preferences to generate unique
+                  narratives with vivid imagery and engaging plots.
+                </p>
+              </div>
 
-        <div class="keywords-section">
-          <h4 class="keywords-category-title">
-            <span class="category-icon">📸</span>
-            Realistic Keywords
-          </h4>
-          <p class="keywords-description">
-            Use these words to generate realistic, photographic images:
-          </p>
-          <div class="keywords-grid" id="realisticKeywords">
-            <span class="keyword-tag">photo</span>
-            <span class="keyword-tag">realistic</span>
-            <span class="keyword-tag">portrait</span>
-            <span class="keyword-tag">landscape</span>
-            <span class="keyword-tag">photography</span>
-            <span class="keyword-tag">street photography</span>
-            <span class="keyword-tag">professional</span>
-            <span class="keyword-tag">business</span>
-            <span class="keyword-tag">lifestyle</span>
-            <span class="keyword-tag">wedding</span>
-            <span class="keyword-tag">architectural</span>
-            <span class="keyword-tag">interior design</span>
-            <span class="keyword-tag">exterior</span>
-            <span class="keyword-tag">urban</span>
-            <span class="keyword-tag">rural</span>
-            <span class="keyword-tag">contemporary</span>
-            <span class="keyword-tag">photorealistic</span>
-            <span class="keyword-tag">candid</span>
-            <span class="keyword-tag">documentary</span>
-            <span class="keyword-tag">journalistic</span>
-            <span class="keyword-tag">studio</span>
-            <span class="keyword-tag">natural lighting</span>
-            <span class="keyword-tag">bokeh</span>
-            <span class="keyword-tag">depth of field</span>
-            <span class="keyword-tag">macro</span>
-            <span class="keyword-tag">telephoto</span>
-            <span class="keyword-tag">wide angle</span>
-          </div>
-        </div>
-
-        <div class="keywords-section">
-          <h4 class="keywords-category-title">
-            <span class="category-icon">🎭</span>
-            Genre Suggestions
-          </h4>
-          <p class="keywords-description">
-            Choose genres that work best with each image generation model:
-          </p>
-
-          <div class="genre-subsection">
-            <h5 class="genre-model-title">
-              <span class="model-icon">🏰</span>
-              Fantasy Model - Best Genres:
-            </h5>
-            <div class="keywords-grid">
-              <span class="keyword-tag genre-tag">Fantasy</span>
-              <span class="keyword-tag genre-tag">Fairy Tale</span>
-              <span class="keyword-tag genre-tag">Magical Realism</span>
-              <span class="keyword-tag genre-tag">Adventure</span>
-              <span class="keyword-tag genre-tag">Epic Fantasy</span>
-              <span class="keyword-tag genre-tag">Urban Fantasy</span>
-              <span class="keyword-tag genre-tag">Dark Fantasy</span>
-              <span class="keyword-tag genre-tag">Mythology</span>
-              <span class="keyword-tag genre-tag">Supernatural</span>
-              <span class="keyword-tag genre-tag">Science Fantasy</span>
-              <span class="keyword-tag genre-tag">Gothic</span>
-              <span class="keyword-tag genre-tag">Steampunk</span>
-              <span class="keyword-tag genre-tag">Anime</span>
-              <span class="keyword-tag genre-tag">Animation</span>
-              <span class="keyword-tag genre-tag">Children's Story</span>
+              <div class="generator-mascot">
+                <img src="./assets/generatepage.png" alt="Story Character" />
+              </div>
             </div>
-          </div>
 
-          <div class="genre-subsection">
-            <h5 class="genre-model-title">
-              <span class="model-icon">📸</span>
-              Realistic Model - Best Genres:
-            </h5>
-            <div class="keywords-grid">
-              <span class="keyword-tag genre-tag">Romance</span>
-              <span class="keyword-tag genre-tag">Drama</span>
-              <span class="keyword-tag genre-tag">Contemporary Fiction</span>
-              <span class="keyword-tag genre-tag">Historical Fiction</span>
-              <span class="keyword-tag genre-tag">Biography</span>
-              <span class="keyword-tag genre-tag">Non-fiction</span>
-              <span class="keyword-tag genre-tag">Crime</span>
-              <span class="keyword-tag genre-tag">Thriller</span>
-              <span class="keyword-tag genre-tag">Mystery</span>
-              <span class="keyword-tag genre-tag">Psychological</span>
-              <span class="keyword-tag genre-tag">Literary Fiction</span>
-              <span class="keyword-tag genre-tag">Memoir</span>
-              <span class="keyword-tag genre-tag">Documentary</span>
-              <span class="keyword-tag genre-tag">Slice of Life</span>
-              <span class="keyword-tag genre-tag">Coming of Age</span>
+            <div class="asg-logo">
+              <img
+                src="./assets/Group 177.png"
+                alt="ASG Logo"
+                class="logo-image"
+              />
             </div>
-          </div>
 
-          <div class="genre-subsection">
-            <h5 class="genre-model-title">
-              <span class="model-icon">⚡</span>
-              Flexible Genres (Any Model):
-            </h5>
-            <div class="keywords-grid">
-              <span class="keyword-tag genre-tag">Action</span>
-              <span class="keyword-tag genre-tag">Adventure</span>
-              <span class="keyword-tag genre-tag">Horror</span>
-              <span class="keyword-tag genre-tag">Comedy</span>
-              <span class="keyword-tag genre-tag">Humor</span>
-              <span class="keyword-tag genre-tag">Satire</span>
-              <span class="keyword-tag genre-tag">Dystopian</span>
-              <span class="keyword-tag genre-tag">Post-Apocalyptic</span>
-              <span class="keyword-tag genre-tag">Western</span>
-              <span class="keyword-tag genre-tag">War</span>
-              <span class="keyword-tag genre-tag">Espionage</span>
-              <span class="keyword-tag genre-tag">Philosophical</span>
+            <form id="storyForm">
+              <!-- Keywords Info Section -->
+              <div class="form-section-header">
+                <h3 class="form-section-title">Story Generation</h3>
+                <div
+                  class="info-icon"
+                  id="keywordsInfoIcon"
+                  title="View Keywords & Genre Guide"
+                >
+                  <i class="fas fa-info-circle"></i>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  class="form-input form-textarea"
+                  placeholder="Generate story about"
+                  id="storyTopic"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    class="form-input"
+                    placeholder="Number of words for story"
+                    id="wordCount"
+                    min="50"
+                    max="1000"
+                    value="200"
+                  />
+                </div>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    class="form-input"
+                    placeholder="Genre (e.g., Fantasy, Adventure, Mystery)"
+                    id="genre"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <select class="form-input" id="language">
+                  <option value="English" selected>English</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
+                  <option value="German">German</option>
+                  <option value="Italian">Italian</option>
+                </select>
+              </div>
+
+              <button type="submit" class="generate-btn" id="generateBtn">
+                <span class="loading-spinner" id="loadingSpinner"></span>
+                <span id="btnText">🚀 Generate</span>
+              </button>
+            </form>
+
+            <!-- Story Display Area (inline, not modal) -->
+            <div class="story-display-section" id="storyDisplaySection">
+              <div class="story-display-header">
+                <h3 class="story-display-title">Your Generated Story</h3>
+              </div>
+              <div id="storyDisplay">
+                <div class="story-content" id="storyContent"></div>
+                <img
+                  class="story-image"
+                  id="storyImage"
+                  style="display: none"
+                />
+              </div>
+              <div class="story-actions">
+                <button class="btn-secondary" id="regenerateBtn">
+                  Regenerate
+                </button>
+                <button class="btn-primary" id="saveBtn">
+                  Save to Favorites
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="keywords-tip">
-          <div class="tip-icon">💡</div>
-          <div class="tip-content">
-            <strong>How it works:</strong> The system analyzes both your story
-            prompt (keywords) and genre selection to automatically choose the
-            best AI model. For example: "A magical wizard casting a spell" +
-            "Fantasy" genre will trigger the fantasy model for magical
-            artwork.
+    <!-- Keywords Info Modal -->
+    <div class="modal-overlay" id="keywordsModal">
+      <div class="modal-content keywords-modal">
+        <div class="modal-header">
+          <h3 class="modal-title">Keywords & Genre Guide</h3>
+          <button class="close-btn" id="closeKeywordsModal">&times;</button>
+        </div>
+        <div class="modal-body keywords-modal-body">
+          <p class="keywords-intro">
+            Use these keywords in your story prompt and choose appropriate
+            genres to get the best image generation results:
+          </p>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">🏰</span>
+              Fantasy Keywords
+            </h4>
+            <p class="keywords-description">
+              Use these words to generate fantasy, magical, and artistic images:
+            </p>
+            <div class="keywords-grid" id="fantasyKeywords">
+              <span class="keyword-tag">fantasy</span>
+              <span class="keyword-tag">fairy tale</span>
+              <span class="keyword-tag">magic</span>
+              <span class="keyword-tag">magical</span>
+              <span class="keyword-tag">wizard</span>
+              <span class="keyword-tag">witch</span>
+              <span class="keyword-tag">dragon</span>
+              <span class="keyword-tag">castle</span>
+              <span class="keyword-tag">knight</span>
+              <span class="keyword-tag">princess</span>
+              <span class="keyword-tag">prince</span>
+              <span class="keyword-tag">unicorn</span>
+              <span class="keyword-tag">fairy</span>
+              <span class="keyword-tag">elf</span>
+              <span class="keyword-tag">dwarf</span>
+              <span class="keyword-tag">troll</span>
+              <span class="keyword-tag">goblin</span>
+              <span class="keyword-tag">ogre</span>
+              <span class="keyword-tag">monster</span>
+              <span class="keyword-tag">creature</span>
+              <span class="keyword-tag">mythical</span>
+              <span class="keyword-tag">legendary</span>
+              <span class="keyword-tag">enchanted</span>
+              <span class="keyword-tag">spell</span>
+              <span class="keyword-tag">potion</span>
+              <span class="keyword-tag">wand</span>
+              <span class="keyword-tag">sword</span>
+              <span class="keyword-tag">shield</span>
+              <span class="keyword-tag">armor</span>
+              <span class="keyword-tag">quest</span>
+              <span class="keyword-tag">adventure</span>
+              <span class="keyword-tag">kingdom</span>
+              <span class="keyword-tag">realm</span>
+              <span class="keyword-tag">dungeon</span>
+              <span class="keyword-tag">tower</span>
+              <span class="keyword-tag">portal</span>
+              <span class="keyword-tag">crystal</span>
+              <span class="keyword-tag">gem</span>
+              <span class="keyword-tag">treasure</span>
+              <span class="keyword-tag">scroll</span>
+              <span class="keyword-tag">ancient magic</span>
+              <span class="keyword-tag">mystical</span>
+              <span class="keyword-tag">ethereal</span>
+              <span class="keyword-tag">celestial</span>
+              <span class="keyword-tag">divine</span>
+              <span class="keyword-tag">angelic</span>
+              <span class="keyword-tag">demonic</span>
+              <span class="keyword-tag">supernatural</span>
+              <span class="keyword-tag">otherworldly</span>
+              <span class="keyword-tag">anime</span>
+              <span class="keyword-tag">manga</span>
+              <span class="keyword-tag">cartoon</span>
+              <span class="keyword-tag">animated</span>
+              <span class="keyword-tag">stylized</span>
+              <span class="keyword-tag">surreal</span>
+              <span class="keyword-tag">whimsical</span>
+              <span class="keyword-tag">enchanting</span>
+              <span class="keyword-tag">spellbound</span>
+              <span class="keyword-tag">magical realism</span>
+            </div>
+          </div>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">📸</span>
+              Realistic Keywords
+            </h4>
+            <p class="keywords-description">
+              Use these words to generate realistic, photographic images:
+            </p>
+            <div class="keywords-grid" id="realisticKeywords">
+              <span class="keyword-tag">photo</span>
+              <span class="keyword-tag">realistic</span>
+              <span class="keyword-tag">portrait</span>
+              <span class="keyword-tag">landscape</span>
+              <span class="keyword-tag">photography</span>
+              <span class="keyword-tag">street photography</span>
+              <span class="keyword-tag">professional</span>
+              <span class="keyword-tag">business</span>
+              <span class="keyword-tag">lifestyle</span>
+              <span class="keyword-tag">wedding</span>
+              <span class="keyword-tag">architectural</span>
+              <span class="keyword-tag">interior design</span>
+              <span class="keyword-tag">exterior</span>
+              <span class="keyword-tag">urban</span>
+              <span class="keyword-tag">rural</span>
+              <span class="keyword-tag">contemporary</span>
+              <span class="keyword-tag">photorealistic</span>
+              <span class="keyword-tag">candid</span>
+              <span class="keyword-tag">documentary</span>
+              <span class="keyword-tag">journalistic</span>
+              <span class="keyword-tag">studio</span>
+              <span class="keyword-tag">natural lighting</span>
+              <span class="keyword-tag">bokeh</span>
+              <span class="keyword-tag">depth of field</span>
+              <span class="keyword-tag">macro</span>
+              <span class="keyword-tag">telephoto</span>
+              <span class="keyword-tag">wide angle</span>
+            </div>
+          </div>
+
+          <div class="keywords-section">
+            <h4 class="keywords-category-title">
+              <span class="category-icon">🎭</span>
+              Genre Suggestions
+            </h4>
+            <p class="keywords-description">
+              Choose genres that work best with each image generation model:
+            </p>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">🏰</span>
+                Fantasy Model - Best Genres:
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Fantasy</span>
+                <span class="keyword-tag genre-tag">Fairy Tale</span>
+                <span class="keyword-tag genre-tag">Magical Realism</span>
+                <span class="keyword-tag genre-tag">Adventure</span>
+                <span class="keyword-tag genre-tag">Epic Fantasy</span>
+                <span class="keyword-tag genre-tag">Urban Fantasy</span>
+                <span class="keyword-tag genre-tag">Dark Fantasy</span>
+                <span class="keyword-tag genre-tag">Mythology</span>
+                <span class="keyword-tag genre-tag">Supernatural</span>
+                <span class="keyword-tag genre-tag">Science Fantasy</span>
+                <span class="keyword-tag genre-tag">Gothic</span>
+                <span class="keyword-tag genre-tag">Steampunk</span>
+                <span class="keyword-tag genre-tag">Anime</span>
+                <span class="keyword-tag genre-tag">Animation</span>
+                <span class="keyword-tag genre-tag">Children's Story</span>
+              </div>
+            </div>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">📸</span>
+                Realistic Model - Best Genres:
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Romance</span>
+                <span class="keyword-tag genre-tag">Drama</span>
+                <span class="keyword-tag genre-tag">Contemporary Fiction</span>
+                <span class="keyword-tag genre-tag">Historical Fiction</span>
+                <span class="keyword-tag genre-tag">Biography</span>
+                <span class="keyword-tag genre-tag">Non-fiction</span>
+                <span class="keyword-tag genre-tag">Crime</span>
+                <span class="keyword-tag genre-tag">Thriller</span>
+                <span class="keyword-tag genre-tag">Mystery</span>
+                <span class="keyword-tag genre-tag">Psychological</span>
+                <span class="keyword-tag genre-tag">Literary Fiction</span>
+                <span class="keyword-tag genre-tag">Memoir</span>
+                <span class="keyword-tag genre-tag">Documentary</span>
+                <span class="keyword-tag genre-tag">Slice of Life</span>
+                <span class="keyword-tag genre-tag">Coming of Age</span>
+              </div>
+            </div>
+
+            <div class="genre-subsection">
+              <h5 class="genre-model-title">
+                <span class="model-icon">⚡</span>
+                Flexible Genres (Any Model):
+              </h5>
+              <div class="keywords-grid">
+                <span class="keyword-tag genre-tag">Action</span>
+                <span class="keyword-tag genre-tag">Adventure</span>
+                <span class="keyword-tag genre-tag">Horror</span>
+                <span class="keyword-tag genre-tag">Comedy</span>
+                <span class="keyword-tag genre-tag">Humor</span>
+                <span class="keyword-tag genre-tag">Satire</span>
+                <span class="keyword-tag genre-tag">Dystopian</span>
+                <span class="keyword-tag genre-tag">Post-Apocalyptic</span>
+                <span class="keyword-tag genre-tag">Western</span>
+                <span class="keyword-tag genre-tag">War</span>
+                <span class="keyword-tag genre-tag">Espionage</span>
+                <span class="keyword-tag genre-tag">Philosophical</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="keywords-tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-content">
+              <strong>How it works:</strong> The system analyzes both your story
+              prompt (keywords) and genre selection to automatically choose the
+              best AI model. For example: "A magical wizard casting a spell" +
+              "Fantasy" genre will trigger the fantasy model for magical
+              artwork.
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Result Modal (kept for backwards compatibility) -->
-  <div class="modal-overlay" id="resultModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Your Generated Story</h3>
-        <button class="close-btn" id="closeModal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <div id="modalStoryDisplay">
-          <div class="story-content" id="modalStoryContent"></div>
-          <img class="story-image" id="modalStoryImage" style="display: none" />
+    <!-- Result Modal (kept for backwards compatibility) -->
+    <div class="modal-overlay" id="resultModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Your Generated Story</h3>
+          <button class="close-btn" id="closeModal">&times;</button>
         </div>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="modalRegenerateBtn">
-          Regenerate
-        </button>
-        <button class="btn-primary" id="modalSaveBtn">
-          Save to Favorites
-        </button>
+        <div class="modal-body">
+          <div id="modalStoryDisplay">
+            <div class="story-content" id="modalStoryContent"></div>
+            <img
+              class="story-image"
+              id="modalStoryImage"
+              style="display: none"
+            />
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="modalRegenerateBtn">
+            Regenerate
+          </button>
+          <button class="btn-primary" id="modalSaveBtn">
+            Save to Favorites
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-links">
-        <div class="footer-column">
-          <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
-          <a href="#" class="footer-link">Terms of Service</a>
-          <a href="about.html" class="footer-link">About Us</a>
-        </div>
-        <div class="footer-column">
-          <h4>Features</h4>
-          <a href="generate-story.html" class="footer-link">Generate Story</a>
-          <a href="favorites.html" class="footer-link">Favorite Stories</a>
-          <a href="recent-stories.html" class="footer-link">Recent Stories</a>
-        </div>
-        <div class="footer-column">
-          <h4>Contact Us</h4>
-          <a href="#" class="footer-link">Support Center</a>
-          <a href="#" class="footer-link">Stay in touch</a>
-          <div class="social-icons">
-            <a href="#" class="social-icon"><img src="./assets/facebook-app-round-icon.svg" alt="Facebook" /></a>
-            <a href="#" class="social-icon"><img src="./assets/x-social-media-black-icon.svg" alt="Twitter" /></a>
-            <a href="#" class="social-icon"><img src="./assets/black-instagram-icon.svg" alt="Instagram" /></a>
-            <a href="#" class="social-icon"><img src="./assets/youtube-icon.svg" alt="Youtube" /></a>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <div class="footer-column">
+            <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="about.html" class="footer-link">About Us</a>
+          </div>
+          <div class="footer-column">
+            <h4>Features</h4>
+            <a href="generate-story.html" class="footer-link">Generate Story</a>
+            <a href="favorites.html" class="footer-link">Favorite Stories</a>
+            <a href="recent-stories.html" class="footer-link">Recent Stories</a>
+          </div>
+          <div class="footer-column">
+            <h4>Contact Us</h4>
+            <a href="#" class="footer-link">Support Center</a>
+            <a href="#" class="footer-link">Stay in touch</a>
+            <div class="social-icons">
+              <a href="#" class="social-icon"
+                ><img src="./assets/facebook-app-round-icon.svg" alt="Facebook"
+              /></a>
+              <a href="#" class="social-icon"
+                ><img
+                  src="./assets/x-social-media-black-icon.svg"
+                  alt="Twitter"
+              /></a>
+              <a href="#" class="social-icon"
+                ><img src="./assets/black-instagram-icon.svg" alt="Instagram"
+              /></a>
+              <a href="#" class="social-icon"
+                ><img src="./assets/youtube-icon.svg" alt="Youtube"
+              /></a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </footer>
-  <!-- Include API integration script -->
-  <script src="api.js"></script>
-  <script src="js/profile-settings-component.js"></script>
+    </footer>
+    <!-- Include API integration script -->
+    <script src="api.js"></script>
+    <script src="js/profile-settings-component.js"></script>
 
-  <script src="js/generate-story.js"></script>
-</body>
-
+    <script src="js/generate-story.js"></script>
+  </body>
 </html>
