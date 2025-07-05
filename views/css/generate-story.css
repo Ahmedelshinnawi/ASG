@@ -500,7 +500,7 @@ body {
 .form-input {
   width: 100%;
   padding: 1rem 1.5rem;
-  border: 2px solid #e5e7eb;
+  border: 2px solid #0867ffde;
   border-radius: 0.75rem;
   font-size: 1rem;
   transition: all 0.3s ease;
