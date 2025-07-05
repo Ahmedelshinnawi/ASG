@@ -402,7 +402,7 @@ body {
 }
 
 .story-image {
-  max-height: 175px;
+  max-height: 192px;
   object-fit: contain;
   flex-shrink: 0;
   background: #f8fafc;
@@ -1008,7 +1008,7 @@ body {
 .footer-top-right-image {
   position: relative;
   top: 105px;
-  right: -65rem;
+  right: -50rem;
   max-width: 23rem;
   max-height: 15rem;
 }
