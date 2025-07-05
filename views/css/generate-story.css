@@ -438,11 +438,7 @@ body {
 }
 
 .generator-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid #60a5fa;
+  width: 125px;
 }
 
 .generator-avatar img {
@@ -472,11 +468,7 @@ body {
 }
 
 .generator-mascot {
-  width: 80px;
-  height: 80px;
-  border-radius: 1rem;
-  overflow: hidden;
-  border: 3px solid #60a5fa;
+  width: 125px;
 }
 
 .generator-mascot img {
@@ -490,9 +482,10 @@ body {
   margin: 2rem 0;
 }
 
-.asg-logo svg {
+.logo-image{
   width: 100px;
-  height: 40px;
+  height: auto;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 .form-group {
