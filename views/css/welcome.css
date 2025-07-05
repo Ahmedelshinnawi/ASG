@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Regular.ttf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
   background: linear-gradient(135deg, #f0f4f8, #e2e8f0);
@@ -83,10 +88,12 @@ body {
 }
 
 .welcome-title {
+  font-family: "Poppins", sans-serif;
   font-size: 2.5rem;
   font-weight: 700;
   color: #2563eb;
   margin-bottom: 2px;
+  padding: 0 0 1rem 6px;
 }
 
 .auth-tabs {
@@ -99,6 +106,7 @@ body {
 }
 
 .tab-btn {
+  font-family: "Poppins", sans-serif;
   flex: 1;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -140,6 +148,7 @@ body {
 }
 
 .form-input {
+  font-family: "Poppins", sans-serif;
   width: 100%;
   padding: 1rem 1.5rem;
   border: 2px solid #0061e3b0;
@@ -147,7 +156,6 @@ body {
   font-size: 1rem;
   transition: all 0.3s ease;
   background: #f8fafc;
-  font-family: inherit;
 }
 
 .form-input:focus {
@@ -183,6 +191,7 @@ body {
 }
 
 .primary-btn {
+  font-family: "Poppins", sans-serif;
   width: 100%;
   background: #2563eb;
   color: white;
@@ -213,6 +222,7 @@ body {
 }
 
 .secondary-btn {
+  font-family: "Poppins", sans-serif;
   width: 100%;
   background: transparent;
   color: #2563eb;
@@ -251,11 +261,12 @@ body {
 }
 
 .divider {
+  font-family: "Poppins", sans-serif;
   display: flex;
   align-items: center;
   margin: 6px 0;
   color: #2563eb;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .divider::before,
@@ -297,6 +308,7 @@ body {
 }
 
 .forgot-password {
+  font-family: "Poppins", sans-serif;
   text-align: center;
   margin: 1rem 0;
 }
