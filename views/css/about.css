@@ -24,6 +24,11 @@
   src: url("../fonts/FaceType\ -\ PublicaSans-Regular.otf") format("truetype");
 }
 
+@font-face {
+  font-family: "Agbalumo";
+  src: url("../fonts/Agbalumo-Regular.ttf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
@@ -57,6 +62,7 @@ body {
 }
 
 .nav-brand .logo {
+  font-family: "Agbalumo", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
@@ -352,7 +358,6 @@ body {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);

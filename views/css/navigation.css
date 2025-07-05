@@ -6,7 +6,10 @@
   top: 0;
   z-index: 100;
 }
-
+@font-face {
+  font-family: "Agbalumo";
+  src: url("../fonts/Agbalumo-Regular.ttf") format("truetype");
+}
 .nav {
   max-width: 1200px;
   margin: 0 auto;
@@ -22,6 +25,7 @@
 }
 
 .nav-brand .logo {
+  font-family: "Agbalumo", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: white;

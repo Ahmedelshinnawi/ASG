@@ -20,7 +20,10 @@ body {
   font-family: "Publica Sans";
   src: url("../fonts/FaceType\ -\ PublicaSans-Regular.otf") format("truetype");
 }
-
+@font-face {
+  font-family: "Agbalumo";
+  src: url("../fonts/Agbalumo-Regular.ttf") format("truetype");
+}
 /* Header Styles */
 .header {
   background: #0866ff;
@@ -45,6 +48,7 @@ body {
 }
 
 .nav-brand .logo {
+  font-family: "Agbalumo", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: white;
