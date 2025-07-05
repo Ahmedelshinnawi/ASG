@@ -8,18 +8,27 @@
   font-family: "Neometric";
   src: url("../fonts/NeometricAlt-Bold.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Touche";
+  src: url("../fonts/Touche-Regular-BF642a2ebfe9ff0.otf") format("truetype");
+}
 
+@font-face {
+  font-family: "TT Hoves Pro";
+  src: url("../fonts/TT\ Hoves\ Pro\ Trial\ Medium.ttf") format("truetype");
+}
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
   color: #333;
-  background: linear-gradient(135deg, #3b82f6, #2563eb, #1d4ed8);
+  background: white;
   min-height: 100vh;
+  position: relative;
 }
 
 /* Header Styles */
 .header {
-  background: #0866FF;
+  background: #0866ff;
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -54,6 +63,8 @@ body {
 }
 
 .nav-link {
+  font-family: "Publica Sans", sans-serif;
+  font-size: 1.1rem;
   color: white;
   text-decoration: none;
   font-weight: 500;
@@ -62,6 +73,8 @@ body {
 
 .nav-link:hover {
   opacity: 0.8;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .login-btn {
@@ -273,8 +286,11 @@ body {
 
 /* Main Content */
 .main-content {
-  color: white;
+  color: #333;
   padding: 4rem 0;
+  position: relative;
+  z-index: 1;
+  background: white;
 }
 
 .container {
@@ -287,24 +303,26 @@ body {
 .who-we-are {
   text-align: center;
   margin-bottom: 4rem;
-  color: white;
+  color: #333;
 }
 
 .section-title {
+  font-family: "TT Hoves Pro", sans-serif;
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 2rem;
   letter-spacing: 1px;
+  color: #ffffff;
 }
 
 .section-description {
-  font-family: "Neometric", sans-serif;
+  font-family: "Touche", sans-serif;
   font-size: 1.2rem;
   font-weight: 500;
   line-height: 1.8;
   max-width: 800px;
   margin: 0 auto;
-  /* opacity: 0.95; */
+  color: #ffffff;
 }
 
 /* Team Image Section */
@@ -325,7 +343,6 @@ body {
 }
 
 @keyframes float {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -338,96 +355,119 @@ body {
 
 /* Company Description */
 .company-description {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(59, 130, 246, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 1.5rem;
   padding: 3rem;
   margin: 4rem 0;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.2);
 }
 
 .company-description p {
+  font-family: "Touche", sans-serif;
   font-size: 1.1rem;
   line-height: 1.8;
   text-align: center;
+  color: #333;
 }
 
 .highlight {
   font-weight: 700;
-  color: #fbbf24;
+  color: #3b82f6;
 }
 
 /* Team Member Section */
 .team-member-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 2rem;
   margin: 4rem 0;
   justify-items: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .team-member-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  max-width: 300px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  color: #333;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  padding: 1rem;
+  outline: none !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.team-member-card:focus {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .team-member-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.team-member-card:active {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.team-member-section:hover .team-member-card:not(:hover) {
+  transform: scale(0.95);
+}
+
+.team-member-card:hover {
+  transform: scale(1.1);
 }
 
 .member-photo {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto 1.5rem;
-  border: 4px solid #ec4899;
+  margin-bottom: 1rem;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease;
+}
+
+.member-photo:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.member-photo:focus {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .member-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #333;
 }
 
 .member-role {
-  color: #6b7280;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
+  color: #666;
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin-bottom: 0;
 }
 
 .social-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.social-link {
-  width: 2.5rem;
-  height: 2.5rem;
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  font-size: 1.2rem;
-}
-
-.social-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: none;
 }
 
 .asg-logo-center {
@@ -437,29 +477,31 @@ body {
 }
 
 .asg-logo-large {
-  font-size: 4rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 30px rgba(236, 72, 153, 0.5);
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
   animation: glow 2s ease-in-out infinite alternate;
+  transition: all 0.3s ease;
+}
+
+.asg-logo-large:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
 }
 
 @keyframes glow {
   from {
-    text-shadow: 0 0 20px rgba(236, 72, 153, 0.5);
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3));
   }
 
   to {
-    text-shadow: 0 0 30px rgba(236, 72, 153, 0.8);
+    filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.5));
   }
 }
 
 /* Footer */
 .footer {
-  background: #0866FF;
+  background: #0866ff;
   color: white;
   padding: 3rem 0 2rem;
   margin-top: 4rem;
@@ -484,6 +526,8 @@ body {
 }
 
 .footer-link {
+  font-family: "Publica Sans", sans-serif;
+  font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
   display: block;
@@ -492,7 +536,8 @@ body {
 }
 
 .footer-link:hover {
-  color: white;
+  color: #70eeff;
+  transition: all 0.5s ease;
 }
 
 .footer-text {
@@ -573,14 +618,18 @@ body {
   }
 
   .team-member-section {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
   }
 
   .team-member-card {
-    padding: 1.5rem;
-    max-width: none;
+    padding: 0.75rem;
+  }
+
+  .member-photo {
+    width: 80px;
+    height: 80px;
   }
 
   .footer-content {
@@ -590,6 +639,19 @@ body {
 }
 
 @media (max-width: 480px) {
+  .wave-background {
+    height: 45vh;
+  }
+
+  .main-content {
+    margin-top: 45vh;
+    padding: 2rem 0;
+  }
+
+  .who-we-are {
+    top: -35vh;
+  }
+
   .container {
     padding: 0 1rem;
   }
@@ -598,12 +660,31 @@ body {
     font-size: 2rem;
   }
 
-  .main-content {
-    padding: 2rem 0;
-  }
-
   .company-description {
     padding: 1.5rem;
+  }
+
+  .team-member-section {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .team-member-card {
+    padding: 0.5rem;
+  }
+
+  .member-photo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .member-name {
+    font-size: 1rem;
+  }
+
+  .member-role {
+    font-size: 0.8rem;
   }
 }
 
