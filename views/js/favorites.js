@@ -4,6 +4,29 @@ const itemsPerPage = 10;
 let isLoading = false;
 let hasMoreItems = true;
 
+// Function to clean story titles by removing genre and length information
+function cleanStoryTitle(title) {
+  // Handle null, undefined, or empty string cases
+  if (!title || title === null || title === undefined || title === "")
+    return "Generated Story";
+
+  // Convert to string to handle any edge cases
+  const titleStr = String(title);
+
+  // Handle the case where String(null) returns "null"
+  if (titleStr === "null" || titleStr === "undefined") return "Generated Story";
+
+  // Remove genre and length information from the title
+  let cleanedTitle = titleStr
+    .replace(/\s*\(Genre:\s*[^)]*\)/gi, "") // Remove (Genre: ...)
+    .replace(/\s*\(Length:\s*[^)]*\)/gi, "") // Remove (Length: ...)
+    .replace(/\s*\(Language:\s*[^)]*\)/gi, "") // Remove (Language: ...)
+    .trim();
+
+  // If the cleaned title is empty, return a default
+  return cleanedTitle || "Generated Story";
+}
+
 // Show loading state
 function showLoadingState() {
   const loadingContainer = document.getElementById("loadingContainer");
@@ -298,9 +321,9 @@ function createFavoriteCard(favorite) {
     <div class="story-card-content">
       <img src="${imageUrl}" alt="Story illustration" class="story-image" />
       <div class="story-details">
-        <h3 class="story-title">${
-          favorite.prompt || favorite.title || "Generated Story"
-        }</h3>
+        <h3 class="story-title">${cleanStoryTitle(
+          favorite.prompt || favorite.title
+        )}</h3>
         <p class="story-description">${shortDescription}</p>
         <div class="story-meta">
           <span class="story-date">Created: ${createdDate}</span>
@@ -342,7 +365,9 @@ function viewStory(story) {
   }
 
   // Set the title
-  modalTitle.textContent = story.prompt || story.title || "Generated Story";
+  modalTitle.textContent = cleanStoryTitle(
+    story.prompt || story.title || "Generated Story"
+  );
 
   // Create the modal content
   const imageUrl = story.image_data

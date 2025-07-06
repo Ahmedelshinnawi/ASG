@@ -26,6 +26,29 @@ let currentModalStory = null;
 let allStories = [];
 let filteredStories = [];
 
+// Function to clean story titles by removing genre and length information
+function cleanStoryTitle(title) {
+  // Handle null, undefined, or empty string cases
+  if (!title || title === null || title === undefined || title === "")
+    return "Generated Story";
+
+  // Convert to string to handle any edge cases
+  const titleStr = String(title);
+
+  // Handle the case where String(null) returns "null"
+  if (titleStr === "null" || titleStr === "undefined") return "Generated Story";
+
+  // Remove genre and length information from the title
+  let cleanedTitle = titleStr
+    .replace(/\s*\(Genre:\s*[^)]*\)/gi, "") // Remove (Genre: ...)
+    .replace(/\s*\(Length:\s*[^)]*\)/gi, "") // Remove (Length: ...)
+    .replace(/\s*\(Language:\s*[^)]*\)/gi, "") // Remove (Language: ...)
+    .trim();
+
+  // If the cleaned title is empty, return a default
+  return cleanedTitle || "Generated Story";
+}
+
 // Load stories on page load
 document.addEventListener("DOMContentLoaded", async () => {
   await loadRecentStories();
@@ -34,11 +57,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 function setupEventListeners() {
   // Sort functionality
-  sortSelect?.addEventListener('change', handleSort);
+  sortSelect?.addEventListener("change", handleSort);
 
   // View toggle
-  gridViewBtn?.addEventListener('click', () => setView('grid'));
-  listViewBtn?.addEventListener('click', () => setView('list'));
+  gridViewBtn?.addEventListener("click", () => setView("grid"));
+  listViewBtn?.addEventListener("click", () => setView("list"));
 }
 
 function handleSort() {
@@ -51,14 +74,18 @@ function applySortAndDisplay() {
   let sortedStories = [...filteredStories];
 
   switch (sortValue) {
-    case 'newest':
-      sortedStories.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    case "newest":
+      sortedStories.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
       break;
-    case 'oldest':
-      sortedStories.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+    case "oldest":
+      sortedStories.sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
+      );
       break;
-    case 'favorites':
-      sortedStories = sortedStories.filter(story => story.is_favorite);
+    case "favorites":
+      sortedStories = sortedStories.filter((story) => story.is_favorite);
       break;
   }
 
@@ -67,23 +94,22 @@ function applySortAndDisplay() {
 }
 
 function setView(viewType) {
-  if (viewType === 'grid') {
-    storiesGrid.classList.remove('list-view');
-    gridViewBtn.classList.add('active');
-    listViewBtn.classList.remove('active');
-  } else {
-    storiesGrid.classList.add('list-view');
-    listViewBtn.classList.add('active');
-    gridViewBtn.classList.remove('active');
-  }
+  gridViewBtn.classList.toggle("active", viewType === "grid");
+  listViewBtn.classList.toggle("active", viewType === "list");
+  storiesGrid.classList.toggle("list-view", viewType === "list");
+  localStorage.setItem("viewPreference", viewType);
+  // Refresh the display to update card structure
+  displayStories(filteredStories);
 }
 
 function updateStoriesCount(count) {
   if (storiesCount) {
-    const countText = storiesCount.querySelector('.count-text');
+    const countText = storiesCount.querySelector(".count-text");
     if (countText) {
-      countText.textContent = `${count} ${count === 1 ? 'story' : 'stories'} found`;
-      storiesCount.style.display = count > 0 ? 'block' : 'none';
+      countText.textContent = `${count} ${
+        count === 1 ? "story" : "stories"
+      } found`;
+      storiesCount.style.display = count > 0 ? "block" : "none";
     }
   }
 }
@@ -184,57 +210,133 @@ function createStoryCard(story, index = 0) {
 
   const wordCount = storyText.split(" ").length;
 
-  card.innerHTML = `
-          <div class="story-header">
-            <div class="story-date">${formattedDate}</div>
+  // Check if in list view mode
+  const isListView = storiesGrid.classList.contains("list-view");
+
+  if (isListView) {
+    card.innerHTML = `
+      <div class="story-card-content">
+        ${
+          story.image_data || story.image_base64
+            ? `<img class="story-image" src="data:image/${
+                story.image_format || "png"
+              };base64,${
+                story.image_data || story.image_base64
+              }" alt="Story illustration" />`
+            : ""
+        }
+        <div class="story-details">
+          <div class="story-header-section">
+            <h3 class="story-title">${cleanStoryTitle(
+              story.title || story.prompt || "Generated Story"
+            )}</h3>
             <div class="story-actions">
-              <button class="action-btn ${story.is_favorite ? "favorite" : ""}" 
-                      onclick="event.stopPropagation(); toggleFavorite(${story.id
-    }, this);" 
-                      title="${story.is_favorite
-      ? "Remove from favorites"
-      : "Add to favorites"
-    }">
-                ${story.is_favorite
-      ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
-      : "<i class='fa-regular fa-heart'></i>"
-    }
+              <button class="action-btn favorite-btn ${
+                story.is_favorite ? "favorite" : ""
+              }" 
+                      onclick="event.stopPropagation(); toggleFavorite(${
+                        story.id
+                      }, this);" 
+                      title="${
+                        story.is_favorite
+                          ? "Remove from favorites"
+                          : "Add to favorites"
+                      }">
+                ${
+                  story.is_favorite
+                    ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
+                    : "<i class='fa-regular fa-heart'></i>"
+                }
               </button>
-              <button class="action-btn" 
-                      onclick="event.stopPropagation(); deleteStory(${story.id
-    }, this.closest('.story-card'));" 
+              <button class="action-btn delete-btn" 
+                      onclick="event.stopPropagation(); deleteStory(${
+                        story.id
+                      }, this.closest('.story-card'));" 
                       title="Delete story">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           </div>
-
-          ${story.image_data || story.image_base64
-      ? `
-            <img class="story-image" 
-                 src="data:image/${story.image_format || "png"};base64,${story.image_data || story.image_base64
-      }" 
-                 alt="Story illustration" />
-          `
-      : ""
-    }
-
-          <div class="story-content">${truncatedText}</div>
-
-          <div class="story-footer">
-            <button class="read-more-btn" onclick="showStoryModal(${story.id
-    });">
-              Read Full Story
-            </button>
-            <div class="story-stats">
-              <span>📝 ${wordCount} words</span>
-              ${story.is_favorite
-      ? "<span><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
-      : ""
-    }
+          <p class="story-description">${truncatedText}</p>
+          <div class="story-footer-section">
+            <div class="story-meta-stats">
+              <span class="story-date">Created: ${formattedDate}</span>
+              <div class="story-stats-row">
+                <span class="story-word-count">📝 ${wordCount} words</span>
+                ${
+                  story.is_favorite
+                    ? "<span class='story-favorite-indicator'><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
+                    : ""
+                }
+              </div>
             </div>
           </div>
-        `;
+        </div>
+      </div>
+    `;
+    // Make the entire card clickable to open the modal
+    card.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("action-btn")) {
+        showStoryModal(story.id);
+      }
+    });
+  } else {
+    card.innerHTML = `
+      <div class="story-header">
+        <div class="story-date">${formattedDate}</div>
+        <div class="story-actions">
+          <button class="action-btn ${story.is_favorite ? "favorite" : ""}" 
+                  onclick="event.stopPropagation(); toggleFavorite(${
+                    story.id
+                  }, this);" 
+                  title="${
+                    story.is_favorite
+                      ? "Remove from favorites"
+                      : "Add to favorites"
+                  }">
+            ${
+              story.is_favorite
+                ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
+                : "<i class='fa-regular fa-heart'></i>"
+            }
+          </button>
+          <button class="action-btn" 
+                  onclick="event.stopPropagation(); deleteStory(${
+                    story.id
+                  }, this.closest('.story-card'));" 
+                  title="Delete story">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      ${
+        story.image_data || story.image_base64
+          ? `<img class="story-image" src="data:image/${
+              story.image_format || "png"
+            };base64,${
+              story.image_data || story.image_base64
+            }" alt="Story illustration" />`
+          : ""
+      }
+
+      <div class="story-content">${truncatedText}</div>
+
+      <div class="story-footer">
+        <button class="read-more-btn" onclick="showStoryModal(${story.id});">
+          Read Full Story
+        </button>
+        <div class="story-stats">
+          <span>📝 ${wordCount} words</span>
+          ${
+            story.is_favorite
+              ? "<span><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
+              : ""
+          }
+        </div>
+      </div>
+    `;
+  }
 
   return card;
 }
@@ -352,8 +454,9 @@ async function showStoryModal(storyId) {
     }
 
     if (story.image_data || story.image_base64) {
-      modalStoryImage.src = `data:image/${story.image_format || "png"};base64,${story.image_data || story.image_base64
-        }`;
+      modalStoryImage.src = `data:image/${story.image_format || "png"};base64,${
+        story.image_data || story.image_base64
+      }`;
       modalStoryImage.style.display = "block";
     } else {
       modalStoryImage.style.display = "none";
@@ -365,7 +468,11 @@ async function showStoryModal(storyId) {
             <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
             <span><i class="fas fa-file-text"></i> ${wordCount} words</span>
             <span><i class="fas fa-clock"></i> ${readTime} min read</span>
-            ${story.is_favorite ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>' : ''}
+            ${
+              story.is_favorite
+                ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>'
+                : ""
+            }
         `;
 
     // Update favorite button
@@ -374,8 +481,8 @@ async function showStoryModal(storyId) {
       : '<i class="fas fa-heart"></i> Add to Favorites';
 
     modalToggleFavoriteBtn.className = story.is_favorite
-      ? 'btn-danger'
-      : 'btn-primary';
+      ? "btn-danger"
+      : "btn-primary";
 
     // Show modal
     storyModal.style.display = "flex";
@@ -437,13 +544,19 @@ modalToggleFavoriteBtn?.addEventListener("click", async () => {
       : '<i class="fas fa-heart"></i> Add to Favorites';
 
     modalToggleFavoriteBtn.className = currentModalStory.is_favorite
-      ? 'btn-danger'
-      : 'btn-primary';
+      ? "btn-danger"
+      : "btn-primary";
 
     // Update modal stats
-    const wordCount = (currentModalStory.generated_text || currentModalStory.text || "").split(" ").length;
+    const wordCount = (
+      currentModalStory.generated_text ||
+      currentModalStory.text ||
+      ""
+    ).split(" ").length;
     const readTime = Math.ceil(wordCount / 200);
-    const formattedDate = new Date(currentModalStory.created_at).toLocaleDateString("en-US", {
+    const formattedDate = new Date(
+      currentModalStory.created_at
+    ).toLocaleDateString("en-US", {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -455,29 +568,39 @@ modalToggleFavoriteBtn?.addEventListener("click", async () => {
       <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
       <span><i class="fas fa-file-text"></i> ${wordCount} words</span>
       <span><i class="fas fa-clock"></i> ${readTime} min read</span>
-      ${currentModalStory.is_favorite ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>' : ''}
+      ${
+        currentModalStory.is_favorite
+          ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>'
+          : ""
+      }
     `;
 
     // Update the corresponding card in the grid
     const cards = document.querySelectorAll(".story-card");
     cards.forEach((card) => {
       const readBtn = card.querySelector(".read-more-btn");
-      const storyId = readBtn?.onclick?.toString().match(/showStoryModal\((\d+)\)/)?.[1];
+      const storyId = readBtn?.onclick
+        ?.toString()
+        .match(/showStoryModal\((\d+)\)/)?.[1];
 
       if (storyId == currentModalStory.id) {
-        const favoriteBtn = card.querySelector(".action-btn.favorite, .action-btn:not(.favorite)");
+        const favoriteBtn = card.querySelector(
+          ".action-btn.favorite, .action-btn:not(.favorite)"
+        );
         const stats = card.querySelector(".story-stats");
 
         if (favoriteBtn) {
           if (currentModalStory.is_favorite) {
             favoriteBtn.classList.add("favorite");
-            favoriteBtn.innerHTML = "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
+            favoriteBtn.innerHTML =
+              "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
             favoriteBtn.title = "Remove from favorites";
 
             // Add favorite indicator to stats if not present
             if (!stats.innerHTML.includes("Favorite")) {
               const favoriteSpan = document.createElement("span");
-              favoriteSpan.innerHTML = "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
+              favoriteSpan.innerHTML =
+                "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
               stats.appendChild(favoriteSpan);
             }
           } else {
@@ -525,7 +648,9 @@ modalDeleteBtn?.addEventListener("click", async () => {
     const cards = document.querySelectorAll(".story-card");
     cards.forEach((card) => {
       const readBtn = card.querySelector(".read-more-btn");
-      const storyId = readBtn?.onclick?.toString().match(/showStoryModal\((\d+)\)/)?.[1];
+      const storyId = readBtn?.onclick
+        ?.toString()
+        .match(/showStoryModal\((\d+)\)/)?.[1];
 
       if (storyId == currentModalStory.id) {
         card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
@@ -536,8 +661,10 @@ modalDeleteBtn?.addEventListener("click", async () => {
           card.remove();
 
           // Update stories data
-          allStories = allStories.filter(s => s.id !== currentModalStory.id);
-          filteredStories = filteredStories.filter(s => s.id !== currentModalStory.id);
+          allStories = allStories.filter((s) => s.id !== currentModalStory.id);
+          filteredStories = filteredStories.filter(
+            (s) => s.id !== currentModalStory.id
+          );
 
           // Check if no stories left
           if (storiesGrid.children.length === 0) {
@@ -553,7 +680,9 @@ modalDeleteBtn?.addEventListener("click", async () => {
     window.apiClient.showSuccessMessage("Story deleted successfully.");
   } catch (error) {
     console.error("Failed to delete story:", error);
-    window.apiClient.showErrorMessage("Failed to delete story. Please try again.");
+    window.apiClient.showErrorMessage(
+      "Failed to delete story. Please try again."
+    );
   }
 });
 
