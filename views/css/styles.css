@@ -21,6 +21,10 @@
   font-family: "Agbalumo";
   src: url("../fonts/Agbalumo-Regular.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Regular.ttf") format("truetype");
+}
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
@@ -138,7 +142,9 @@ body {
 }
 
 .hero-text p {
-  font-size: 1.1rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 1.01rem;
   line-height: 1.7;
   opacity: 0.9;
 }
@@ -177,6 +183,7 @@ body {
 }
 
 .generator-card h2 {
+  font-family: "Poppins", sans-serif;
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
@@ -184,6 +191,8 @@ body {
 }
 
 .generator-card p {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
   color: #6b7280;
   margin-bottom: 2rem;
   line-height: 1.6;
@@ -198,18 +207,32 @@ body {
 
 .btn-primary,
 .btn-secondary {
+  font-family: "Poppins", sans-serif;
   padding: 0.75rem 1.5rem;
   border-radius: 0.5rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-  font-size: 1rem;
+  font-size: 1.01rem;
+  letter-spacing: 0.1px;
+  transition: all 0.3s ease;
 }
 
 .btn-primary {
   background: #2563eb;
   color: white;
+}
+
+.btn-primary i {
+  font-size: 1.2rem;
+  padding-right: 0.3rem;
+  transition: transform 0.4s ease;
+  display: inline-block;
+}
+
+.btn-primary:hover i {
+  transform: scaleX(-1);
 }
 
 .btn-primary:hover {
