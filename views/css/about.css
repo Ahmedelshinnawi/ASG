@@ -29,6 +29,11 @@
   src: url("../fonts/Agbalumo-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Regular.ttf") format("truetype");
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
@@ -379,7 +384,7 @@ body {
 }
 
 .company-description p {
-  font-family: "Touche", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1.1rem;
   line-height: 1.8;
   text-align: center;
