@@ -87,7 +87,8 @@ function showLoading() {
 function hideLoading() {
   generateBtn.disabled = false;
   loadingSpinner.style.display = "none";
-  btnText.textContent = "🚀 Generate";
+  btnText.innerHTML =
+    "<i class='fa-solid fa-wand-magic-sparkles'></i> Generate";
 }
 
 function displayStory(storyData) {

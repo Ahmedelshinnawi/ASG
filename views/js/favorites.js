@@ -306,15 +306,15 @@ function createFavoriteCard(favorite) {
           <span class="story-date">Created: ${createdDate}</span>
         </div>
         <div class="story-actions">
-          <button class="action-btn favorite-btn" onclick="toggleFavorite(${
+          <button class="action-btn favorite-btn" onclick="event.stopPropagation(); toggleFavorite(${
             favorite.id
-          })" title="Remove from favorites">
-            ❤️
+          });" title="Remove from favorites">
+            <i class="fa-solid fa-heart"></i>
           </button>
-          <button class="action-btn delete-btn" onclick="deleteStory(${
+          <button class="action-btn delete-btn" onclick="event.stopPropagation(); deleteStory(${
             favorite.id
-          })" title="Delete story">
-            🗑️
+          });" title="Delete story">
+            <i class="fa-solid fa-trash"></i>
           </button>
         </div>
       </div>

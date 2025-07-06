@@ -115,20 +115,26 @@ function createStoryCard(story) {
             <div class="story-date">${formattedDate}</div>
             <div class="story-actions">
               <button class="action-btn ${story.is_favorite ? "favorite" : ""}" 
-                      onclick="toggleFavorite(${story.id}, this)" 
+                      onclick="event.stopPropagation(); toggleFavorite(${
+                        story.id
+                      }, this);" 
                       title="${
                         story.is_favorite
                           ? "Remove from favorites"
                           : "Add to favorites"
                       }">
-                ${story.is_favorite ? "❤️" : "🤍"}
+                ${
+                  story.is_favorite
+                    ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
+                    : "<i class='fa-regular fa-heart'></i>"
+                }
               </button>
               <button class="action-btn" 
-                      onclick="deleteStory(${
+                      onclick="event.stopPropagation(); deleteStory(${
                         story.id
-                      }, this.closest('.story-card'))" 
+                      }, this.closest('.story-card'));" 
                       title="Delete story">
-                🗑️
+                <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           </div>
@@ -148,12 +154,18 @@ function createStoryCard(story) {
           <div class="story-content">${truncatedText}</div>
 
           <div class="story-footer">
-            <button class="read-more-btn" onclick="showStoryModal(${story.id})">
+            <button class="read-more-btn" onclick="showStoryModal(${
+              story.id
+            });">
               Read Full Story
             </button>
             <div class="story-stats">
               <span>📝 ${wordCount} words</span>
-              ${story.is_favorite ? "<span>❤️ Favorite</span>" : ""}
+              ${
+                story.is_favorite
+                  ? "<span><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
+                  : ""
+              }
             </div>
           </div>
         `;
@@ -169,11 +181,12 @@ async function toggleFavorite(storyId, button) {
     const isFavorite = button.classList.contains("favorite");
     if (isFavorite) {
       button.classList.remove("favorite");
-      button.innerHTML = "🤍";
+      button.innerHTML = "<i class='fa-regular fa-heart'></i>";
       button.title = "Add to favorites";
     } else {
       button.classList.add("favorite");
-      button.innerHTML = "❤️";
+      button.innerHTML =
+        "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
       button.title = "Remove from favorites";
     }
 
@@ -190,7 +203,8 @@ async function toggleFavorite(storyId, button) {
       favoriteSpan.remove();
     } else if (!isFavorite) {
       const favoriteIndicator = document.createElement("span");
-      favoriteIndicator.textContent = "❤️ Favorite";
+      favoriteIndicator.innerHTML =
+        "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
       stats.appendChild(favoriteIndicator);
     }
   } catch (error) {
@@ -353,11 +367,12 @@ modalToggleFavoriteBtn.addEventListener("click", async () => {
       ) {
         if (currentModalStory.is_favorite) {
           favoriteBtn.classList.add("favorite");
-          favoriteBtn.innerHTML = "❤️";
+          favoriteBtn.innerHTML =
+            "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
           favoriteBtn.title = "Remove from favorites";
         } else {
           favoriteBtn.classList.remove("favorite");
-          favoriteBtn.innerHTML = "🤍";
+          favoriteBtn.innerHTML = "<i class='fa-regular fa-heart'></i>";
           favoriteBtn.title = "Add to favorites";
         }
       }
@@ -431,25 +446,6 @@ document.addEventListener("keydown", (e) => {
     hideModal();
   }
 });
-
-// Refresh stories periodically
-setInterval(async () => {
-  if (
-    document.visibilityState === "visible" &&
-    window.apiClient.auth.isAuthenticated()
-  ) {
-    try {
-      const response = await window.apiClient.getStoryHistory(50);
-      const stories = response.content || response || [];
-      if (stories.length > 0 && storiesGrid.style.display === "grid") {
-        displayStories(stories);
-      }
-    } catch (error) {
-      // Silently fail - user is still seeing their existing stories
-      console.error("Failed to refresh stories:", error);
-    }
-  }
-}, 30000); // Refresh every 30 seconds when tab is active
 
 // User Dropdown Navigation Functionality
 document.addEventListener("DOMContentLoaded", () => {
