@@ -4,6 +4,10 @@ const storiesGrid = document.getElementById("storiesGrid");
 const emptyState = document.getElementById("emptyState");
 const errorState = document.getElementById("errorState");
 const errorMessage = document.getElementById("errorMessage");
+const sortSelect = document.getElementById("sortSelect");
+const gridViewBtn = document.getElementById("gridViewBtn");
+const listViewBtn = document.getElementById("listViewBtn");
+const storiesCount = document.getElementById("storiesCount");
 
 // Modal elements
 const storyModal = document.getElementById("storyModal");
@@ -11,6 +15,7 @@ const closeModal = document.getElementById("closeModal");
 const modalStoryContent = document.getElementById("modalStoryContent");
 const modalStoryImage = document.getElementById("modalStoryImage");
 const modalStoryStats = document.getElementById("modalStoryStats");
+const modalStoryMeta = document.getElementById("modalStoryMeta");
 const modalCloseBtn = document.getElementById("modalCloseBtn");
 const modalToggleFavoriteBtn = document.getElementById(
   "modalToggleFavoriteBtn"
@@ -18,11 +23,70 @@ const modalToggleFavoriteBtn = document.getElementById(
 const modalDeleteBtn = document.getElementById("modalDeleteBtn");
 
 let currentModalStory = null;
+let allStories = [];
+let filteredStories = [];
 
 // Load stories on page load
 document.addEventListener("DOMContentLoaded", async () => {
   await loadRecentStories();
+  setupEventListeners();
 });
+
+function setupEventListeners() {
+  // Sort functionality
+  sortSelect?.addEventListener('change', handleSort);
+
+  // View toggle
+  gridViewBtn?.addEventListener('click', () => setView('grid'));
+  listViewBtn?.addEventListener('click', () => setView('list'));
+}
+
+function handleSort() {
+  applySortAndDisplay();
+}
+
+function applySortAndDisplay() {
+  const sortValue = sortSelect.value;
+
+  let sortedStories = [...filteredStories];
+
+  switch (sortValue) {
+    case 'newest':
+      sortedStories.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      break;
+    case 'oldest':
+      sortedStories.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      break;
+    case 'favorites':
+      sortedStories = sortedStories.filter(story => story.is_favorite);
+      break;
+  }
+
+  displayStories(sortedStories);
+  updateStoriesCount(sortedStories.length);
+}
+
+function setView(viewType) {
+  if (viewType === 'grid') {
+    storiesGrid.classList.remove('list-view');
+    gridViewBtn.classList.add('active');
+    listViewBtn.classList.remove('active');
+  } else {
+    storiesGrid.classList.add('list-view');
+    listViewBtn.classList.add('active');
+    gridViewBtn.classList.remove('active');
+  }
+}
+
+function updateStoriesCount(count) {
+  if (storiesCount) {
+    const countText = storiesCount.querySelector('.count-text');
+    if (countText) {
+      countText.textContent = `${count} ${count === 1 ? 'story' : 'stories'} found`;
+      storiesCount.style.display = count > 0 ? 'block' : 'none';
+    }
+  }
+}
 
 async function loadRecentStories() {
   try {
@@ -40,12 +104,16 @@ async function loadRecentStories() {
     // Extract the stories array from the response
     const stories = response.content || response || [];
 
+    // Store all stories and filtered stories
+    allStories = stories;
+    filteredStories = [...stories];
+
     hideLoading();
 
     if (stories.length === 0) {
       showEmptyState();
     } else {
-      displayStories(stories);
+      applySortAndDisplay();
     }
   } catch (error) {
     hideLoading();
@@ -86,15 +154,21 @@ function displayStories(stories) {
   emptyState.style.display = "none";
   errorState.style.display = "none";
 
-  stories.forEach((story) => {
-    const storyCard = createStoryCard(story);
+  if (stories.length === 0) {
+    showEmptyState();
+    return;
+  }
+
+  stories.forEach((story, index) => {
+    const storyCard = createStoryCard(story, index);
     storiesGrid.appendChild(storyCard);
   });
 }
 
-function createStoryCard(story) {
+function createStoryCard(story, index = 0) {
   const card = document.createElement("div");
   card.className = "story-card";
+  card.style.animationDelay = `${index * 0.1}s`;
 
   const formattedDate = new Date(story.created_at).toLocaleDateString("en-US", {
     year: "numeric",
@@ -115,57 +189,49 @@ function createStoryCard(story) {
             <div class="story-date">${formattedDate}</div>
             <div class="story-actions">
               <button class="action-btn ${story.is_favorite ? "favorite" : ""}" 
-                      onclick="event.stopPropagation(); toggleFavorite(${
-                        story.id
-                      }, this);" 
-                      title="${
-                        story.is_favorite
-                          ? "Remove from favorites"
-                          : "Add to favorites"
-                      }">
-                ${
-                  story.is_favorite
-                    ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
-                    : "<i class='fa-regular fa-heart'></i>"
-                }
+                      onclick="event.stopPropagation(); toggleFavorite(${story.id
+    }, this);" 
+                      title="${story.is_favorite
+      ? "Remove from favorites"
+      : "Add to favorites"
+    }">
+                ${story.is_favorite
+      ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>"
+      : "<i class='fa-regular fa-heart'></i>"
+    }
               </button>
               <button class="action-btn" 
-                      onclick="event.stopPropagation(); deleteStory(${
-                        story.id
-                      }, this.closest('.story-card'));" 
+                      onclick="event.stopPropagation(); deleteStory(${story.id
+    }, this.closest('.story-card'));" 
                       title="Delete story">
                 <i class="fa-solid fa-trash"></i>
               </button>
             </div>
           </div>
 
-          ${
-            story.image_data || story.image_base64
-              ? `
+          ${story.image_data || story.image_base64
+      ? `
             <img class="story-image" 
-                 src="data:image/${story.image_format || "png"};base64,${
-                  story.image_data || story.image_base64
-                }" 
+                 src="data:image/${story.image_format || "png"};base64,${story.image_data || story.image_base64
+      }" 
                  alt="Story illustration" />
           `
-              : ""
-          }
+      : ""
+    }
 
           <div class="story-content">${truncatedText}</div>
 
           <div class="story-footer">
-            <button class="read-more-btn" onclick="showStoryModal(${
-              story.id
-            });">
+            <button class="read-more-btn" onclick="showStoryModal(${story.id
+    });">
               Read Full Story
             </button>
             <div class="story-stats">
               <span>📝 ${wordCount} words</span>
-              ${
-                story.is_favorite
-                  ? "<span><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
-                  : ""
-              }
+              ${story.is_favorite
+      ? "<span><i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite</span>"
+      : ""
+    }
             </div>
           </div>
         `;
@@ -269,15 +335,7 @@ async function showStoryModal(storyId) {
     const storyText = story.generated_text || story.text || "";
     modalStoryContent.textContent = storyText;
 
-    if (story.image_data || story.image_base64) {
-      modalStoryImage.src = `data:image/${story.image_format || "png"};base64,${
-        story.image_data || story.image_base64
-      }`;
-      modalStoryImage.style.display = "block";
-    } else {
-      modalStoryImage.style.display = "none";
-    }
-
+    // Update modal meta information
     const formattedDate = new Date(story.created_at).toLocaleDateString(
       "en-US",
       {
@@ -289,24 +347,47 @@ async function showStoryModal(storyId) {
       }
     );
 
+    if (modalStoryMeta) {
+      modalStoryMeta.textContent = `Created on ${formattedDate}`;
+    }
+
+    if (story.image_data || story.image_base64) {
+      modalStoryImage.src = `data:image/${story.image_format || "png"};base64,${story.image_data || story.image_base64
+        }`;
+      modalStoryImage.style.display = "block";
+    } else {
+      modalStoryImage.style.display = "none";
+    }
+
     const wordCount = storyText.split(" ").length;
+    const readTime = Math.ceil(wordCount / 200); // Average reading speed
     modalStoryStats.innerHTML = `
-            <span>📅 Created: ${formattedDate}</span>
-            <span>📝 ${wordCount} words</span>
-          `;
+            <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
+            <span><i class="fas fa-file-text"></i> ${wordCount} words</span>
+            <span><i class="fas fa-clock"></i> ${readTime} min read</span>
+            ${story.is_favorite ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>' : ''}
+        `;
 
     // Update favorite button
-    modalToggleFavoriteBtn.textContent = story.is_favorite
-      ? "Remove from Favorites"
-      : "Add to Favorites";
+    modalToggleFavoriteBtn.innerHTML = story.is_favorite
+      ? '<i class="fas fa-heart"></i> Remove from Favorites'
+      : '<i class="fas fa-heart"></i> Add to Favorites';
+
     modalToggleFavoriteBtn.className = story.is_favorite
-      ? "btn-secondary"
-      : "btn-primary";
+      ? 'btn-danger'
+      : 'btn-primary';
 
     // Show modal
-    showModal();
+    storyModal.style.display = "flex";
+    storyModal.classList.add("show");
+    document.body.style.overflow = "hidden";
+
+    // Set focus trap
+    setTimeout(() => {
+      closeModal.focus();
+    }, 100);
   } catch (error) {
-    console.error("Failed to show story:", error);
+    console.error("Failed to load story:", error);
     window.apiClient.showErrorMessage("Failed to load story details.");
   }
 }
@@ -314,33 +395,34 @@ async function showStoryModal(storyId) {
 function showModal() {
   storyModal.style.display = "flex";
   storyModal.classList.add("show");
-  setTimeout(() => {
-    storyModal.style.opacity = "1";
-    storyModal.querySelector(".modal-content").style.transform = "scale(1)";
-  }, 10);
+  document.body.style.overflow = "hidden";
 }
 
 function hideModal() {
-  storyModal.style.opacity = "0";
-  storyModal.querySelector(".modal-content").style.transform = "scale(0.8)";
-  setTimeout(() => {
-    storyModal.style.display = "none";
-    storyModal.classList.remove("show");
-    currentModalStory = null;
-  }, 300);
+  storyModal.style.display = "none";
+  storyModal.classList.remove("show");
+  document.body.style.overflow = "";
+  currentModalStory = null;
 }
 
 // Modal event listeners
-closeModal.addEventListener("click", hideModal);
-modalCloseBtn.addEventListener("click", hideModal);
+closeModal?.addEventListener("click", hideModal);
+modalCloseBtn?.addEventListener("click", hideModal);
 
-storyModal.addEventListener("click", (e) => {
+storyModal?.addEventListener("click", (e) => {
   if (e.target === storyModal) {
     hideModal();
   }
 });
 
-modalToggleFavoriteBtn.addEventListener("click", async () => {
+// Handle escape key
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && storyModal?.style.display === "flex") {
+    hideModal();
+  }
+});
+
+modalToggleFavoriteBtn?.addEventListener("click", async () => {
   if (!currentModalStory) return;
 
   try {
@@ -350,30 +432,65 @@ modalToggleFavoriteBtn.addEventListener("click", async () => {
     currentModalStory.is_favorite = !currentModalStory.is_favorite;
 
     // Update button
-    modalToggleFavoriteBtn.textContent = currentModalStory.is_favorite
-      ? "Remove from Favorites"
-      : "Add to Favorites";
-    modalToggleFavoriteBtn.className = currentModalStory.is_favorite
-      ? "btn-secondary"
-      : "btn-primary";
+    modalToggleFavoriteBtn.innerHTML = currentModalStory.is_favorite
+      ? '<i class="fas fa-heart"></i> Remove from Favorites'
+      : '<i class="fas fa-heart"></i> Add to Favorites';
 
-    // Update the card in the background
+    modalToggleFavoriteBtn.className = currentModalStory.is_favorite
+      ? 'btn-danger'
+      : 'btn-primary';
+
+    // Update modal stats
+    const wordCount = (currentModalStory.generated_text || currentModalStory.text || "").split(" ").length;
+    const readTime = Math.ceil(wordCount / 200);
+    const formattedDate = new Date(currentModalStory.created_at).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    modalStoryStats.innerHTML = `
+      <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
+      <span><i class="fas fa-file-text"></i> ${wordCount} words</span>
+      <span><i class="fas fa-clock"></i> ${readTime} min read</span>
+      ${currentModalStory.is_favorite ? '<span><i class="fas fa-heart" style="color: #ef4444;"></i> Favorite</span>' : ''}
+    `;
+
+    // Update the corresponding card in the grid
     const cards = document.querySelectorAll(".story-card");
     cards.forEach((card) => {
-      const favoriteBtn = card.querySelector(".action-btn");
-      if (
-        favoriteBtn &&
-        favoriteBtn.onclick.toString().includes(currentModalStory.id)
-      ) {
-        if (currentModalStory.is_favorite) {
-          favoriteBtn.classList.add("favorite");
-          favoriteBtn.innerHTML =
-            "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
-          favoriteBtn.title = "Remove from favorites";
-        } else {
-          favoriteBtn.classList.remove("favorite");
-          favoriteBtn.innerHTML = "<i class='fa-regular fa-heart'></i>";
-          favoriteBtn.title = "Add to favorites";
+      const readBtn = card.querySelector(".read-more-btn");
+      const storyId = readBtn?.onclick?.toString().match(/showStoryModal\((\d+)\)/)?.[1];
+
+      if (storyId == currentModalStory.id) {
+        const favoriteBtn = card.querySelector(".action-btn.favorite, .action-btn:not(.favorite)");
+        const stats = card.querySelector(".story-stats");
+
+        if (favoriteBtn) {
+          if (currentModalStory.is_favorite) {
+            favoriteBtn.classList.add("favorite");
+            favoriteBtn.innerHTML = "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
+            favoriteBtn.title = "Remove from favorites";
+
+            // Add favorite indicator to stats if not present
+            if (!stats.innerHTML.includes("Favorite")) {
+              const favoriteSpan = document.createElement("span");
+              favoriteSpan.innerHTML = "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
+              stats.appendChild(favoriteSpan);
+            }
+          } else {
+            favoriteBtn.classList.remove("favorite");
+            favoriteBtn.innerHTML = "<i class='fa-regular fa-heart'></i>";
+            favoriteBtn.title = "Add to favorites";
+
+            // Remove favorite indicator from stats
+            const favoriteSpan = stats.querySelector("span:last-child");
+            if (favoriteSpan && favoriteSpan.innerHTML.includes("Favorite")) {
+              favoriteSpan.remove();
+            }
+          }
         }
       }
     });
@@ -389,7 +506,7 @@ modalToggleFavoriteBtn.addEventListener("click", async () => {
   }
 });
 
-modalDeleteBtn.addEventListener("click", async () => {
+modalDeleteBtn?.addEventListener("click", async () => {
   if (!currentModalStory) return;
 
   const confirmed = await window.apiClient.showConfirmationModal(
@@ -399,23 +516,18 @@ modalDeleteBtn.addEventListener("click", async () => {
     "Cancel"
   );
 
-  if (!confirmed) {
-    return;
-  }
+  if (!confirmed) return;
 
   try {
     await window.apiClient.deleteContent(currentModalStory.id);
 
-    hideModal();
-
-    // Remove the card from the grid
+    // Find and remove the corresponding card
     const cards = document.querySelectorAll(".story-card");
     cards.forEach((card) => {
-      const deleteBtn = card.querySelector('.action-btn[title="Delete story"]');
-      if (
-        deleteBtn &&
-        deleteBtn.onclick.toString().includes(currentModalStory.id)
-      ) {
+      const readBtn = card.querySelector(".read-more-btn");
+      const storyId = readBtn?.onclick?.toString().match(/showStoryModal\((\d+)\)/)?.[1];
+
+      if (storyId == currentModalStory.id) {
         card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
         card.style.opacity = "0";
         card.style.transform = "scale(0.8)";
@@ -423,27 +535,25 @@ modalDeleteBtn.addEventListener("click", async () => {
         setTimeout(() => {
           card.remove();
 
+          // Update stories data
+          allStories = allStories.filter(s => s.id !== currentModalStory.id);
+          filteredStories = filteredStories.filter(s => s.id !== currentModalStory.id);
+
           // Check if no stories left
           if (storiesGrid.children.length === 0) {
             showEmptyState();
+          } else {
+            updateStoriesCount(filteredStories.length);
           }
         }, 300);
       }
     });
 
+    hideModal();
     window.apiClient.showSuccessMessage("Story deleted successfully.");
   } catch (error) {
     console.error("Failed to delete story:", error);
-    window.apiClient.showErrorMessage(
-      "Failed to delete story. Please try again."
-    );
-  }
-});
-
-// Keyboard shortcuts
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    hideModal();
+    window.apiClient.showErrorMessage("Failed to delete story. Please try again.");
   }
 });
 

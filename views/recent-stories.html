@@ -1,234 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recent Stories - Storytelling.ai</title>
-    <link rel="icon" href="./assets/ASG.svg" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      rel="stylesheet"
-    />
 
-    <link rel="stylesheet" href="css/recent-stories.css" />
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <nav class="nav">
-        <div class="nav-brand">
-          <div class="logo-icon">
-            <img src="./assets/navlogo.png" alt="Logo" class="logo-img" />
-          </div>
-          <a href="index.html" class="logo">Storytelling.ai</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recent Stories - Storytelling.ai</title>
+  <link rel="icon" href="./assets/ASG.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/recent-stories.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <nav class="nav">
+      <div class="nav-brand">
+        <div class="logo-icon">
+          <img src="./assets/navlogo.png" alt="Logo" class="logo-img" />
         </div>
-        <div class="nav-links">
-          <a href="index.html" class="nav-link active">Home</a>
-          <a href="generate-story.html" class="nav-link">Generate Story</a>
-          <a href="favorites.html" class="nav-link">Favorites</a>
-          <a href="recent-stories.html" class="nav-link">Recent Stories</a>
-          <a href="about.html" class="nav-link">About us</a>
-          <button class="login-btn">Login</button>
-        </div>
-        <!-- User Profile Dropdown (when logged in) -->
-        <div class="nav-profile" id="navProfile" style="display: none">
-          <div class="user-dropdown">
-            <button class="user-dropdown-btn" id="userDropdownBtn">
+        <a href="index.html" class="logo">Storytelling.ai</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="generate-story.html" class="nav-link">Generate Story</a>
+        <a href="favorites.html" class="nav-link">Favorites</a>
+        <a href="recent-stories.html" class="nav-link">Recent Stories</a>
+        <a href="about.html" class="nav-link">About us</a>
+        <button class="login-btn">Login</button>
+      </div>
+      <!-- User Profile Dropdown (when logged in) -->
+      <div class="nav-profile" id="navProfile" style="display: none">
+        <div class="user-dropdown">
+          <button class="user-dropdown-btn" id="userDropdownBtn">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
+              alt="User Avatar" class="user-avatar" id="userAvatar" />
+            <span class="user-name" id="userName">User</span>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </button>
+          <div class="user-dropdown-menu" id="userDropdownMenu">
+            <div class="dropdown-header">
               <img
-                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxNiIgcj0iMTYiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMTYiIGN5PSIxMiIgcj0iNS4zMyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNS4zMyAyNS42QzUuMzMgMjEuODEgOC40OCAyMC40NCAxMi4yNyIgZmlsbD0iIzlCOUJBMyIvPgo8L3N2Zz4K"
-                alt="User Avatar"
-                class="user-avatar"
-                id="userAvatar"
-              />
-              <span class="user-name" id="userName">User</span>
-              <i class="fas fa-chevron-down dropdown-arrow"></i>
-            </button>
-            <div class="user-dropdown-menu" id="userDropdownMenu">
-              <div class="dropdown-header">
-                <img
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
-                  alt="User Avatar"
-                  class="dropdown-avatar"
-                />
-                <div class="dropdown-user-info">
-                  <div class="dropdown-user-name" id="dropdownUserName">
-                    User
-                  </div>
-                  <div
-                    class="dropdown-user-full-name"
-                    id="dropdownUserFullName"
-                    style="font-size: 12px; color: #9ca3af; margin-top: 2px"
-                  ></div>
-                  <div class="dropdown-user-email" id="dropdownUserEmail">
-                    user@example.com
-                  </div>
+                src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNGM0Y0RjYiLz4KPGNpcmNsZSBjeD0iMjAiIGN5PSIxNSIgcj0iNi42NyIgZmlsbD0iIzlCOUJBMyIvPgo8cGF0aCBkPSJNNi42NyAzMkM2LjY3IDI3LjI2IDEwLjYgMjMuMzMgMTUuMzMgMjMuMzNIMjQuNjdDMjkuNCAyMy4zMyAzMy4zMyAyNy4yNiAzMy4zMyAzMlY0MEgwVjMySDYuNjdaIiBmaWxsPSIjOUI5QkEzIi8+Cjwvc3ZnPgo="
+                alt="User Avatar" class="dropdown-avatar" />
+              <div class="dropdown-user-info">
+                <div class="dropdown-user-name" id="dropdownUserName">
+                  User
+                </div>
+                <div class="dropdown-user-full-name" id="dropdownUserFullName"
+                  style="font-size: 12px; color: #9ca3af; margin-top: 2px"></div>
+                <div class="dropdown-user-email" id="dropdownUserEmail">
+                  user@example.com
                 </div>
               </div>
-              <div class="dropdown-divider"></div>
-              <ul class="dropdown-items">
-                <li>
-                  <button class="dropdown-item" id="profileSettingsBtn">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Profile Settings</span>
-                  </button>
-                </li>
-                <li>
-                  <a href="favorites.html" class="dropdown-item">
-                    <i class="fas fa-heart"></i>
-                    <span>View Favorites</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="recent-stories.html" class="dropdown-item">
-                    <i class="fas fa-clock"></i>
-                    <span>Recent Stories</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="admin.html"
-                    class="dropdown-item"
-                    id="adminLink"
-                    style="display: none"
-                  >
-                    <i class="fas fa-cog"></i>
-                    <span>Admin Dashboard</span>
-                  </a>
-                </li>
-                <li class="dropdown-divider-small"></li>
-                <li>
-                  <button class="dropdown-item logout-item" id="logoutBtn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                  </button>
-                </li>
-              </ul>
             </div>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-      <div class="container">
-        <div class="page-header">
-          <h1 class="page-title">Recent Stories</h1>
-          <p class="page-subtitle">
-            View all the amazing stories you've created with our AI story
-            generator. Each story is a unique adventure born from your
-            imagination!
-          </p>
-        </div>
-
-        <!-- Loading State -->
-        <div class="loading-container" id="loadingContainer">
-          <div class="loading-spinner"></div>
-        </div>
-
-        <!-- Stories Grid -->
-        <div class="stories-grid" id="storiesGrid" style="display: none">
-          <!-- Stories will be populated here -->
-        </div>
-
-        <!-- Empty State -->
-        <div class="empty-state" id="emptyState" style="display: none">
-          <div class="empty-state-icon">📚</div>
-          <h2 class="empty-state-title">No Stories Yet</h2>
-          <p class="empty-state-text">
-            You haven't created any stories yet. Start your storytelling journey
-            by generating your first story!
-          </p>
-          <a href="generate-story.html" class="empty-state-btn">
-            Create Your First Story
-          </a>
-        </div>
-
-        <!-- Error State -->
-        <div class="error-state" id="errorState" style="display: none">
-          <h2>Error Loading Stories</h2>
-          <p id="errorMessage">
-            Something went wrong while loading your stories.
-          </p>
-        </div>
-      </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-links">
-          <div class="footer-column">
-            <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
-            <a href="#" class="footer-link">Terms of Service</a>
-            <a href="about.html" class="footer-link">About Us</a>
-          </div>
-          <div class="footer-column">
-            <h4>Features</h4>
-            <a href="generate-story.html" class="footer-link">Generate Story</a>
-            <a href="favorites.html" class="footer-link">Favorite Stories</a>
-            <a href="recent-stories.html" class="footer-link">Recent Stories</a>
-          </div>
-          <div class="footer-column">
-            <h4>Contact Us</h4>
-            <a href="#" class="footer-link">Support Center</a>
-            <h4>Stay in touch</h4>
-            <div class="social-icons">
-              <a href="#" class="social-icon">
-                <i class="fa-brands fa-facebook"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fa-brands fa-linkedin"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fa-brands fa-instagram"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fa-brands fa-youtube"></i>
-              </a>
-              <a href="#" class="social-icon">
-                <i class="fa-brands fa-twitter"></i>
-              </a>
-            </div>
+            <div class="dropdown-divider"></div>
+            <ul class="dropdown-items">
+              <li>
+                <button class="dropdown-item" id="profileSettingsBtn">
+                  <i class="fas fa-user-cog"></i>
+                  <span>Profile Settings</span>
+                </button>
+              </li>
+              <li>
+                <a href="favorites.html" class="dropdown-item">
+                  <i class="fas fa-heart"></i>
+                  <span>View Favorites</span>
+                </a>
+              </li>
+              <li>
+                <a href="recent-stories.html" class="dropdown-item">
+                  <i class="fas fa-clock"></i>
+                  <span>Recent Stories</span>
+                </a>
+              </li>
+              <li>
+                <a href="admin.html" class="dropdown-item" id="adminLink" style="display: none">
+                  <i class="fas fa-cog"></i>
+                  <span>Admin Dashboard</span>
+                </a>
+              </li>
+              <li class="dropdown-divider-small"></li>
+              <li>
+                <button class="dropdown-item logout-item" id="logoutBtn">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Logout</span>
+                </button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-    </footer>
+    </nav>
+  </header>
 
-    <!-- Story Modal -->
-    <div class="modal-overlay" id="storyModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">Story Details</h3>
-          <button class="close-btn" id="closeModal">&times;</button>
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Recent Stories</h1>
+        <p class="page-subtitle">
+          View all the amazing stories you've created with our AI story
+          generator. Each story is a unique adventure born from your
+          imagination!
+        </p>
+      </div>
+
+      <!-- Filter and Controls -->
+      <div class="controls-section">
+        <div class="filter-controls">
+          <div class="filter-group">
+            <label for="sortSelect" class="filter-label">Sort by:</label>
+            <select id="sortSelect" class="filter-select">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="favorites">Favorites</option>
+            </select>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" data-view="grid" id="gridViewBtn">
+              <i class="fas fa-th-large"></i>
+            </button>
+            <button class="view-btn" data-view="list" id="listViewBtn">
+              <i class="fas fa-list"></i>
+            </button>
+          </div>
         </div>
-        <div id="modalStoryDisplay">
-          <div class="modal-story-content" id="modalStoryContent"></div>
-          <img
-            class="modal-story-image"
-            id="modalStoryImage"
-            style="display: none"
-          />
-          <div class="story-stats" id="modalStoryStats"></div>
+      </div>
+
+      <!-- Stories Count -->
+      <div class="stories-count" id="storiesCount" style="display: none">
+        <span class="count-text"></span>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" id="loadingContainer">
+        <div class="loading-spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring"></div>
         </div>
-        <div class="modal-actions">
-          <button class="btn-secondary" id="modalCloseBtn">Close</button>
-          <button class="btn-primary" id="modalToggleFavoriteBtn">
-            Add to Favorites
-          </button>
-          <button class="btn-secondary" id="modalDeleteBtn">Delete</button>
+        <p class="loading-text">Loading your amazing stories...</p>
+      </div>
+
+      <!-- Stories Grid -->
+      <div class="stories-grid" id="storiesGrid" style="display: none">
+        <!-- Stories will be populated here -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display: none">
+        <div class="empty-state-animation">
+          <div class="floating-books">
+            <div class="book book-1">📖</div>
+            <div class="book book-2">📚</div>
+            <div class="book book-3">📝</div>
+          </div>
+        </div>
+        <h2 class="empty-state-title">No Stories Yet</h2>
+        <p class="empty-state-text">
+          You haven't created any stories yet. Start your storytelling journey
+          by generating your first story!
+        </p>
+        <a href="generate-story.html" class="empty-state-btn">
+          <i class="fas fa-plus"></i>
+          Create Your First Story
+        </a>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-state" id="errorState" style="display: none">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2 class="error-title">Oops! Something went wrong</h2>
+        <p class="error-message" id="errorMessage">
+          Something went wrong while loading your stories.
+        </p>
+        <button class="retry-btn" onclick="loadRecentStories()">
+          <i class="fas fa-redo"></i>
+          Try Again
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-links">
+        <div class="footer-column">
+          <img src="./assets/navlogo.png" alt="ASG" class="footer-logo" />
+          <a href="#" class="footer-link">Terms of Service</a>
+          <a href="about.html" class="footer-link">About Us</a>
+        </div>
+        <div class="footer-column">
+          <h4>Features</h4>
+          <a href="generate-story.html" class="footer-link">Generate Story</a>
+          <a href="favorites.html" class="footer-link">Favorite Stories</a>
+          <a href="recent-stories.html" class="footer-link">Recent Stories</a>
+        </div>
+        <div class="footer-column">
+          <h4>Contact Us</h4>
+          <a href="#" class="footer-link">Support Center</a>
+          <h4>Stay in touch</h4>
+          <div class="social-icons">
+            <a href="#" class="social-icon">
+              <i class="fa-brands fa-facebook"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fa-brands fa-linkedin"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="#" class="social-icon">
+              <i class="fa-brands fa-twitter"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
+  </footer>
 
-    <!-- Include API integration script -->
-    <script src="api.js"></script>
-    <script src="js/profile-settings-component.js"></script>
+  <!-- Story Modal -->
+  <div class="modal-overlay" id="storyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title-section">
+          <h3 class="modal-title">Story Details</h3>
+          <div class="modal-story-meta" id="modalStoryMeta"></div>
+        </div>
+        <button class="close-btn" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="modalStoryDisplay">
+        <div class="modal-story-content" id="modalStoryContent"></div>
+        <img class="modal-story-image" id="modalStoryImage" style="display: none" />
+        <div class="story-stats" id="modalStoryStats"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="modalCloseBtn">
+          <i class="fas fa-times"></i>
+          Close
+        </button>
+        <button class="btn-primary" id="modalToggleFavoriteBtn">
+          <i class="fas fa-heart"></i>
+          Add to Favorites
+        </button>
+        <button class="btn-danger" id="modalDeleteBtn">
+          <i class="fas fa-trash"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <script src="js/recent-stories.js"></script>
-  </body>
+  <!-- Include API integration script -->
+  <script src="api.js"></script>
+  <script src="js/profile-settings-component.js"></script>
+
+  <script src="js/recent-stories.js"></script>
+</body>
+
 </html>
