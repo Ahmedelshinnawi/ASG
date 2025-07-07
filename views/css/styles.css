@@ -246,6 +246,13 @@ body {
   color: #2563eb;
   border: 2px solid #2563eb;
 }
+.btn-secondary .material-icons {
+  transition: transform 0.4s ease;
+  display: inline-block;
+}
+.btn-secondary:hover .material-icons {
+  transform: scaleX(-1);
+}
 
 .btn-secondary:hover {
   background: #2563eb;
