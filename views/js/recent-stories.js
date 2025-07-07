@@ -360,20 +360,34 @@ async function toggleFavorite(storyId, button) {
 
     // Update stats in the same card
     const card = button.closest(".story-card");
-    const stats = card.querySelector(".story-stats");
-    const favoriteSpan = stats.querySelector("span:last-child");
 
-    if (
-      isFavorite &&
-      favoriteSpan &&
-      favoriteSpan.textContent.includes("Favorite")
-    ) {
-      favoriteSpan.remove();
-    } else if (!isFavorite) {
-      const favoriteIndicator = document.createElement("span");
-      favoriteIndicator.innerHTML =
-        "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
-      stats.appendChild(favoriteIndicator);
+    // Check if in list view mode
+    const isListView = storiesGrid.classList.contains("list-view");
+
+    // Find the appropriate stats container based on view mode
+    const stats = isListView
+      ? card.querySelector(".story-stats-row")
+      : card.querySelector(".story-stats");
+
+    if (stats) {
+      const favoriteSpan = stats.querySelector("span:last-child");
+
+      if (
+        isFavorite &&
+        favoriteSpan &&
+        favoriteSpan.textContent.includes("Favorite")
+      ) {
+        favoriteSpan.remove();
+      } else if (!isFavorite) {
+        const favoriteIndicator = document.createElement("span");
+        favoriteIndicator.innerHTML = isListView
+          ? "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite"
+          : "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
+        if (isListView) {
+          favoriteIndicator.className = "story-favorite-indicator";
+        }
+        stats.appendChild(favoriteIndicator);
+      }
     }
   } catch (error) {
     console.error("Failed to toggle favorite:", error);
@@ -577,41 +591,69 @@ modalToggleFavoriteBtn?.addEventListener("click", async () => {
 
     // Update the corresponding card in the grid
     const cards = document.querySelectorAll(".story-card");
+
     cards.forEach((card) => {
+      // Try to find story ID from read-more-btn (grid view) or favorite button (both views)
       const readBtn = card.querySelector(".read-more-btn");
-      const storyId = readBtn?.onclick
-        ?.toString()
-        .match(/showStoryModal\((\d+)\)/)?.[1];
+      const favoriteBtn = card.querySelector(
+        ".favorite-btn, .action-btn[onclick*='toggleFavorite']"
+      );
+
+      let storyId;
+      if (readBtn) {
+        // Grid view - extract from read-more-btn
+        storyId = readBtn.onclick
+          ?.toString()
+          .match(/showStoryModal\((\d+)\)/)?.[1];
+      } else if (favoriteBtn) {
+        // List view - extract from favorite button
+        storyId = favoriteBtn.onclick
+          ?.toString()
+          .match(/toggleFavorite\((\d+),/)?.[1];
+      }
 
       if (storyId == currentModalStory.id) {
-        const favoriteBtn = card.querySelector(
-          ".action-btn.favorite, .action-btn:not(.favorite)"
-        );
-        const stats = card.querySelector(".story-stats");
+        // Find the favorite button - it could be either favorite-btn or action-btn with heart icon
+        const favBtn =
+          card.querySelector(".favorite-btn") ||
+          card.querySelector(".action-btn[onclick*='toggleFavorite']");
 
-        if (favoriteBtn) {
+        // Check if in list view mode
+        const isListView = storiesGrid.classList.contains("list-view");
+
+        // Find the appropriate stats container based on view mode
+        const stats = isListView
+          ? card.querySelector(".story-stats-row")
+          : card.querySelector(".story-stats");
+
+        if (favBtn) {
           if (currentModalStory.is_favorite) {
-            favoriteBtn.classList.add("favorite");
-            favoriteBtn.innerHTML =
+            favBtn.classList.add("favorite");
+            favBtn.innerHTML =
               "<i class='fa-solid fa-heart' style='color: #ef4444;'></i>";
-            favoriteBtn.title = "Remove from favorites";
+            favBtn.title = "Remove from favorites";
 
             // Add favorite indicator to stats if not present
-            if (!stats.innerHTML.includes("Favorite")) {
+            if (stats && !stats.innerHTML.includes("Favorite")) {
               const favoriteSpan = document.createElement("span");
               favoriteSpan.innerHTML =
                 "<i class='fa-solid fa-heart' style='color: #ef4444;'></i> Favorite";
+              if (isListView) {
+                favoriteSpan.className = "story-favorite-indicator";
+              }
               stats.appendChild(favoriteSpan);
             }
           } else {
-            favoriteBtn.classList.remove("favorite");
-            favoriteBtn.innerHTML = "<i class='fa-regular fa-heart'></i>";
-            favoriteBtn.title = "Add to favorites";
+            favBtn.classList.remove("favorite");
+            favBtn.innerHTML = "<i class='fa-regular fa-heart'></i>";
+            favBtn.title = "Add to favorites";
 
             // Remove favorite indicator from stats
-            const favoriteSpan = stats.querySelector("span:last-child");
-            if (favoriteSpan && favoriteSpan.innerHTML.includes("Favorite")) {
-              favoriteSpan.remove();
+            if (stats) {
+              const favoriteSpan = stats.querySelector("span:last-child");
+              if (favoriteSpan && favoriteSpan.innerHTML.includes("Favorite")) {
+                favoriteSpan.remove();
+              }
             }
           }
         }
@@ -647,10 +689,24 @@ modalDeleteBtn?.addEventListener("click", async () => {
     // Find and remove the corresponding card
     const cards = document.querySelectorAll(".story-card");
     cards.forEach((card) => {
+      // Try to find story ID from read-more-btn (grid view) or favorite button (both views)
       const readBtn = card.querySelector(".read-more-btn");
-      const storyId = readBtn?.onclick
-        ?.toString()
-        .match(/showStoryModal\((\d+)\)/)?.[1];
+      const favoriteBtn = card.querySelector(
+        ".favorite-btn, .action-btn[onclick*='toggleFavorite']"
+      );
+
+      let storyId;
+      if (readBtn) {
+        // Grid view - extract from read-more-btn
+        storyId = readBtn.onclick
+          ?.toString()
+          .match(/showStoryModal\((\d+)\)/)?.[1];
+      } else if (favoriteBtn) {
+        // List view - extract from favorite button
+        storyId = favoriteBtn.onclick
+          ?.toString()
+          .match(/toggleFavorite\((\d+),/)?.[1];
+      }
 
       if (storyId == currentModalStory.id) {
         card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
