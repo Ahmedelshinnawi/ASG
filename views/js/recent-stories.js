@@ -458,6 +458,10 @@ async function deleteStory(storyId, cardElement) {
   try {
     await window.apiClient.deleteContent(storyId);
 
+    // Update underlying data arrays first
+    allStories = allStories.filter((story) => story.id !== storyId);
+    filteredStories = filteredStories.filter((story) => story.id !== storyId);
+
     // Remove the card with animation
     cardElement.style.transition = "opacity 0.3s ease, transform 0.3s ease";
     cardElement.style.opacity = "0";
@@ -469,6 +473,9 @@ async function deleteStory(storyId, cardElement) {
       // Check if no stories left
       if (storiesGrid.children.length === 0) {
         showEmptyState();
+      } else {
+        // Update the stories count to reflect the new count
+        updateStoriesCount(filteredStories.length);
       }
     }, 300);
 
