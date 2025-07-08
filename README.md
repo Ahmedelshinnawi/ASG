@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="views/assets/ASG.svg" alt="ASG Logo" width="200" height="100">
+  <img src="views/assets/Group 177.png" alt="ASG Logo" width="200" height="100">
   
   # ASG - AI Storytelling Generation Platform
   
@@ -179,7 +179,7 @@ DELETE /generate/admin/system-story/{id}  - Delete system story
 1. **Clone the Repository**
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Ahmedelshinnawi/ASG.git
 cd ASG
 ```
 
