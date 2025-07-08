@@ -8,13 +8,13 @@
 
 ---
 
-## 🌟 Overview
+##  Overview
 
 ASG (AI Storytelling Generation) is a cutting-edge web platform that combines artificial intelligence with creative storytelling to generate unique, engaging narratives accompanied by beautiful AI-generated artwork. The platform is designed to foster creativity and imagination for users of all ages, with robust safety measures and comprehensive user management features.
 
-## ✨ Key Features
+##  Key Features
 
-### 🎭 **AI-Powered Story Generation**
+###  **AI-Powered Story Generation**
 
 - **Intelligent Text Generation**: Powered by Meta's Llama-3.1-8B-Instruct model via SambaNova API
 - **Smart Image Generation**: Multiple specialized AI models for different content types:
@@ -24,14 +24,14 @@ ASG (AI Storytelling Generation) is a cutting-edge web platform that combines ar
 - **Automatic Model Selection**: AI automatically chooses the best image model based on story content and keywords
 - **Genre-Aware Generation**: Supports multiple genres including Fantasy, Adventure, Horror, Comedy, and more
 
-### 👤 **User Management & Authentication**
+###  **User Management & Authentication**
 
 - **Secure Registration/Login**: JWT-based authentication with password hashing
 - **User Profiles**: Customizable profiles with bio, profile pictures, and statistics
 - **Password Management**: Password reset functionality with secure token generation
 - **Account Management**: Profile updates, password changes, and account deletion
 
-### 📚 **Content Management**
+###  **Content Management**
 
 - **Personal Story Library**: Save, organize, and manage generated stories
 - **Favorites System**: Mark stories as favorites for easy access
@@ -39,21 +39,21 @@ ASG (AI Storytelling Generation) is a cutting-edge web platform that combines ar
 - **Story Sharing**: View and interact with generated content
 - **Content Deletion**: Remove unwanted stories from personal library
 
-### 🔧 **Admin Dashboard**
+###  **Admin Dashboard**
 
 - **System Story Management**: Create and manage featured stories for the homepage
 - **Content Moderation**: Admin-only access to manage platform content
 - **User Administration**: Manage user accounts and permissions
 - **Analytics**: View system statistics and user engagement metrics
 
-### 🎨 **User Interface**
+###  **User Interface**
 
 - **Modern Web Design**: Clean, responsive interface with beautiful animations
 - **Mobile-Friendly**: Fully responsive design that works on all devices
 - **Interactive Elements**: Dynamic loading states, modal dialogs, and smooth transitions
 - **Accessibility**: Keyboard navigation and screen reader compatible
 
-## 🏗️ Technical Architecture
+##  Technical Architecture
 
 ### **Backend (FastAPI)**
 
@@ -77,7 +77,7 @@ ASG (AI Storytelling Generation) is a cutting-edge web platform that combines ar
 - **Model Management**: Lazy loading and GPU memory optimization
 - **Content Analysis**: Automatic keyword detection for model selection
 
-## 📊 Database Schema
+##  Database Schema
 
 ### **Users Table**
 
@@ -100,7 +100,7 @@ ASG (AI Storytelling Generation) is a cutting-edge web platform that combines ar
 - Content approval and activation status
 - Creator attribution and management
 
-## 🚀 API Endpoints
+##  API Endpoints
 
 ### **Authentication Endpoints**
 
@@ -141,7 +141,7 @@ GET  /generate/admin/system-stories       - Get all system stories
 DELETE /generate/admin/system-story/{id}  - Delete system story
 ```
 
-## 🎯 User Workflows
+##  User Workflows
 
 ### **New User Journey**
 
@@ -166,7 +166,7 @@ DELETE /generate/admin/system-story/{id}  - Delete system story
 3. **Content Moderation**: Review and manage user-generated content
 4. **System Monitoring**: View analytics and user engagement
 
-## 🛠️ Installation & Setup
+##  Installation & Setup
 
 ### **Prerequisites**
 
@@ -232,7 +232,7 @@ python app.py
 - **API Documentation**: http://localhost:8000/docs
 - **Admin Dashboard**: http://localhost:8000/admin.html
 
-## 🎨 Features in Detail
+##  Features in Detail
 
 ### **Multi-Model AI System**
 
@@ -264,7 +264,7 @@ The platform uses sophisticated AI model selection based on content analysis:
 - **Search & Filter**: Sort by date, favorites, or content type
 - **Export Options**: Download or share generated content
 
-## 🔮 Future Enhancements
+##  Future Enhancements
 
 ### **Planned Features**
 
@@ -282,7 +282,7 @@ The platform uses sophisticated AI model selection based on content analysis:
 - **Analytics Dashboard**: Detailed usage analytics
 - **API Rate Limiting**: Enhanced security and resource management
 
-## 🤝 Contributing
+##  Contributing
 
 We welcome contributions to the ASG platform! Please follow these guidelines:
 
@@ -292,18 +292,10 @@ We welcome contributions to the ASG platform! Please follow these guidelines:
 4. **Test Thoroughly**: Ensure all features work as expected
 5. **Submit Pull Request**: Include detailed description of changes
 
-## 📄 License
+##  License
 
 This project is part of a graduation project and is intended for educational and demonstration purposes. Please respect intellectual property rights and AI model usage terms.
 
-## 🙏 Acknowledgments
-
-- **Meta AI**: For the Llama-3.1-8B-Instruct language model
-- **SambaNova**: For AI model hosting and API access
-- **Hugging Face**: For the model repository and Diffusers library
-- **Stability AI**: For Stable Diffusion models
-- **FastAPI Team**: For the excellent web framework
-- **Community Contributors**: For feedback and testing
 
 ---
 
