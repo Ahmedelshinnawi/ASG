@@ -626,12 +626,14 @@ body {
 }
 
 .story-display-title {
+  font-family: "Ethnocentric", sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #1f2937;
 }
 
 .story-content {
+  font-family: "Touche", sans-serif;
   line-height: 1.8;
   color: #374151;
   font-size: 1.1rem;
