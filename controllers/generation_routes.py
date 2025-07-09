@@ -51,7 +51,7 @@ client = InferenceClient(provider="sambanova", api_key=HF_API_KEY)
 MODEL_CONFIGS = {
     "realistic": {
         "model": "dreamlike-art/dreamlike-photoreal-2.0",
-        "keywords": ["photo", "realistic", "portrait", "landscape", "photography", "street photography", "professional", "business", "lifestyle", "wedding", "architectural", "interior design", "exterior", "urban", "rural", "contemporary", "photorealistic", "candid", "documentary", "journalistic", "studio", "natural lighting", "bokeh", "depth of field", "macro", "telephoto", "wide angle"]
+        "keywords": ["photo", "realistic", "portrait", "landscape", "photography", "street", "professional", "business", "lifestyle", "wedding", "architectural", "interior design", "exterior", "urban", "rural", "contemporary", "photorealistic", "candid", "documentary", "journalistic", "studio", "natural lighting", "bokeh", "depth of field", "macro", "telephoto", "wide angle", "rush hour"]
     },
     "fantasy": {
         "model": "prompthero/openjourney-v4", 
