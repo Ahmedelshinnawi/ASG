@@ -83,7 +83,11 @@ class APIClient {
     };
 
     try {
+      console.log(`Making request to: ${url}`, config);
+
       const response = await fetch(url, config);
+
+      console.log(`Response status: ${response.status}`, response);
 
       if (response.status === 401 && !isPublicEndpoint) {
         this.auth.clearAuth();
@@ -92,10 +96,25 @@ class APIClient {
       }
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Try to get error details from response
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          if (errorData.detail) {
+            errorMessage = errorData.detail;
+          } else if (errorData.message) {
+            errorMessage = errorData.message;
+          }
+        } catch (e) {
+          // If we can't parse the error response, use the default message
+          console.warn("Could not parse error response:", e);
+        }
+        throw new Error(errorMessage);
       }
 
-      return await response.json();
+      const responseData = await response.json();
+      console.log("Response data:", responseData);
+      return responseData;
     } catch (error) {
       console.error("Request failed:", error);
       throw error;

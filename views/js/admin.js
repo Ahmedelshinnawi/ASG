@@ -2,9 +2,27 @@ let isAdmin = false;
 
 // Page initialization
 document.addEventListener("DOMContentLoaded", async () => {
-  await checkAdminAccess();
-  await loadSystemStories();
-  setupEventListeners();
+  console.log("Admin page DOM loaded, initializing...");
+
+  try {
+    // Wait a bit to ensure all elements are rendered
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    await checkAdminAccess();
+    await loadSystemStories();
+    setupEventListeners();
+
+    console.log("Admin page initialization completed");
+  } catch (error) {
+    console.error("Error during admin page initialization:", error);
+
+    // Show error message to user if something goes wrong during initialization
+    if (window.apiClient && window.apiClient.showErrorMessage) {
+      window.apiClient.showErrorMessage(
+        "Failed to initialize admin dashboard. Please refresh the page."
+      );
+    }
+  }
 });
 
 async function checkAdminAccess() {
@@ -12,6 +30,13 @@ async function checkAdminAccess() {
   const adminContent = document.querySelectorAll(".admin-section");
 
   try {
+    // Ensure API client is available
+    if (!window.apiClient) {
+      console.error("API client not available");
+      showAuthWarning();
+      return;
+    }
+
     if (!window.apiClient.auth.isAuthenticated()) {
       showAuthWarning();
       return;
@@ -27,8 +52,14 @@ async function checkAdminAccess() {
     }
 
     // Show admin content and update navigation
-    authWarning.style.display = "none";
-    adminContent.forEach((section) => (section.style.display = "block"));
+    if (authWarning) {
+      authWarning.style.display = "none";
+    }
+    adminContent.forEach((section) => {
+      if (section) {
+        section.style.display = "block";
+      }
+    });
     await updateNavigation();
   } catch (error) {
     console.error("Admin access check failed:", error);
@@ -40,8 +71,15 @@ function showAuthWarning() {
   const authWarning = document.getElementById("authWarning");
   const adminContent = document.querySelectorAll(".admin-section");
 
-  authWarning.style.display = "block";
-  adminContent.forEach((section) => (section.style.display = "none"));
+  if (authWarning) {
+    authWarning.style.display = "block";
+  }
+
+  adminContent.forEach((section) => {
+    if (section) {
+      section.style.display = "none";
+    }
+  });
 }
 
 async function updateNavigation() {
@@ -55,8 +93,12 @@ async function updateNavigation() {
   const dropdownAvatar = document.getElementById("dropdownAvatar");
 
   if (window.apiClient.auth.isAuthenticated()) {
-    loginBtn.style.display = "none";
-    navProfile.style.display = "flex";
+    if (loginBtn) {
+      loginBtn.style.display = "none";
+    }
+    if (navProfile) {
+      navProfile.style.display = "flex";
+    }
 
     // Update user information
     try {
@@ -105,8 +147,12 @@ async function updateNavigation() {
     // Update all profile pictures
     await window.apiClient.updateProfilePictures();
   } else {
-    loginBtn.style.display = "block";
-    navProfile.style.display = "none";
+    if (loginBtn) {
+      loginBtn.style.display = "block";
+    }
+    if (navProfile) {
+      navProfile.style.display = "none";
+    }
   }
 }
 
@@ -116,13 +162,31 @@ async function loadSystemStories() {
   const container = document.getElementById("storiesContainer");
   const loadingState = document.getElementById("loadingState");
 
+  // Add null checks for DOM elements to prevent errors
+  if (!container) {
+    console.error("Stories container element not found");
+    return;
+  }
+
   try {
-    loadingState.style.display = "flex";
+    // Only show loading state if the element exists
+    if (loadingState) {
+      loadingState.style.display = "flex";
+    }
 
     const response = await window.apiClient.getAdminSystemStories();
-    const stories = response.stories;
 
-    loadingState.style.display = "none";
+    // Add null checks to prevent "can't read properties of null" error
+    if (!response) {
+      throw new Error("No response received from server");
+    }
+
+    const stories = response.stories || [];
+
+    // Hide loading state if the element exists
+    if (loadingState) {
+      loadingState.style.display = "none";
+    }
 
     if (stories.length === 0) {
       container.innerHTML =
@@ -132,7 +196,12 @@ async function loadSystemStories() {
     }
   } catch (error) {
     console.error("Failed to load system stories:", error);
-    loadingState.style.display = "none";
+
+    // Hide loading state if the element exists
+    if (loadingState) {
+      loadingState.style.display = "none";
+    }
+
     container.innerHTML =
       '<div class="empty-state">Failed to load stories.</div>';
   }
@@ -140,12 +209,31 @@ async function loadSystemStories() {
 
 function displayStories(stories) {
   const container = document.getElementById("storiesContainer");
+
+  // Add null check for container element
+  if (!container) {
+    console.error("Stories container element not found");
+    return;
+  }
+
+  // Add null check to prevent errors
+  if (!stories || !Array.isArray(stories)) {
+    container.innerHTML =
+      '<div class="empty-state">No stories available.</div>';
+    return;
+  }
+
   const grid = document.createElement("div");
   grid.className = "stories-grid";
 
   stories.forEach((story) => {
-    const card = createStoryCard(story);
-    grid.appendChild(card);
+    if (story) {
+      // Add null check for individual story
+      const card = createStoryCard(story);
+      if (card) {
+        grid.appendChild(card);
+      }
+    }
   });
 
   container.innerHTML = "";
@@ -156,17 +244,23 @@ function createStoryCard(story) {
   const card = document.createElement("div");
   card.className = "admin-story-card";
 
+  // Add null checks to prevent errors
+  const title = story?.title || "Untitled Story";
+  const category = story?.category || "unknown";
+  const generatedText = story?.generated_text || "No content available";
+  const storyId = story?.id || 0;
+
   card.innerHTML = `
           <div class="story-card-header">
-            <h3 class="story-title">${story.title}</h3>
-            <span class="story-category ${story.category}">${story.category}</span>
+            <h3 class="story-title">${title}</h3>
+            <span class="story-category ${category}">${category}</span>
           </div>
-          <div class="story-content">${story.generated_text}</div>
+          <div class="story-content">${generatedText}</div>
           <div class="story-actions">
-            <button class="action-btn view-btn" onclick="viewStory(${story.id})">
+            <button class="action-btn view-btn" onclick="viewStory(${storyId})">
               <i class="fas fa-eye"></i> View
             </button>
-            <button class="action-btn delete-btn" onclick="deleteStory(${story.id})">
+            <button class="action-btn delete-btn" onclick="deleteStory(${storyId})">
               <i class="fas fa-trash"></i> Delete
             </button>
           </div>
@@ -178,7 +272,11 @@ function createStoryCard(story) {
 function setupEventListeners() {
   // Create story form
   const form = document.getElementById("createStoryForm");
-  form.addEventListener("submit", handleCreateStory);
+  if (form) {
+    form.addEventListener("submit", handleCreateStory);
+  } else {
+    console.warn("Create story form not found");
+  }
 
   // Navigation events
   const loginBtn = document.querySelector(".login-btn");
@@ -247,10 +345,23 @@ async function handleCreateStory(e) {
     return;
   }
 
-  const title = document.getElementById("storyTitle").value.trim();
-  const category = document.getElementById("storyCategory").value;
-  const prompt = document.getElementById("storyPrompt").value.trim();
+  const titleElement = document.getElementById("storyTitle");
+  const categoryElement = document.getElementById("storyCategory");
+  const promptElement = document.getElementById("storyPrompt");
   const createBtn = document.getElementById("createBtn");
+
+  // Add null checks for form elements
+  if (!titleElement || !categoryElement || !promptElement || !createBtn) {
+    console.error("Required form elements not found");
+    window.apiClient.showErrorMessage(
+      "Form elements not found. Please refresh the page."
+    );
+    return;
+  }
+
+  const title = titleElement.value.trim();
+  const category = categoryElement.value;
+  const prompt = promptElement.value.trim();
 
   if (!title || !category || !prompt) {
     window.apiClient.showErrorMessage("Please fill in all fields");
@@ -268,30 +379,79 @@ async function handleCreateStory(e) {
       prompt: prompt,
     };
 
-    await window.apiClient.createSystemStory(storyData);
+    console.log("Creating story with data:", storyData);
 
-    window.apiClient.showSuccessMessage("System story created successfully!");
+    const response = await window.apiClient.createSystemStory(storyData);
 
-    // Reset form
-    document.getElementById("createStoryForm").reset();
+    console.log("Create story response:", response);
 
-    // Reload stories
-    await loadSystemStories();
+    // Check if the response indicates success
+    if (
+      response &&
+      (response.id || response.message || response.success !== false)
+    ) {
+      window.apiClient.showSuccessMessage("System story created successfully!");
+
+      // Reset form
+      const form = document.getElementById("createStoryForm");
+      if (form) {
+        form.reset();
+      }
+
+      // Reload stories after successful creation
+      await loadSystemStories();
+    } else {
+      throw new Error("Story creation failed - invalid response");
+    }
   } catch (error) {
     console.error("Failed to create system story:", error);
-    window.apiClient.showErrorMessage(
-      error.message || "Failed to create system story"
-    );
+
+    // Provide more specific error messages
+    let errorMessage = "Failed to create system story";
+    if (error.message) {
+      if (error.message.includes("500")) {
+        errorMessage =
+          "Server error occurred while generating story. Please try again.";
+      } else if (error.message.includes("403")) {
+        errorMessage = "You don't have permission to create stories";
+      } else if (error.message.includes("Authentication required")) {
+        errorMessage = "Please log in to create stories";
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
+    window.apiClient.showErrorMessage(errorMessage);
+
+    // Still reload stories in case the creation actually worked
+    // This addresses the issue where creation works but shows error
+    setTimeout(async () => {
+      console.log(
+        "Reloading stories after error to check if creation actually worked..."
+      );
+      await loadSystemStories();
+    }, 2000);
   } finally {
-    createBtn.disabled = false;
-    createBtn.innerHTML = '<i class="fas fa-magic"></i> Generate System Story';
+    // Ensure button is re-enabled even if elements were null
+    if (createBtn) {
+      createBtn.disabled = false;
+      createBtn.innerHTML =
+        '<i class="fas fa-magic"></i> Generate System Story';
+    }
   }
 }
 
 async function viewStory(storyId) {
   try {
     const response = await window.apiClient.getAdminSystemStories();
-    const story = response.stories.find((s) => s.id === storyId);
+
+    // Add null checks to prevent errors
+    if (!response || !response.stories) {
+      window.apiClient.showErrorMessage("Failed to load story data");
+      return;
+    }
+
+    const story = response.stories.find((s) => s && s.id === storyId);
 
     if (!story) {
       window.apiClient.showErrorMessage("Story not found");
@@ -302,7 +462,7 @@ async function viewStory(storyId) {
       ? `<img src="data:image/${story.image_format || "png"};base64,${
           story.image_data
         }" 
-                  alt="${story.title}" 
+                  alt="${story.title || "Story Image"}" 
                   style="width: 100%; max-width: 500px; max-height: 400px; object-fit: contain; 
                          border-radius: 0.75rem; margin: 0 auto 1.5rem; display: block; 
                          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); background: #f8fafc;" />`
@@ -310,19 +470,23 @@ async function viewStory(storyId) {
 
     const content = `
             <div style="text-align: center; margin-bottom: 1rem;">
-              <h2 style="color: #1f2937; margin-bottom: 0.5rem; font-size: 1.25rem;">${story.title}</h2>
-              <p style="color: #6b7280; font-size: 0.9rem;">System Story • ${story.category}</p>
+              <h2 style="color: #1f2937; margin-bottom: 0.5rem; font-size: 1.25rem;">${
+                story.title || "Untitled Story"
+              }</h2>
+              <p style="color: #6b7280; font-size: 0.9rem;">System Story • ${
+                story.category || "unknown"
+              }</p>
             </div>
             ${imageHtml}
             <div style="line-height: 1.8; color: #374151; font-size: 1rem; text-align: left; max-height: 50vh; overflow-y: auto;">
-              ${story.generated_text}
+              ${story.generated_text || "No content available"}
             </div>
             <div style="margin-top: 1rem; padding: 0.75rem; background: #f9fafb; border-radius: 0.5rem; font-size: 0.9rem;">
-              <strong>Prompt:</strong> ${story.prompt}
+              <strong>Prompt:</strong> ${story.prompt || "No prompt available"}
             </div>
           `;
 
-    window.apiClient.showModal(story.title, content);
+    window.apiClient.showModal(story.title || "Story Details", content);
   } catch (error) {
     console.error("Failed to view story:", error);
     window.apiClient.showErrorMessage("Failed to load story details");
@@ -342,12 +506,48 @@ async function deleteStory(storyId) {
   }
 
   try {
-    await window.apiClient.deleteSystemStory(storyId);
-    window.apiClient.showSuccessMessage("System story deleted successfully");
-    await loadSystemStories();
+    console.log(`Attempting to delete story with ID: ${storyId}`);
+
+    const response = await window.apiClient.deleteSystemStory(storyId);
+
+    console.log("Delete response:", response);
+
+    // Check if the response indicates success
+    if (response && (response.message || response.success !== false)) {
+      window.apiClient.showSuccessMessage("System story deleted successfully");
+
+      // Reload stories after successful deletion
+      await loadSystemStories();
+    } else {
+      throw new Error("Deletion failed - invalid response");
+    }
   } catch (error) {
     console.error("Failed to delete story:", error);
-    window.apiClient.showErrorMessage("Failed to delete story");
+
+    // Provide more specific error messages
+    let errorMessage = "Failed to delete story";
+    if (error.message) {
+      if (error.message.includes("404")) {
+        errorMessage = "Story not found or already deleted";
+      } else if (error.message.includes("403")) {
+        errorMessage = "You don't have permission to delete this story";
+      } else if (error.message.includes("Authentication required")) {
+        errorMessage = "Please log in to delete stories";
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
+    window.apiClient.showErrorMessage(errorMessage);
+
+    // Still reload stories in case the deletion actually worked
+    // This addresses the issue where deletion works but shows error
+    setTimeout(async () => {
+      console.log(
+        "Reloading stories after error to check if deletion actually worked..."
+      );
+      await loadSystemStories();
+    }, 1000);
   }
 }
 
